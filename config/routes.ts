@@ -16,10 +16,23 @@
     ],
   },
   {
-    path: '/welcome',
-    name: 'welcome',
-    icon: 'smile',
-    component: './Welcome',
+    path: '/contentManage',
+    name: '内容管理',
+    icon: 'branches',
+    routes:[
+      {
+        path: '/contentManage/slideshow',
+        name: '轮播图',
+        icon: 'smile',
+        component: './contentManage/slideshow',
+      },
+      {
+        path: '/contentManage/undergraduate',
+        name: '本科生教学',
+        icon: 'smile',
+        component: './contentManage/undergraduate',
+      },
+    ]
   },
   {
     path: '/admin',
@@ -44,7 +57,7 @@
   },
   {
     path: '/',
-    redirect: '/welcome',
+    redirect: '/admin',
   },
   {
     component: './404',
