@@ -21,7 +21,7 @@ const columns = [
           </a>
         );
       },
-    },
+    }, 
     {
       title: <FormattedMessage id="pages.searchTable.titleDesc" defaultMessage="描述" />,
       dataIndex: 'desc',

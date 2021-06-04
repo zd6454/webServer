@@ -27,10 +27,34 @@
         component: './contentManage/slideshow',
       },
       {
+        path: '/contentManage/eastOffice',
+        name: '东亚办公室',
+        icon: 'smile',
+        component: './contentManage/eastOffice',
+      },
+      {
         path: '/contentManage/undergraduate',
-        name: '本科生教学',
+        name: '本科生教育',
         icon: 'smile',
         component: './contentManage/undergraduate',
+      },
+      {
+        path: '/contentManage/graduate',
+        name: '研究生教育',
+        icon: 'smile',
+        component: './contentManage/graduate',
+      },
+      {
+        path: '/contentManage/doctor',
+        name: '博士生教育',
+        icon: 'smile',
+        component: './contentManage/doctor',
+      },
+      {
+        path: '/contentManage/abroadStep',
+        name: '留学流程',
+        icon: 'smile',
+        component: './contentManage/abroadStep',
       },
     ]
   },
@@ -57,7 +81,7 @@
   },
   {
     path: '/',
-    redirect: '/admin',
+    redirect: '/contentManage/slideshow',
   },
   {
     component: './404',
