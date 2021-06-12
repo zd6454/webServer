@@ -16,9 +16,14 @@ class ZdTextArea  extends Component{
     this.setState({editor})
     editor.create()
    }
+
   contentClear=()=>{
    const{editor}=this.state;
    editor.txt.clear()
+  }
+  contentPublic=()=>{
+      const{editor}=this.state;
+      console.log(editor.txt.html())
   }
 
   render(){
@@ -28,7 +33,7 @@ class ZdTextArea  extends Component{
             <div style={{float:'right',marginTop:40}}>
                 <Button onClick={this.contentClear} >清空</Button>
                 <Divider type="vertical" />
-                <Button type="primary" > 发布 </Button>
+                <Button type="primary" onClick={this.contentPublic} > 发布 </Button>
             </div>
           </div>
         
