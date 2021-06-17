@@ -1,5 +1,5 @@
 export default {
-  '/api/auth_routes': {
-    '/form/advanced-form': { authority: ['admin', 'user'] },
+  'http://duing.site:2333/api/auth_routes': {
+    'http://duing.site:2333/form/advanced-form': { authority: ['admin', 'user'] },
   },
 };

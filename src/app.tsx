@@ -106,6 +106,14 @@ const errorHandler = (error: ResponseError) => {
   throw error;
 };
 
+const requestInterceptors=(url:string, options:any)=>{
+  return {
+    // url: `http://duing.site:2333${url}`,
+    options:{...options, credentials: 'include'}
+  };
+}
+
 export const request: RequestConfig = {
   errorHandler,
+  requestInterceptors,
 };

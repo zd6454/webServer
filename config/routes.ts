@@ -105,10 +105,29 @@
     ],
   },
   {
-    name: 'list.table-list',
+    name: '校友会',
     icon: 'table',
-    path: '/list',
-    component: './ListTableList',
+    path: '/schoolMate',
+    routes: [
+      {
+        path: '/schoolMate/structural',
+        name: '校友架构',
+        icon: 'smile',
+        component: './schoolMate/structural',
+      },
+      {
+        path: '/schoolMate/events',
+        name: '校友活动',
+        icon: 'smile',
+        component: './schoolMate/events',
+      },
+      {
+        path: '/schoolMate/agency',
+        name: '代理权益',
+        icon: 'smile',
+        component: './schoolMate/agency',
+      },
+    ],
   },
   {
     path: '/',
