@@ -16,7 +16,7 @@ class Index extends Component{
         this.getMessage();
      }
      getMessage=()=>{
-       request('http://duing.site:2333/information/getInforContent/OverseaStudy', {
+       request('http://duing.site:2333/information/getInforContent/SchoolOverview', {
              method: 'GET',
            })
              .then((response)=> {
@@ -30,7 +30,7 @@ class Index extends Component{
              });
      }
      sendMessage=(params)=>{
-         request('http://duing.site:2333/information/addInformation/OverseaStudy', {
+         request('http://duing.site:2333/information/addInformation/SchoolOverview', {
              method: 'POST',
              data:params,
            })
@@ -48,7 +48,7 @@ class Index extends Component{
               <div>
                   <ZdTextArea
                     data={data}
-                    imgUrl={'http://duing.site:2333/information/uploadFile/OverseaStudy'}
+                    imgUrl={'http://duing.site:2333/information/uploadFile/SchoolOverview'}
                     comfirm={this.sendMessage}
                   />
               </div>

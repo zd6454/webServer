@@ -104,6 +104,37 @@
     ]
   },
   {
+    path: '/schoolDetail',
+    name: '学校概况',
+    icon: 'crown',
+    routes:[
+      {
+        path: '/schoolDetail/schoolInfo',
+        name: '学校简介',
+        icon: 'smile',
+        component: './schoolDetail/schoolInfo',
+      },
+      {
+        path: '/schoolDetail/teachPower',
+        name: '教学实力',
+        icon: 'smile',
+        component: './schoolDetail/teachPower',
+      },
+      {
+        path: '/schoolDetail/learnExc',
+        name: '学习体验',
+        icon: 'smile',
+        component: './schoolDetail/learnExc',
+      },
+      {
+        path: '/schoolDetail/classInfo',
+        name: '课程介绍',
+        icon: 'smile',
+        component: './schoolDetail/classInfo',
+      },
+    ]
+  },
+  {
     path: '/admin',
     name: 'admin',
     icon: 'crown',
@@ -119,10 +150,29 @@
     ],
   },
   {
-    name: 'list.table-list',
+    name: '校友会',
     icon: 'table',
-    path: '/list',
-    component: './ListTableList',
+    path: '/schoolMate',
+    routes: [
+      {
+        path: '/schoolMate/structural',
+        name: '校友架构',
+        icon: 'smile',
+        component: './schoolMate/structural',
+      },
+      {
+        path: '/schoolMate/events',
+        name: '校友活动',
+        icon: 'smile',
+        component: './schoolMate/events',
+      },
+      {
+        path: '/schoolMate/agency',
+        name: '代理权益',
+        icon: 'smile',
+        component: './schoolMate/agency',
+      },
+    ],
   },
   {
     path: '/',
