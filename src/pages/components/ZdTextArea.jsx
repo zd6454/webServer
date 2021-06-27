@@ -72,7 +72,7 @@ class ZdTextArea  extends Component{
   }
 
   render(){
-      const{data}=this.props;
+      const{data,divId}=this.props;
       const{editor}=this.state;
       if(data){
         editor.txt.html(data)

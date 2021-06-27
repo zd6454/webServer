@@ -107,8 +107,9 @@ const errorHandler = (error: ResponseError) => {
 };
 
 const requestInterceptors=(url:string, options:any)=>{
+  console.log('343')
   return {
-    // url: `http://duing.site:2333${url}`,
+    url: `http://duing.site:2333${url}`,
     options:{...options, credentials: 'include'}
   };
 }
