@@ -59,6 +59,51 @@
     ]
   },
   {
+    path: '/collegeFriend',
+    name: '校友会',
+    icon: 'branches',
+    routes:[
+      {
+        path: '/collegeFriend/friend',
+        name: '校友清单',
+        // icon: 'smile',
+        routes:[
+          {
+            path: '/collegeFriend/friend/menu',
+            name: '校友清单',
+            icon: 'smile',
+            component: './collegeFriend/FriendMenu',
+          },
+          {
+            path: '/collegeFriend/friend/detail',
+            name: '校友具体',
+            icon: 'smile',
+            component: './collegeFriend/FriendDetail',
+          },
+        ]
+        // component: './collegeFriend/slideshow',
+      },
+      {
+        path: '/collegeFriend/friendOrg',
+        name: '校友架构',
+        icon: 'smile',
+        component: './collegeFriend/FriendOrg',
+      },
+      {
+        path: '/collegeFriend/friendActivity',
+        name: '校友活动',
+        icon: 'smile',
+        component: './collegeFriend/FriendActivity',
+      },
+      {
+        path: '/collegeFriend/friendAgent',
+        name: '代理权益',
+        icon: 'smile',
+        component: './collegeFriend/FriendAgent',
+      },
+    ]
+  },
+  {
     path: '/schoolDetail',
     name: '学校概况',
     icon: 'crown',
