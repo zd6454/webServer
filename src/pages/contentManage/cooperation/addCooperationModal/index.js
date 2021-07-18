@@ -15,7 +15,7 @@ function getBase64(file) {
     });
 }
 
-const AddBannerModal = (props) => {
+const AddCooperationModal = (props) => {
     
     const [form] = ProForm.useForm();
     const [fileList, setFileList] = useState([]);
@@ -44,20 +44,20 @@ const AddBannerModal = (props) => {
     );
 
     const handleFinish=(data)=>{
-        props.handleOk(data)
+      props.handleOk(data)
     }
 
 
   return (
     <>
-      <Modal title="新增轮播图" visible={props.visible} className={style.formModal} closable>
+      <Modal title="新增国际合作" visible={props.visible} className={style.formModal} closable>
       <ProForm onFinish={handleFinish} form={form}>
           <ProForm.Group>
             <ProFormText
               rules={[
                 {
                   required: true,
-                  message: '请输入轮播图标题',
+                  message: '请输入标题',
                 },
               ]}
               label="标题"
@@ -79,7 +79,23 @@ const AddBannerModal = (props) => {
               name="isUse"
               width="m"
             />
+             <ProFormSelect
+              valueEnum={{
+                0: '否',
+                1: '是',
+              }}
+              rules={[
+                {
+                  required: true,
+                  message: '请选择是否置顶',
+                },
+              ]}
+              label="置顶"
+              name="isOverHead"
+              width="m"
+            />
           </ProForm.Group>
+          
           <ProForm.Group>
             <ProFormText
               rules={[
@@ -100,10 +116,10 @@ const AddBannerModal = (props) => {
           <ProForm.Group>
             <Form.Item
               name="imgUrl"
-              label="上传轮播图"
+              label="上传国际合作图"
               rules={[
                 {
-                  required: true,
+                  required: false,
                 },
               ]}
             >
@@ -130,4 +146,4 @@ const AddBannerModal = (props) => {
   );
 };
 
-export default AddBannerModal;
+export default AddCooperationModal;

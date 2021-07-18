@@ -8,7 +8,7 @@ import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { EditableProTable } from '@ant-design/pro-table';
 import { Button, message, Input, Drawer,Image, Upload } from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import AddBannerModal from './addBannerModal/index'
+import AddFriendModal from './addFriendModal/index'
 
 const Index =() => {
   // const [allBannersList, setAllBannersList] = useState([]);
@@ -250,7 +250,6 @@ const Index =() => {
   }
 
   const handleCancelModal =()=>{
-    console.log('sssssssssssssssssssssssss')
     setModalVisible(false)
   }
 
@@ -308,7 +307,7 @@ const Index =() => {
           options={false}
           recordCreatorProps={false}
         />
-        <AddBannerModal
+        <AddFriendModal
           visible = {modalVisible}
           handleOk= {handleOk}
           handleCancel={handleCancelModal}
