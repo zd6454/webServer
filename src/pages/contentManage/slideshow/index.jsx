@@ -6,11 +6,11 @@ import request from 'umi-request';
 import styles from './style.less';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { EditableProTable } from '@ant-design/pro-table';
-import { Button, message, Input, Drawer,Image, Upload } from 'antd';
+import { Button, message, Input, Drawer,Image, Upload} from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import AddBannerModal from './addBannerModal/index'
 
-const Index =() => {
+const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);
   const [deleteBannerIds, setDeleteBannerIds] = useState([]);
   const actionRef = useRef();
@@ -144,10 +144,12 @@ const Index =() => {
            <div>启用</div>
           }
         </a>,
+        <a onClick={()=>handleToDetail(row)} >详情</a>
       ],
     },
   ];
   
+
   const handleChange = (res) => {
     setFileList(res.fileList);
     setImg(true)
@@ -222,6 +224,11 @@ const Index =() => {
       message.error('失败请重试！');
     }
   }
+
+  const handleToDetail = (res) => {
+     props.history.push(`/contentManage/slideshow/slideDetail?id=${res.bannerId}`)
+  };
+
 
   const setSelectedRows=(data)=>{
     let ids = []

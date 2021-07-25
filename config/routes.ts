@@ -33,6 +33,13 @@
         component: './contentManage/notice',
       },
       {
+        path: '/contentManage/slideshow/slideDetail',
+        name: '轮播图详情',
+        hideInMenu: 'true',
+        icon: 'smile',
+        component: './contentManage/slideshow/slideDetail',
+      },
+      {
         path: '/contentManage/eastOffice',
         name: '东亚办公室',
         icon: 'smile',
