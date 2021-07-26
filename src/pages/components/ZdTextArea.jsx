@@ -11,20 +11,31 @@ class ZdTextArea  extends Component{
         editor:null
        }
    }
+   componentWillMount() {
 
-   componentDidMount(){
-       const{imgUrl}=this.props;
+   }
+
+  componentDidMount(){
+       const{imgUrl,content}=this.props;
     const editor = new E("#div1")
+
     this.setState({editor})
     editor.config.pasteIgnoreImg = true
-    editor.config.uploadFileName = 'uploadfile';
-    editor.config.uploadImgServer = imgUrl
+    // editor.config.uploadFileName = 'uploadfile';
+    editor.config.uploadImgServer = "  ";
+    editor.config.zIndex = 5;
     editor.create()
+    // editor.config.uploadImgParams = {
+    //   index:"2321"
+    // }
+    if(content){     //获取详情页编辑内容初始化
+      editor.txt.html(content)
+    }
     editor.config.customUploadImg = function (resultFiles, insertImgFn) {
-        console.log(resultFiles)
-        var data= new FormData();
-        data.append('uploadfile',resultFiles[0])
-        data.append('index',resultFiles[0].name)
+        console.log(resultFiles);
+        const data= new FormData();
+        data.append('uploadfile',resultFiles[0]);
+        data.append('index',resultFiles[0].name);
         request(imgUrl, {
             method: 'POST',
             data,
@@ -32,9 +43,8 @@ class ZdTextArea  extends Component{
             .then(function(response) {
               insertImgFn(response)
             })
-            
-        
-    }
+    };
+
     editor.config.uploadImgHooks={
         before : function(xhr, editor, files) {
 			setTimeout(()=>{},5000)
@@ -72,23 +82,20 @@ class ZdTextArea  extends Component{
   }
 
   render(){
-      const{data,divId}=this.props;
-      const{editor}=this.state;
-      if(data){
-        editor.txt.html(data)
-      }
+     const{data}=this.props;
+     const{editor}=this.state;
+    if(data){
+      editor.txt.html(data)
+    }
       return(
           <div>
             <div id={'div1'} />
-            <div style={{float:'right',marginTop:40}}>
+              <div style={{float:'right',marginTop:40}}>
                 <Button onClick={this.contentClear} >清空</Button>
                 <Divider type="vertical" />
                 <Button type="primary" onClick={this.contentPublic} > 保存 </Button>
-            </div>
+              </div>
           </div>
-        
-      
-         
       )
   }
 } 

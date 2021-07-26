@@ -15,7 +15,7 @@ function getBase64(file) {
     });
 }
 
-const AddBannerModal = (props) => {
+const AddFriendModal = (props) => {
     
     const [form] = ProForm.useForm();
     const [fileList, setFileList] = useState([]);
@@ -50,14 +50,14 @@ const AddBannerModal = (props) => {
 
   return (
     <>
-      <Modal title="新增轮播图" visible={props.visible} className={style.formModal} closable>
+      <Modal title="新增校友清单" visible={props.visible} className={style.formModal} closable>
       <ProForm onFinish={handleFinish} form={form}>
           <ProForm.Group>
             <ProFormText
               rules={[
                 {
                   required: true,
-                  message: '请输入轮播图标题',
+                  message: '请输入校友清单标题',
                 },
               ]}
               label="标题"
@@ -100,7 +100,7 @@ const AddBannerModal = (props) => {
           <ProForm.Group>
             <Form.Item
               name="imgUrl"
-              label="上传轮播图"
+              label="上传校友清单"
               rules={[
                 {
                   required: true,
@@ -130,4 +130,4 @@ const AddBannerModal = (props) => {
   );
 };
 
-export default AddBannerModal;
+export default AddFriendModal;

@@ -6,11 +6,11 @@ import request from 'umi-request';
 import styles from './style.less';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { EditableProTable } from '@ant-design/pro-table';
-import { Button, message, Input, Drawer,Image, Upload} from 'antd';
+import { Button, message, Input, Drawer,Image, Upload } from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import AddBannerModal from './addBannerModal/index'
+import AddFriendModal from './addFriendModal/index'
 
-const Index =(props) => {
+const Index =() => {
   // const [allBannersList, setAllBannersList] = useState([]);
   const [deleteBannerIds, setDeleteBannerIds] = useState([]);
   const actionRef = useRef();
@@ -144,12 +144,10 @@ const Index =(props) => {
            <div>启用</div>
           }
         </a>,
-        <a onClick={()=>handleToDetail(row)} >详情</a>
       ],
     },
   ];
   
-
   const handleChange = (res) => {
     setFileList(res.fileList);
     setImg(true)
@@ -225,11 +223,6 @@ const Index =(props) => {
     }
   }
 
-  const handleToDetail = (res) => {
-     props.history.push(`/contentManage/slideshow/slideDetail?id=${res.bannerId}`)
-  };
-
-
   const setSelectedRows=(data)=>{
     let ids = []
     data.map(item=>{
@@ -257,7 +250,6 @@ const Index =(props) => {
   }
 
   const handleCancelModal =()=>{
-    console.log('sssssssssssssssssssssssss')
     setModalVisible(false)
   }
 
@@ -315,7 +307,7 @@ const Index =(props) => {
           options={false}
           recordCreatorProps={false}
         />
-        <AddBannerModal
+        <AddFriendModal
           visible = {modalVisible}
           handleOk= {handleOk}
           handleCancel={handleCancelModal}

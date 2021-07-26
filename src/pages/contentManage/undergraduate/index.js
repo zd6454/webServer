@@ -17,7 +17,7 @@ class Index extends Component{
        this.getMessage();
     }
     getMessage=()=>{
-      request('http://duing.site:2333/information/getInforContent/UndergraduateEdu', {
+      request('http://1.116.77.118:2333/information/getInforContent/UndergraduateEdu', {
             method: 'GET',
           })
             .then((response)=> {
@@ -29,9 +29,9 @@ class Index extends Component{
             .catch((error)=> {
               message.error('信息获取失败')
             });
-    }
+    };
     sendMessage=(params)=>{
-        request('http://duing.site:2333/information/addInformation/UndergraduateEdu', {
+        request('http://1.116.77.118:2333/information/addInformation/UndergraduateEdu', {
             method: 'POST',
             data:params,
           })
@@ -41,7 +41,7 @@ class Index extends Component{
             .catch(function(error) {
               message.error('信息保存失败')
             });
-    }
+    };
 
     render(){
       const{data}=this.state;
@@ -50,7 +50,7 @@ class Index extends Component{
               <div>
                   <ZdTextArea
                    data={data}
-                   imgUrl={'http://duing.site:2333/information/uploadFile/UndergraduateEdu'}
+                   imgUrl={'http://1.116.77.118:2333/information/uploadFile/UndergraduateEdu'}
                    comfirm={this.sendMessage}
                   />
               </div>

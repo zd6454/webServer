@@ -1,24 +1,26 @@
 import React,{Component,useState, useRef} from 'react'
 import { PageHeaderWrapper,PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import { queryRule, updateRule, addRule, removeRule,useRule,stopRule,updateImg } from './service';
+import { queryRule, updateRule, addRule, removeRule,useRule,stopRule,updateImg,useOverRule } from './service';
 import { FormattedMessage } from 'umi';
-import request from 'umi-request';
 import styles from './style.less';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
-import { EditableProTable } from '@ant-design/pro-table';
-import { Button, message, Input, Drawer,Image, Upload} from 'antd';
+import { Button, message, Input, Drawer,Image, Upload, DatePicker } from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import AddBannerModal from './addBannerModal/index'
+import AddNoticeModal from './addNoticeModal/index'
+import moment from 'moment';
 
 const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);
-  const [deleteBannerIds, setDeleteBannerIds] = useState([]);
+  const [deletenoticeIds, setDeletenoticeIds] = useState([]);
   const actionRef = useRef();
   const [canEdit,setCanEdit] = useState(false)
   const [title,setTitle] = useState('')
   const [sort,setSort] = useState('')
   const [imgUrl,setImgUrl] = useState('')
   const [isUse,setIsUse] = useState('')
+  const [isOverhead,setIsOverhead] = useState('')
+  const [time,setTime] = useState('')
+  const [timeDate,setTimeDate] = useState()
   const [editId,setEditId] = useState(-1)
   const [fileList,setFileList] = useState([])
   const [img,setImg]= useState(false)
@@ -31,13 +33,15 @@ const Index =(props) => {
     </div>
   );
 
+  const dateFormat = 'YYYY-MM-DD'
+
 
   const columns = [
     {
       title: '图片',
       dataIndex: 'imgUrl',
       render: (dom, row) => {
-        if(canEdit && editId === row.bannerId){
+        if(canEdit && editId === row.noticeId){
           return(
             <Upload
             action=""
@@ -66,7 +70,7 @@ const Index =(props) => {
       title: '顺序',
       dataIndex: 'sort',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.bannerId){
+        if(canEdit && editId === row.noticeId){
           return(
             <Input value={sort} onChange={(e)=>setSort(e.target.value)}/>
           )
@@ -80,7 +84,7 @@ const Index =(props) => {
       title: '是否启用',
       dataIndex: 'isUse',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.bannerId){
+        if(canEdit && editId === row.noticeId){
           return(
             <Input value={isUse} onChange={(e)=>setIsUse(e.target.value)}/>
           )
@@ -97,10 +101,47 @@ const Index =(props) => {
       //   `${val}万`,
     },
     {
+      title: '是否置顶',
+      dataIndex: 'isOverhead',
+      render: (text, row, _, action) => {
+        if(canEdit && editId === row.noticeId){
+          return(
+            <Input value={isOverhead} onChange={(e)=>setIsOverhead(e.target.value)}/>
+          )
+        }else{
+          if(row.isOverhead === 1){
+            return '是'
+          }else{
+            return '否'
+          }
+        }
+       
+      },
+      // renderText: (val) =>
+      //   `${val}万`,
+    },
+    {
+      title: '时间',
+      dataIndex: 'time',
+      render: (text, row, _, action) => {
+        if(canEdit && editId === row.noticeId){
+          return(
+            // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
+            <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
+          )
+        }else{
+          return row.time.substring(0,10)
+        }
+       
+      },
+      // renderText: (val) =>
+      //   `${val}万`,
+    },
+    {
       title: '标题',
       dataIndex: 'title',
       render: (text, row, _, action) => {
-        if(canEdit  && editId === row.bannerId){
+        if(canEdit  && editId === row.noticeId){
           return(
             <Input value={title} onChange={(e)=>setTitle(e.target.value)}/>
           )
@@ -128,12 +169,16 @@ const Index =(props) => {
             </>
           }
         </a>,
-        <a onClick={()=>handleDelete(row.bannerId)}>
+         <a onClick={()=>handleOverHead(row)}>
+         {
+          !canEdit && row.isOverHead === 1 &&
+          <div>取消置顶</div>
+         }
           {
-            !canEdit &&
-            <span>删除</span>
-          }
-        </a>,
+          !canEdit && row.isOverHead !== 1 &&
+          <div>置顶</div>
+         }
+       </a>,
         <a onClick={()=>handleUse(row)}>
           {
            !canEdit && row.isUse === 1 &&
@@ -144,12 +189,13 @@ const Index =(props) => {
            <div>启用</div>
           }
         </a>,
-        <a onClick={()=>handleToDetail(row)} >详情</a>
+        <a onClick={()=>{props.history.push(`/contentManage/notice/detail/?id=${row.noticeId}`)}}>
+          详情
+        </a>
       ],
     },
   ];
   
-
   const handleChange = (res) => {
     setFileList(res.fileList);
     setImg(true)
@@ -168,7 +214,10 @@ const Index =(props) => {
     setImgUrl(row.imgUrl)
     setSort(row.sort)
     setIsUse(row.isUse)
-    setEditId(row.bannerId)
+    setIsOverhead(row.isOverhead)
+    setTime(row.time.substring(0,10))
+    setTimeDate(row.time)
+    setEditId(row.noticeId)
     setFileList([
       {
         uid: '-1',
@@ -185,6 +234,9 @@ const Index =(props) => {
     setImgUrl('')
     setSort('')
     setIsUse('')
+    setIsOverhead('')
+    setTime('')
+    setTimeDate()
     setEditId(-1)
     setImg(false)
   }
@@ -192,9 +244,13 @@ const Index =(props) => {
   const handleUpdate = async ()=>{
     try {
       const newData = {
-        bannerId:Number(editId),
+        noticeId:Number(editId),
         sort:Number(sort),
         isUse:Number(isUse),
+        isOverhead:Number(isOverhead),
+        // time:timeDate,
+        time:'',
+        content:'',
         title:title,
         imgUrl:imgUrl,
       }
@@ -213,51 +269,50 @@ const Index =(props) => {
 
   const handleUse= async (row)=>{
     try {
-      if(row.isUse !== 1){
-        await useRule(row.bannerId);
-      }else{
-        await stopRule(row.bannerId,row.sort);
-      }
-      // await useRule(url,row.bannerId,row.sort);
+      
+      await useRule(row.noticeId);
+      // await useRule(url,row.noticeId,row.sort);
       actionRef.current.reload()   
     } catch (error) {
       message.error('失败请重试！');
     }
   }
 
-  const handleToDetail = (res) => {
-     props.history.push(`/contentManage/slideshow/slideDetail?id=${res.bannerId}`)
-  };
+  const handleOverHead= async (row)=>{
+    try {
+      if(row.isOverHead !== 1){
+        await useOverRule(row.noticeId);
+      }else{
+        await stopOverRule(row.noticeId,row.sort);
+      }
+      // await useRule(url,row.noticeId,row.sort);
+      actionRef.current.reload()   
+    } catch (error) {
+      message.error('失败请重试！');
+    }
+  }
 
-
+  
   const setSelectedRows=(data)=>{
     let ids = []
     data.map(item=>{
-      ids.push(item.bannerId)
+      ids.push(item.noticeId)
     })
-    setDeleteBannerIds(ids)
+    setDeletenoticeIds(ids)
   }
 
-  const handleDelete= async (id)=>{
-    const hide = message.loading('正在删除');
- 
+  const handleDelete= async ()=>{
+    // const hide = message.loading('正在删除');
     try {
-      if(id){
-        await removeRule([id]);
-      }else{
-        await removeRule(deleteBannerIds);
-      }
-      hide();
+      await removeRule(deletenoticeIds);
       message.success('删除成功');
       actionRef.current.reload()   
     } catch (error) {
-      hide();
       message.error('删除失败请重试！');
     }
   }
 
   const handleCancelModal =()=>{
-    console.log('sssssssssssssssssssssssss')
     setModalVisible(false)
   }
 
@@ -268,12 +323,14 @@ const Index =(props) => {
         sort:Number(data.sort),
         isUse:Number(data.isUse),
         title:data.title,
+        isOverhead:data.isOverhead,
+        time:new Date(),
         imgUrl:'',
-        bannerId:0,
+        noticeId:0,
       }
-      const bannerId = await addRule(newData)
-      console.log(bannerId)
-      await updateImg(data.imgUrl,bannerId)
+      const noticeId = await addRule(newData)
+      console.log(noticeId);
+      await updateImg(data.imgUrl,noticeId)
       message.success('新增成功')
       actionRef.current.reload()   
     } catch (error) {
@@ -288,8 +345,8 @@ const Index =(props) => {
       <PageHeaderWrapper>
         <ProTable
           className={styles.tableMain}
-          headerTitle='轮播图'
-          rowKey="bannerId"
+          headerTitle='置顶通知'
+          rowKey="noticeId"
           actionRef={actionRef}
           toolBarRender={() => [
             <Button type="primary" key="primary" onClick={() => setModalVisible(true)}>
@@ -315,7 +372,7 @@ const Index =(props) => {
           options={false}
           recordCreatorProps={false}
         />
-        <AddBannerModal
+        <AddNoticeModal
           visible = {modalVisible}
           handleOk= {handleOk}
           handleCancel={handleCancelModal}
