@@ -1,21 +1,31 @@
 import { request } from 'umi';
 import {message} from 'antd';
 
-export async function queryRule() {
-  return request('http://1.116.77.118:2333/banner/getAllBanners', {
+export async function queryRule(data) {
+  const params ={
+    page:data.current,
+    num:data.pageSize,
+  }
+  return request('http://1.116.77.118:2333/banner/getPageBanners', {
     method: 'GET',
+    params,
   }).catch((error)=> {
       message.error('轮播图获取失败')
     });
 }
+// export async function queryRule() {
+//   return request('http://1.116.77.118:2333/banner/getAllBanners', {
+//     method: 'GET',
+//   }).catch((error)=> {
+//       message.error('轮播图获取失败')
+//     });
+// }
 
 export async function removeRule(params) {
   return request('http://1.116.77.118:2333/banner/deleteBanners', {
     method: 'POST',
     data: {banners:params}
-  }).catch((error)=> {
-    message.error('删除失败')
-  });
+  })
 }
 
 export async function useRule(id) {
@@ -43,7 +53,6 @@ export async function updateImg(param,bannerId){
   const imgOri = param.map((item) => {
     return item.originFileObj;
   });
-  console.log(imgOri[0],bannerId)
   const img = new FormData();
   img.append('uploadfile', imgOri[0]);
   img.append('bannerId',bannerId);
@@ -59,3 +68,10 @@ export async function updateRule(params) {
     data: params
   });
 }
+
+// export async function getPages(params) {
+//   return request('http://1.116.77.118:2333/banner/getPageBanners', {
+//     method: 'GET',
+//     data: params
+//   });
+// }

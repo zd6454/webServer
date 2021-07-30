@@ -23,6 +23,8 @@ const Index =(props) => {
   const [fileList,setFileList] = useState([])
   const [img,setImg]= useState(false)
   const [modalVisible,setModalVisible] = useState(false)
+  const num = 5
+  const [page,setPage] = useState(0)
 
   const uploadButton = (
     <div>
@@ -239,7 +241,7 @@ const Index =(props) => {
   }
 
   const handleDelete= async (id)=>{
-    const hide = message.loading('正在删除');
+    // const hide = message.loading('正在删除');
  
     try {
       if(id){
@@ -247,22 +249,20 @@ const Index =(props) => {
       }else{
         await removeRule(deleteBannerIds);
       }
-      hide();
+      // hide();
       message.success('删除成功');
       actionRef.current.reload()   
     } catch (error) {
-      hide();
+      // hide();
       message.error('删除失败请重试！');
     }
   }
 
   const handleCancelModal =()=>{
-    console.log('sssssssssssssssssssssssss')
     setModalVisible(false)
   }
 
   const handleOk = async(data)=>{
-    console.log(data)
     try {
       const newData = {
         sort:Number(data.sort),
@@ -270,12 +270,14 @@ const Index =(props) => {
         title:data.title,
         imgUrl:'',
         bannerId:0,
+        content:'',
       }
-      const bannerId = await addRule(newData)
-      console.log(bannerId)
-      await updateImg(data.imgUrl,bannerId)
-      message.success('新增成功')
-      actionRef.current.reload()   
+      const res = await addRule(newData)
+      if(res.bannerId){
+        await updateImg(data.imgUrl.fileList,res.bannerId)
+        message.success('新增成功')
+        actionRef.current.reload()   
+      }
     } catch (error) {
       message.error('失败请重试！');
     }
@@ -299,8 +301,8 @@ const Index =(props) => {
               <DeleteOutlined /> <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
             </Button>,
           ]}
-          request={async () => {
-            const data = await queryRule();
+          request={async (params) => {
+            const data = await queryRule(params);
             return{
               data,
               total: data.length,

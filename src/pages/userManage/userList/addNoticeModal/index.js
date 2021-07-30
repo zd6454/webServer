@@ -15,7 +15,7 @@ function getBase64(file) {
     });
 }
 
-const AddCooperationModal = (props) => {
+const AddBannerModal = (props) => {
     
     const [form] = ProForm.useForm();
     const [fileList, setFileList] = useState([]);
@@ -45,19 +45,19 @@ const AddCooperationModal = (props) => {
 
     const handleFinish=(data)=>{
       props.handleOk(data)
-    }
+    };
 
 
   return (
     <>
-      <Modal title="新增国际合作" visible={props.visible} className={style.formModal} closable>
+      <Modal title="新增置顶通知" visible={props.visible} className={style.formModal} closable>
       <ProForm onFinish={handleFinish} form={form}>
           <ProForm.Group>
             <ProFormText
               rules={[
                 {
                   required: true,
-                  message: '请输入标题',
+                  message: '请输入置顶标题',
                 },
               ]}
               label="标题"
@@ -79,7 +79,7 @@ const AddCooperationModal = (props) => {
               name="isUse"
               width="m"
             />
-             {/* <ProFormSelect
+             <ProFormSelect
               valueEnum={{
                 0: '否',
                 1: '是',
@@ -93,7 +93,7 @@ const AddCooperationModal = (props) => {
               label="置顶"
               name="isOverHead"
               width="m"
-            /> */}
+            />
           </ProForm.Group>
           
           <ProForm.Group>
@@ -116,7 +116,7 @@ const AddCooperationModal = (props) => {
           <ProForm.Group>
             <Form.Item
               name="imgUrl"
-              label="上传国际合作图"
+              label="上传置顶图"
               rules={[
                 {
                   required: false,
@@ -146,4 +146,4 @@ const AddCooperationModal = (props) => {
   );
 };
 
-export default AddCooperationModal;
+export default AddBannerModal;

@@ -1,14 +1,9 @@
 import { request } from 'umi';
 import {message} from 'antd';
 
-export async function queryRule(data) {
-  const params ={
-    page:data.current,
-    num:data.pageSize,
-  }
-  return request('http://1.116.77.118:2333/notice/getPageNotices', {
+export async function queryRule() {
+  return request('http://1.116.77.118:2333/notice/getAllNotices', {
     method: 'GET',
-    params,
   }).catch((error)=> {
       message.error('置顶通知获取失败')
     });
@@ -53,6 +48,7 @@ export async function updateImg(param,noticeId){
   const imgOri = param.map((item) => {
     return item.originFileObj;
   });
+  console.log(imgOri[0],noticeId)
   const img = new FormData();
   img.append('uploadfile', imgOri[0]);
   img.append('noticeId', noticeId);

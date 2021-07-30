@@ -12,13 +12,14 @@ import AddFriendModal from './addFriendModal/index'
 
 const Index =() => {
   // const [allBannersList, setAllBannersList] = useState([]);
-  const [deleteBannerIds, setDeleteBannerIds] = useState([]);
+  const [deleteschoolmateIds, setDeleteschoolmateIds] = useState([]);
   const actionRef = useRef();
   const [canEdit,setCanEdit] = useState(false)
   const [title,setTitle] = useState('')
   const [sort,setSort] = useState('')
   const [imgUrl,setImgUrl] = useState('')
   const [isUse,setIsUse] = useState('')
+  const [content,setContent] = useState('')
   const [editId,setEditId] = useState(-1)
   const [fileList,setFileList] = useState([])
   const [img,setImg]= useState(false)
@@ -37,7 +38,7 @@ const Index =() => {
       title: '图片',
       dataIndex: 'imgUrl',
       render: (dom, row) => {
-        if(canEdit && editId === row.bannerId){
+        if(canEdit && editId === row.schoolmateId){
           return(
             <Upload
             action=""
@@ -66,7 +67,7 @@ const Index =() => {
       title: '顺序',
       dataIndex: 'sort',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.bannerId){
+        if(canEdit && editId === row.schoolmateId){
           return(
             <Input value={sort} onChange={(e)=>setSort(e.target.value)}/>
           )
@@ -80,7 +81,7 @@ const Index =() => {
       title: '是否启用',
       dataIndex: 'isUse',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.bannerId){
+        if(canEdit && editId === row.schoolmateId){
           return(
             <Input value={isUse} onChange={(e)=>setIsUse(e.target.value)}/>
           )
@@ -97,12 +98,26 @@ const Index =() => {
       //   `${val}万`,
     },
     {
-      title: '标题',
-      dataIndex: 'title',
+      title: '名称',
+      dataIndex: 'name',
       render: (text, row, _, action) => {
-        if(canEdit  && editId === row.bannerId){
+        if(canEdit  && editId === row.schoolmateId){
           return(
             <Input value={title} onChange={(e)=>setTitle(e.target.value)}/>
+          )
+        }else{
+          return text
+        }
+      },
+      // sorter:true,
+    },
+    {
+      title: '摘要',
+      dataIndex: 'content',
+      render: (text, row, _, action) => {
+        if(canEdit  && editId === row.schoolmateId){
+          return(
+            <Input value={content} onChange={(e)=>setContent(e.target.value)}/>
           )
         }else{
           return text
@@ -128,7 +143,7 @@ const Index =() => {
             </>
           }
         </a>,
-        <a onClick={()=>handleDelete(row.bannerId)}>
+        <a onClick={()=>handleDelete(row.schoolmateId)}>
           {
             !canEdit &&
             <span>删除</span>
@@ -162,11 +177,12 @@ const Index =() => {
 
   const handleEdit = (row)=>{
     setCanEdit(true)
-    setTitle(row.title)
+    setTitle(row.name)
+    setContent(row.content)
     setImgUrl(row.imgUrl)
     setSort(row.sort)
     setIsUse(row.isUse)
-    setEditId(row.bannerId)
+    setEditId(row.schoolmateId)
     setFileList([
       {
         uid: '-1',
@@ -180,6 +196,7 @@ const Index =() => {
   const handleCancel =()=>{
     setCanEdit(false)
     setTitle('')
+    setContent('')
     setImgUrl('')
     setSort('')
     setIsUse('')
@@ -190,11 +207,13 @@ const Index =() => {
   const handleUpdate = async ()=>{
     try {
       const newData = {
-        bannerId:Number(editId),
+        schoolmateId:Number(editId),
         sort:Number(sort),
         isUse:Number(isUse),
-        title:title,
+        name:title,
         imgUrl:imgUrl,
+        content:content,
+        time:new Date()
       }
       await updateRule(newData);
       if(img){
@@ -212,11 +231,11 @@ const Index =() => {
   const handleUse= async (row)=>{
     try {
       if(row.isUse !== 1){
-        await useRule(row.bannerId);
+        await useRule(row.schoolmateId);
       }else{
-        await stopRule(row.bannerId,row.sort);
+        await stopRule(row.schoolmateId,row.sort);
       }
-      // await useRule(url,row.bannerId,row.sort);
+      // await useRule(url,row.schoolmateId,row.sort);
       actionRef.current.reload()   
     } catch (error) {
       message.error('失败请重试！');
@@ -226,9 +245,9 @@ const Index =() => {
   const setSelectedRows=(data)=>{
     let ids = []
     data.map(item=>{
-      ids.push(item.bannerId)
+      ids.push(item.schoolmateId)
     })
-    setDeleteBannerIds(ids)
+    setDeleteschoolmateIds(ids)
   }
 
   const handleDelete= async (id)=>{
@@ -238,7 +257,7 @@ const Index =() => {
       if(id){
         await removeRule([id]);
       }else{
-        await removeRule(deleteBannerIds);
+        await removeRule(deleteschoolmateIds);
       }
       hide();
       message.success('删除成功');
@@ -254,20 +273,22 @@ const Index =() => {
   }
 
   const handleOk = async(data)=>{
-    console.log(data)
     try {
       const newData = {
         sort:Number(data.sort),
         isUse:Number(data.isUse),
-        title:data.title,
+        name:data.title,
+        content:data.content,
+        time:new Date(),
         imgUrl:'',
-        bannerId:0,
+        schoolmateId:0,
       }
-      const bannerId = await addRule(newData)
-      console.log(bannerId)
-      await updateImg(data.imgUrl,bannerId)
-      message.success('新增成功')
-      actionRef.current.reload()   
+      const res = await addRule(newData)
+      if(res.schoolmateId){
+        await updateImg(data.imgUrl.fileList,res.schoolmateId)
+        message.success('新增成功')
+        actionRef.current.reload()  
+      }
     } catch (error) {
       message.error('失败请重试！');
     }
@@ -280,8 +301,8 @@ const Index =() => {
       <PageHeaderWrapper>
         <ProTable
           className={styles.tableMain}
-          headerTitle='轮播图'
-          rowKey="bannerId"
+          headerTitle='校友清单'
+          rowKey="schoolmateId"
           actionRef={actionRef}
           toolBarRender={() => [
             <Button type="primary" key="primary" onClick={() => setModalVisible(true)}>
@@ -291,8 +312,8 @@ const Index =() => {
               <DeleteOutlined /> <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
             </Button>,
           ]}
-          request={async () => {
-            const data = await queryRule();
+          request={async (params) => {
+            const data = await queryRule(params);
             return{
               data,
               total: data.length,

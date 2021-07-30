@@ -154,20 +154,70 @@
     ]
   },
   {
-    path: '/admin',
-    name: 'admin',
+    path: '/forumDetail',
+    name: '论坛管理',
     icon: 'crown',
-    access: 'canAdmin',
-    component: './Admin',
-    routes: [
+    routes:[
       {
-        path: '/admin/sub-page',
-        name: 'sub-page',
+        path: '/forumDetail/forumMenu',
+        name: '论坛清单',
         icon: 'smile',
-        component: './Welcome',
+        component: './forumDetail/forumMenu',
       },
-    ],
+      {
+        path: '/forumDetail/forumComment',
+        name: '论坛评论',
+        icon: 'smile',
+        component: './forumDetail/forumComment',
+      },
+      {
+        path: '/forumDetail/userComment',
+        name: '用户论坛',
+        icon: 'smile',
+        component: './forumDetail/userComment',
+      },
+    ]
   },
+  {
+    path: '/userManage',
+    name: '用户管理',
+    icon: 'crown',
+    routes:[
+      {
+        path: '/userManage/userList',
+        name: '用户列表',
+        icon: 'smile',
+        component: './userManage/userList',
+      },
+      {
+        path: '/userManage/messageMenu',
+        name: '消息清单',
+        icon: 'smile',
+        component: './userManage/messageMenu',
+      },
+      {
+        path: '/userManage/abroadMaterial',
+        name: '留学材料',
+        icon: 'smile',
+        component: './userManage/abroadMaterial',
+      },
+    ]
+  },
+  // {
+  //   path: '/admin',
+  //   name: 'admin',
+  //   icon: 'crown',
+  //   access: 'canAdmin',
+  //   component: './Admin',
+  //   routes: [
+  //     {
+  //       path: '/admin/sub-page',
+  //       name: 'sub-page',
+  //       icon: 'smile',
+  //       component: './Welcome',
+  //     },
+  //   ],
+  // },
   {
     path: '/',
     redirect: '/contentManage/slideshow',

@@ -103,45 +103,8 @@ const Index =() => {
       //   `${val}万`,
     },
     {
-      title: '是否置顶',
-      dataIndex: 'isOverhead',
-      render: (text, row, _, action) => {
-        if(canEdit && editId === row.departmentId){
-          return(
-            <Input value={isOverhead} onChange={(e)=>setIsOverhead(e.target.value)}/>
-          )
-        }else{
-          if(row.isOverhead === 1){
-            return '是'
-          }else{
-            return '否'
-          }
-        }
-       
-      },
-      // renderText: (val) =>
-      //   `${val}万`,
-    },
-    {
-      title: '时间',
-      dataIndex: 'time',
-      render: (text, row, _, action) => {
-        if(canEdit && editId === row.departmentId){
-          return(
-            // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
-            <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
-          )
-        }else{
-          return row.time.substring(0,10)
-        }
-       
-      },
-      // renderText: (val) =>
-      //   `${val}万`,
-    },
-    {
-      title: '标题',
-      dataIndex: 'title',
+      title: '学部名称',
+      dataIndex: 'name',
       render: (text, row, _, action) => {
         if(canEdit  && editId === row.departmentId){
           return(
@@ -171,16 +134,16 @@ const Index =() => {
             </>
           }
         </a>,
-         <a onClick={()=>handleOverHead(row)}>
-         {
-          !canEdit && row.isOverHead === 1 &&
-          <div>取消置顶</div>
-         }
-          {
-          !canEdit && row.isOverHead !== 1 &&
-          <div>置顶</div>
-         }
-       </a>,
+      //    <a onClick={()=>handleOverHead(row)}>
+      //    {
+      //     !canEdit && row.isOverHead === 1 &&
+      //     <div>取消置顶</div>
+      //    }
+      //     {
+      //     !canEdit && row.isOverHead !== 1 &&
+      //     <div>置顶</div>
+      //    }
+      //  </a>,
         <a onClick={()=>handleUse(row)}>
           {
            !canEdit && row.isUse === 1 &&
@@ -209,13 +172,13 @@ const Index =() => {
 
   const handleEdit = (row)=>{
     setCanEdit(true)
-    setTitle(row.title)
+    setTitle(row.name)
     setImgUrl(row.imgUrl)
     setSort(row.sort)
     setIsUse(row.isUse)
     setIsOverhead(row.isOverhead)
-    setTime(row.time.substring(0,10))
-    setTimeDate(row.time)
+    // setTime(row.time.substring(0,10))
+    // setTimeDate(row.time)
     setEditId(row.departmentId)
     setFileList([
       {
@@ -234,8 +197,8 @@ const Index =() => {
     setSort('')
     setIsUse('')
     setIsOverhead('')
-    setTime('')
-    setTimeDate()
+    // setTime('')
+    // setTimeDate()
     setEditId(-1)
     setImg(false)
   }
@@ -246,11 +209,11 @@ const Index =() => {
         departmentId:Number(editId),
         sort:Number(sort),
         isUse:Number(isUse),
-        isOverhead:Number(isOverhead),
+        // isOverhead:Number(isOverhead),
         // time:timeDate,
-        time:'',
+        // time:'',
         content:'',
-        title:title,
+        name:title,
         imgUrl:imgUrl,
       }
       await updateRule(newData);
@@ -280,16 +243,16 @@ const Index =() => {
     }
   }
 
-  const handleOverHead= async (row)=>{
-    try {
+  // const handleOverHead= async (row)=>{
+  //   try {
       
-        await useOverRule(row.departmentId);
-      // await useRule(url,row.departmentId,row.sort);
-      actionRef.current.reload()   
-    } catch (error) {
-      message.error('失败请重试！');
-    }
-  }
+  //       await useOverRule(row.departmentId);
+  //     // await useRule(url,row.departmentId,row.sort);
+  //     actionRef.current.reload()   
+  //   } catch (error) {
+  //     message.error('失败请重试！');
+  //   }
+  // }
 
   
   const setSelectedRows=(data)=>{
@@ -325,15 +288,15 @@ const Index =() => {
       const newData = {
         sort:Number(data.sort),
         isUse:Number(data.isUse),
-        title:data.title,
-        isOverhead:data.isOverhead,
-        time:new Date(),
+        name:data.title,
+        content:'',
+        // isOverhead:data.isOverhead,
+        // time:new Date(),
         imgUrl:'',
         departmentId:0,
       }
-      const departmentId = await addRule(newData)
-      console.log(departmentId)
-      await updateImg(data.imgUrl,departmentId)
+      const res = await addRule(newData)
+      await updateImg(data.imgUrl.fileList,res.departmentId)
       message.success('新增成功')
       actionRef.current.reload()   
     } catch (error) {
@@ -359,8 +322,8 @@ const Index =() => {
               <DeleteOutlined /> <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
             </Button>,
           ]}
-          request={async () => {
-            const data = await queryRule();
+          request={async (params) => {
+            const data = await queryRule(params);
             return{
               data,
               total: data.length,
