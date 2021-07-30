@@ -311,7 +311,6 @@ const Index =() => {
   }
 
   const handleOk = async(data)=>{
-    console.log(data)
     try {
       const newData = {
         sort:Number(data.sort),
@@ -322,9 +321,8 @@ const Index =() => {
         imgUrl:'',
         interCooperId:0,
       }
-      const interCooperId = await addRule(newData)
-      console.log(interCooperId)
-      await updateImg(data.imgUrl,interCooperId)
+      const res = await addRule(newData)
+      await updateImg(data.imgUrl.fileList,res.interCooperId)
       message.success('新增成功')
       actionRef.current.reload()   
     } catch (error) {
@@ -350,8 +348,8 @@ const Index =() => {
               <DeleteOutlined /> <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
             </Button>,
           ]}
-          request={async () => {
-            const data = await queryRule();
+          request={async (params) => {
+            const data = await queryRule(params);
             return{
               data,
               total: data.length,

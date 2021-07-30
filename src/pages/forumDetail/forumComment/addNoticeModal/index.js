@@ -39,7 +39,7 @@ const AddBannerModal = (props) => {
     const uploadButton = (
         <div>
         <PlusOutlined />
-        <div style={{ marginTop: 8 }}>点击上传头像</div>
+        <div style={{ marginTop: 8 }}>点击上传</div>
         </div>
     );
 

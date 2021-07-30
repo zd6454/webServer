@@ -330,7 +330,7 @@ const Index =(props) => {
       }
       const noticeId = await addRule(newData)
       console.log(noticeId);
-      await updateImg(data.imgUrl,noticeId)
+      await updateImg(data.imgUrl.fileList,noticeId)
       message.success('新增成功')
       actionRef.current.reload()   
     } catch (error) {

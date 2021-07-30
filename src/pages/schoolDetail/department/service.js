@@ -1,9 +1,14 @@
 import { request } from 'umi';
 import {message} from 'antd';
 
-export async function queryRule() {
-  return request('http://1.116.77.118:2333/department/getAllDepartments', {
+export async function queryRule(data) {
+  const params ={
+    page:data.current,
+    num:data.pageSize,
+  }
+  return request('http://1.116.77.118:2333/department/getPageDepartments', {
     method: 'GET',
+    params,
   }).catch((error)=> {
       message.error('获取失败')
     });
@@ -13,9 +18,7 @@ export async function removeRule(params) {
   return request('http://1.116.77.118:2333/department/deleteDepartments', {
     method: 'POST',
     data: {departments:params}
-  }).catch((error)=> {
-    message.error('删除失败')
-  });
+  })
 }
 
 export async function useRule(id) {

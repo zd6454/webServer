@@ -38,7 +38,7 @@ const AddDepartmentModal = (props) => {
     const uploadButton = (
         <div>
         <PlusOutlined />
-        <div style={{ marginTop: 8 }}>点击上传头像</div>
+        <div style={{ marginTop: 8 }}>点击上传</div>
         </div>
     );
 
@@ -56,10 +56,10 @@ const AddDepartmentModal = (props) => {
               rules={[
                 {
                   required: true,
-                  message: '请输入学部介绍标题',
+                  message: '请输入学部名称',
                 },
               ]}
-              label="标题"
+              label="学部名称"
               name="title"
               width="m"
             />
@@ -78,7 +78,7 @@ const AddDepartmentModal = (props) => {
               name="isUse"
               width="m"
             />
-             <ProFormSelect
+             {/* <ProFormSelect
               valueEnum={{
                 0: '否',
                 1: '是',
@@ -92,7 +92,7 @@ const AddDepartmentModal = (props) => {
               label="置顶"
               name="isOverHead"
               width="m"
-            />
+            /> */}
           </ProForm.Group>
           
           <ProForm.Group>

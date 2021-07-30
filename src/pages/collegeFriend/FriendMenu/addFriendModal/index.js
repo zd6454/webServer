@@ -39,7 +39,7 @@ const AddFriendModal = (props) => {
     const uploadButton = (
         <div>
         <PlusOutlined />
-        <div style={{ marginTop: 8 }}>点击上传头像</div>
+        <div style={{ marginTop: 8 }}>点击上传</div>
         </div>
     );
 
@@ -57,11 +57,22 @@ const AddFriendModal = (props) => {
               rules={[
                 {
                   required: true,
-                  message: '请输入校友清单标题',
+                  message: '请输入校友清单名称',
                 },
               ]}
-              label="标题"
+              label="名称"
               name="title"
+              width="m"
+            />
+             <ProFormText
+              rules={[
+                {
+                  required: true,
+                  message: '请输入校友清单摘要',
+                },
+              ]}
+              label="摘要"
+              name="content"
               width="m"
             />
             <ProFormSelect

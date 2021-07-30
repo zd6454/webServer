@@ -13,9 +13,7 @@ export async function removeRule(params) {
   return request('http://1.116.77.118:2333/notice/deleteNotices', {
     method: 'POST',
     data: {notices:params}
-  }).catch((error)=> {
-    message.error('删除失败')
-  });
+  })
 }
 
 export async function useRule(id) {
@@ -47,7 +45,6 @@ export async function addRule(params) {
 }
 
 export async function updateImg(param,noticeId){
-
   const imgOri = param.map((item) => {
     return item.originFileObj;
   });

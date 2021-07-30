@@ -214,8 +214,8 @@ const Index =() => {
     setSort(row.sort)
     setIsUse(row.isUse)
     setIsOverhead(row.isOverhead)
-    setTime(row.time.substring(0,10))
-    setTimeDate(row.time)
+    // setTime(row.time.substring(0,10))
+    // setTimeDate(row.time)
     setEditId(row.departmentId)
     setFileList([
       {
@@ -234,8 +234,8 @@ const Index =() => {
     setSort('')
     setIsUse('')
     setIsOverhead('')
-    setTime('')
-    setTimeDate()
+    // setTime('')
+    // setTimeDate()
     setEditId(-1)
     setImg(false)
   }
@@ -246,11 +246,11 @@ const Index =() => {
         departmentId:Number(editId),
         sort:Number(sort),
         isUse:Number(isUse),
-        isOverhead:Number(isOverhead),
+        // isOverhead:Number(isOverhead),
         // time:timeDate,
-        time:'',
+        // time:'',
         content:'',
-        title:title,
+        name:title,
         imgUrl:imgUrl,
       }
       await updateRule(newData);
@@ -325,15 +325,15 @@ const Index =() => {
       const newData = {
         sort:Number(data.sort),
         isUse:Number(data.isUse),
-        title:data.title,
-        isOverhead:data.isOverhead,
-        time:new Date(),
+        name:data.title,
+        content:'',
+        // isOverhead:data.isOverhead,
+        // time:new Date(),
         imgUrl:'',
         departmentId:0,
       }
-      const departmentId = await addRule(newData)
-      console.log(departmentId)
-      await updateImg(data.imgUrl,departmentId)
+      const res = await addRule(newData)
+      await updateImg(data.imgUrl.fileList,res.departmentId)
       message.success('新增成功')
       actionRef.current.reload()   
     } catch (error) {
@@ -359,8 +359,8 @@ const Index =() => {
               <DeleteOutlined /> <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
             </Button>,
           ]}
-          request={async () => {
-            const data = await queryRule();
+          request={async (params) => {
+            const data = await queryRule(params);
             return{
               data,
               total: data.length,

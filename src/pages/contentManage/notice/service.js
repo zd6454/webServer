@@ -1,9 +1,14 @@
 import { request } from 'umi';
 import {message} from 'antd';
 
-export async function queryRule() {
-  return request('http://1.116.77.118:2333/notice/getAllNotices', {
+export async function queryRule(data) {
+  const params ={
+    page:data.current,
+    num:data.pageSize,
+  }
+  return request('http://1.116.77.118:2333/notice/getPageNotices', {
     method: 'GET',
+    params,
   }).catch((error)=> {
       message.error('置顶通知获取失败')
     });
@@ -13,9 +18,7 @@ export async function removeRule(params) {
   return request('http://1.116.77.118:2333/notice/deleteNotices', {
     method: 'POST',
     data: {notices:params}
-  }).catch((error)=> {
-    message.error('删除失败')
-  });
+  })
 }
 
 export async function useRule(id) {
@@ -47,7 +50,6 @@ export async function addRule(params) {
 }
 
 export async function updateImg(param,noticeId){
-
   const imgOri = param.map((item) => {
     return item.originFileObj;
   });

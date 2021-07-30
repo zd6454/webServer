@@ -37,7 +37,7 @@ const handleOk= async(data)=>{
       noticeId,
     };
     if(Array.isArray(data.imgUrl)){
-      await updateImg(data.imgUrl,noticeId);
+      await updateImg(data.imgUrl.fileList,noticeId);
     }
     // await  updateRule(newData);
     message.success('修改成功')

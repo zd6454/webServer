@@ -1,21 +1,22 @@
 import { request } from 'umi';
 import {message} from 'antd';
 
-export async function queryRule() {
-  return request('http://1.116.77.118:2333/interCooperation/getAllInterCoopers', {
+export async function queryRule(data) {
+  const params ={
+    page:data.current,
+    num:data.pageSize,
+  }
+  return request('http://1.116.77.118:2333/interCooperation/getPageInterCoopers', {
     method: 'GET',
-  }).catch((error)=> {
-      message.error('获取失败')
-    });
+    params
+  })
 }
 
 export async function removeRule(params) {
   return request('http://1.116.77.118:2333/interCooperation/deleteInterCoopers', {
     method: 'POST',
     data: {interCoopers:params}
-  }).catch((error)=> {
-    message.error('删除失败')
-  });
+  })
 }
 
 export async function useRule(id) {
@@ -50,7 +51,6 @@ export async function updateImg(param,interCooperId){
   const imgOri = param.map((item) => {
     return item.originFileObj;
   });
-  console.log(imgOri[0],interCooperId)
   const img = new FormData();
   img.append('uploadfile', imgOri[0]);
   img.append('interCooperId',interCooperId)
