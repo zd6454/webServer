@@ -6,7 +6,7 @@ import request from 'umi-request';
 import styles from './style.less';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { EditableProTable } from '@ant-design/pro-table';
-import { Button, message, Input, Drawer,Image, Upload } from 'antd';
+import { Button, message, Input, Drawer,Image, Upload,Select } from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import AddFriendModal from './addFriendModal/index'
 
@@ -83,7 +83,10 @@ const Index =() => {
       render: (text, row, _, action) => {
         if(canEdit && editId === row.schoolmateId){
           return(
-            <Input value={isUse} onChange={(e)=>setIsUse(e.target.value)}/>
+            <Select value={isUse} onChange={(e)=>setIsUse(e)}>
+              <Select.Option value={1}>是</Select.Option>
+              <Select.Option value={0}>否</Select.Option>
+            </Select>
           )
         }else{
           if(row.isUse === 1){
@@ -181,7 +184,7 @@ const Index =() => {
     setContent(row.content)
     setImgUrl(row.imgUrl)
     setSort(row.sort)
-    setIsUse(row.isUse)
+    setIsUse(row.isUse === 1?'是':'否')
     setEditId(row.schoolmateId)
     setFileList([
       {
@@ -205,11 +208,15 @@ const Index =() => {
   }
 
   const handleUpdate = async ()=>{
+    if((isUse === 0 || isUse === '否')&& Number(sort)!==0){
+      message.warning('想要修改顺序必须将启用状态设置为启用')
+      return
+    }
     try {
       const newData = {
         schoolmateId:Number(editId),
         sort:Number(sort),
-        isUse:Number(isUse),
+        isUse:isUse===0||isUse==='否'?0:1,
         name:title,
         imgUrl:imgUrl,
         content:content,

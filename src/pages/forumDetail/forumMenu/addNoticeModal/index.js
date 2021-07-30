@@ -50,14 +50,14 @@ const AddBannerModal = (props) => {
 
   return (
     <>
-      <Modal title="新增置顶通知" visible={props.visible} className={style.formModal} closable>
+      <Modal title="新增论坛清单" visible={props.visible} className={style.formModal} closable>
       <ProForm onFinish={handleFinish} form={form}>
           <ProForm.Group>
             <ProFormText
               rules={[
                 {
                   required: true,
-                  message: '请输入置顶标题',
+                  message: '请输入标题',
                 },
               ]}
               label="标题"
@@ -79,7 +79,7 @@ const AddBannerModal = (props) => {
               name="isUse"
               width="m"
             />
-             <ProFormSelect
+             {/* <ProFormSelect
               valueEnum={{
                 0: '否',
                 1: '是',
@@ -93,7 +93,7 @@ const AddBannerModal = (props) => {
               label="置顶"
               name="isOverHead"
               width="m"
-            />
+            /> */}
           </ProForm.Group>
           
           <ProForm.Group>
@@ -116,7 +116,7 @@ const AddBannerModal = (props) => {
           <ProForm.Group>
             <Form.Item
               name="imgUrl"
-              label="上传置顶图"
+              label="上传论坛清单图"
               rules={[
                 {
                   required: false,

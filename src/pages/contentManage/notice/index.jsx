@@ -4,7 +4,7 @@ import { queryRule, updateRule, addRule, removeRule,useRule,stopRule,updateImg,u
 import { FormattedMessage } from 'umi';
 import styles from './style.less';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Button, message, Input, Drawer,Image, Upload, DatePicker } from 'antd';
+import { Button, message, Input, Drawer,Image, Upload, DatePicker,Select } from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import AddNoticeModal from './addNoticeModal/index'
 import moment from 'moment';
@@ -86,7 +86,10 @@ const Index =(props) => {
       render: (text, row, _, action) => {
         if(canEdit && editId === row.noticeId){
           return(
-            <Input value={isUse} onChange={(e)=>setIsUse(e.target.value)}/>
+            <Select value={isUse} onChange={(e)=>setIsUse(e)}>
+              <Select.Option value={1}>是</Select.Option>
+              <Select.Option value={0}>否</Select.Option>
+            </Select>
           )
         }else{
           if(row.isUse === 1){
@@ -193,7 +196,7 @@ const Index =(props) => {
     setTitle(row.title)
     setImgUrl(row.imgUrl)
     setSort(row.sort)
-    setIsUse(row.isUse)
+    setIsUse(row.isUse === 1?'是':'否')
     // setIsOverhead(row.isOverhead)
     setTime(row.time.substring(0,10))
     setTimeDate(row.time)
@@ -222,14 +225,18 @@ const Index =(props) => {
   }
 
   const handleUpdate = async ()=>{
+    if((isUse === 0 || isUse === '否')&& Number(sort)!==0){
+      message.warning('想要修改顺序必须将启用状态设置为启用')
+      return
+    }
     try {
       const newData = {
         noticeId:Number(editId),
         sort:Number(sort),
-        isUse:Number(isUse),
+        isUse:isUse===0||isUse==='否'?0:1,
         // isOverhead:Number(isOverhead),
-        // time:timeDate,
-        time:new Date,
+        time:timeDate,
+        // time:new Date,
         content:'',
         title:title,
         imgUrl:imgUrl,

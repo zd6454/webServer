@@ -6,9 +6,10 @@ import request from 'umi-request';
 import styles from './style.less';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { EditableProTable } from '@ant-design/pro-table';
-import { Button, message, Input, Drawer,Image, Upload} from 'antd';
+import { Button, message, Input, Drawer,Image, Upload,DatePicker, Select} from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import AddCooperationModal from './addCooperationModal/index'
+import moment from 'moment';
 
 const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);
@@ -20,12 +21,11 @@ const Index =(props) => {
   const [imgUrl,setImgUrl] = useState('')
   const [isUse,setIsUse] = useState('')
   const [time,setTime] = useState('')
+  const [timeDate,setTimeDate] = useState()
   const [editId,setEditId] = useState(-1)
   const [fileList,setFileList] = useState([])
   const [img,setImg]= useState(false)
   const [modalVisible,setModalVisible] = useState(false)
-  const num = 5
-  const [page,setPage] = useState(0)
 
   const uploadButton = (
     <div>
@@ -33,6 +33,8 @@ const Index =(props) => {
       <div style={{ marginTop: 8 }}>点击上传图片</div>
     </div>
   );
+
+  const dateFormat = 'YYYY-MM-DD'
 
 
   const columns = [
@@ -85,7 +87,10 @@ const Index =(props) => {
       render: (text, row, _, action) => {
         if(canEdit && editId === row.interCooperId){
           return(
-            <Input value={isUse} onChange={(e)=>setIsUse(e.target.value)}/>
+            <Select value={isUse} onChange={(e)=>setIsUse(e)}>
+              <Select.Option value={1}>是</Select.Option>
+              <Select.Option value={0}>否</Select.Option>
+            </Select>
           )
         }else{
           if(row.isUse === 1){
@@ -117,12 +122,13 @@ const Index =(props) => {
       title: '时间',
       dataIndex: 'time',
       render: (text, row, _, action) => {
-        if(canEdit  && editId === row.interCooperId){
+        if(canEdit && editId === row.interCooperId){
           return(
-            <Input value={time} onChange={(e)=>setTime(e.target.value)}/>
+            // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
+            <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
           )
         }else{
-          return text
+          return row.time.substring(0,10)
         }
       },
       // sorter:true,
@@ -184,8 +190,9 @@ const Index =(props) => {
     setTitle(row.title)
     setImgUrl(row.imgUrl)
     setSort(row.sort)
-    setIsUse(row.isUse)
-    setTime(row.time)
+    setIsUse(row.isUse === 1?'是':'否')
+    setTime(row.time.substring(0,10))
+    setTimeDate(row.time)
     setEditId(row.interCooperId)
     setFileList([
       {
@@ -204,19 +211,24 @@ const Index =(props) => {
     setSort('')
     setIsUse('')
     setTime('')
+    setTimeDate()
     setEditId(-1)
     setImg(false)
   }
 
   const handleUpdate = async ()=>{
+    if((isUse === 0 || isUse === '否')&& Number(sort)!==0){
+      message.warning('想要修改顺序必须将启用状态设置为启用')
+      return
+    }
     try {
       const newData = {
         interCooperId:Number(editId),
         sort:Number(sort),
-        isUse:Number(isUse),
+        isUse:isUse===0||isUse==='否'?0:1,
         title:title,
         imgUrl:imgUrl,
-        time:new Date(),
+        time:timeDate,
         content:'',
       }
       await updateRule(newData);
