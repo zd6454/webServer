@@ -103,45 +103,8 @@ const Index =() => {
       //   `${val}万`,
     },
     {
-      title: '是否置顶',
-      dataIndex: 'isOverhead',
-      render: (text, row, _, action) => {
-        if(canEdit && editId === row.departmentId){
-          return(
-            <Input value={isOverhead} onChange={(e)=>setIsOverhead(e.target.value)}/>
-          )
-        }else{
-          if(row.isOverhead === 1){
-            return '是'
-          }else{
-            return '否'
-          }
-        }
-       
-      },
-      // renderText: (val) =>
-      //   `${val}万`,
-    },
-    {
-      title: '时间',
-      dataIndex: 'time',
-      render: (text, row, _, action) => {
-        if(canEdit && editId === row.departmentId){
-          return(
-            // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
-            <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
-          )
-        }else{
-          return row.time.substring(0,10)
-        }
-       
-      },
-      // renderText: (val) =>
-      //   `${val}万`,
-    },
-    {
-      title: '标题',
-      dataIndex: 'title',
+      title: '学部名称',
+      dataIndex: 'name',
       render: (text, row, _, action) => {
         if(canEdit  && editId === row.departmentId){
           return(
@@ -171,16 +134,16 @@ const Index =() => {
             </>
           }
         </a>,
-         <a onClick={()=>handleOverHead(row)}>
-         {
-          !canEdit && row.isOverHead === 1 &&
-          <div>取消置顶</div>
-         }
-          {
-          !canEdit && row.isOverHead !== 1 &&
-          <div>置顶</div>
-         }
-       </a>,
+      //    <a onClick={()=>handleOverHead(row)}>
+      //    {
+      //     !canEdit && row.isOverHead === 1 &&
+      //     <div>取消置顶</div>
+      //    }
+      //     {
+      //     !canEdit && row.isOverHead !== 1 &&
+      //     <div>置顶</div>
+      //    }
+      //  </a>,
         <a onClick={()=>handleUse(row)}>
           {
            !canEdit && row.isUse === 1 &&
@@ -209,7 +172,7 @@ const Index =() => {
 
   const handleEdit = (row)=>{
     setCanEdit(true)
-    setTitle(row.title)
+    setTitle(row.name)
     setImgUrl(row.imgUrl)
     setSort(row.sort)
     setIsUse(row.isUse)
@@ -280,16 +243,16 @@ const Index =() => {
     }
   }
 
-  const handleOverHead= async (row)=>{
-    try {
+  // const handleOverHead= async (row)=>{
+  //   try {
       
-        await useOverRule(row.departmentId);
-      // await useRule(url,row.departmentId,row.sort);
-      actionRef.current.reload()   
-    } catch (error) {
-      message.error('失败请重试！');
-    }
-  }
+  //       await useOverRule(row.departmentId);
+  //     // await useRule(url,row.departmentId,row.sort);
+  //     actionRef.current.reload()   
+  //   } catch (error) {
+  //     message.error('失败请重试！');
+  //   }
+  // }
 
   
   const setSelectedRows=(data)=>{

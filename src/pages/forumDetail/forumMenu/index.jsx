@@ -18,7 +18,7 @@ const Index =(props) => {
   const [sort,setSort] = useState('')
   const [imgUrl,setImgUrl] = useState('')
   const [isUse,setIsUse] = useState('')
-  const [isOverhead,setIsOverhead] = useState('')
+  // const [isOverhead,setIsOverhead] = useState('')
   const [time,setTime] = useState('')
   const [timeDate,setTimeDate] = useState()
   const [editId,setEditId] = useState(-1)
@@ -101,26 +101,6 @@ const Index =(props) => {
       //   `${val}万`,
     },
     {
-      title: '是否置顶',
-      dataIndex: 'isOverhead',
-      render: (text, row, _, action) => {
-        if(canEdit && editId === row.noticeId){
-          return(
-            <Input value={isOverhead} onChange={(e)=>setIsOverhead(e.target.value)}/>
-          )
-        }else{
-          if(row.isOverhead === 1){
-            return '是'
-          }else{
-            return '否'
-          }
-        }
-       
-      },
-      // renderText: (val) =>
-      //   `${val}万`,
-    },
-    {
       title: '时间',
       dataIndex: 'time',
       render: (text, row, _, action) => {
@@ -169,24 +149,24 @@ const Index =(props) => {
             </>
           }
         </a>,
-         <a onClick={()=>handleOverHead(row)}>
-         {
-          !canEdit && row.isOverHead === 1 &&
-          <div>取消置顶</div>
-         }
-          {
-          !canEdit && row.isOverHead !== 1 &&
-          <div>置顶</div>
-         }
-       </a>,
+      //    <a onClick={()=>handleOverHead(row)}>
+      //    {
+      //     !canEdit && row.isOverHead === 1 &&
+      //     <div>取消置顶</div>
+      //    }
+      //     {
+      //     !canEdit && row.isOverHead !== 1 &&
+      //     <div>置顶</div>
+      //    }
+      //  </a>,
         <a onClick={()=>handleUse(row)}>
           {
-           !canEdit && row.isUse === 1 &&
-           <div>取消启用</div>
+          !canEdit && row.isUse === 1 &&
+          <div>取消启用</div>
           }
-           {
-           !canEdit && row.isUse !== 1 &&
-           <div>启用</div>
+          {
+          !canEdit && row.isUse !== 1 &&
+          <div>启用</div>
           }
         </a>,
         <a onClick={()=>{props.history.push(`/contentManage/notice/detail/?id=${row.noticeId}`)}}>
@@ -214,7 +194,7 @@ const Index =(props) => {
     setImgUrl(row.imgUrl)
     setSort(row.sort)
     setIsUse(row.isUse)
-    setIsOverhead(row.isOverhead)
+    // setIsOverhead(row.isOverhead)
     setTime(row.time.substring(0,10))
     setTimeDate(row.time)
     setEditId(row.noticeId)
@@ -234,7 +214,7 @@ const Index =(props) => {
     setImgUrl('')
     setSort('')
     setIsUse('')
-    setIsOverhead('')
+    // setIsOverhead('')
     setTime('')
     setTimeDate()
     setEditId(-1)
@@ -247,12 +227,13 @@ const Index =(props) => {
         noticeId:Number(editId),
         sort:Number(sort),
         isUse:Number(isUse),
-        isOverhead:Number(isOverhead),
+        // isOverhead:Number(isOverhead),
         // time:timeDate,
-        time:'',
+        time:new Date,
         content:'',
         title:title,
         imgUrl:imgUrl,
+        content:'',
       }
       await updateRule(newData);
       if(img){
@@ -269,28 +250,31 @@ const Index =(props) => {
 
   const handleUse= async (row)=>{
     try {
-      
-      await useRule(row.noticeId);
-      // await useRule(url,row.noticeId,row.sort);
+      if(row.isUse !== 1){
+        await useRule(row.noticeId);
+      }else{
+        await stopRule(row.noticeId,row.sort);
+      }
+      // await useRule(url,row.bannerId,row.sort);
       actionRef.current.reload()   
     } catch (error) {
       message.error('失败请重试！');
     }
   }
 
-  const handleOverHead= async (row)=>{
-    try {
-      if(row.isOverHead !== 1){
-        await useOverRule(row.noticeId);
-      }else{
-        await stopOverRule(row.noticeId,row.sort);
-      }
-      // await useRule(url,row.noticeId,row.sort);
-      actionRef.current.reload()   
-    } catch (error) {
-      message.error('失败请重试！');
-    }
-  }
+  // const handleOverHead= async (row)=>{
+  //   try {
+  //     if(row.isOverHead !== 1){
+  //       await useOverRule(row.noticeId);
+  //     }else{
+  //       await stopOverRule(row.noticeId,row.sort);
+  //     }
+  //     // await useRule(url,row.noticeId,row.sort);
+  //     actionRef.current.reload()   
+  //   } catch (error) {
+  //     message.error('失败请重试！');
+  //   }
+  // }
 
   
   const setSelectedRows=(data)=>{
@@ -317,20 +301,19 @@ const Index =(props) => {
   }
 
   const handleOk = async(data)=>{
-    console.log(data)
     try {
       const newData = {
         sort:Number(data.sort),
         isUse:Number(data.isUse),
         title:data.title,
-        isOverhead:data.isOverhead,
+        content:'',
+        // isOverhead:data.isOverhead,
         time:new Date(),
         imgUrl:'',
         noticeId:0,
       }
-      const noticeId = await addRule(newData)
-      console.log(noticeId);
-      await updateImg(data.imgUrl.fileList,noticeId)
+      const res = await addRule(newData)
+      await updateImg(data.imgUrl.fileList,res.noticeId)
       message.success('新增成功')
       actionRef.current.reload()   
     } catch (error) {
@@ -356,8 +339,8 @@ const Index =(props) => {
               <DeleteOutlined /> <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
             </Button>,
           ]}
-          request={async () => {
-            const data = await queryRule();
+          request={async (params) => {
+            const data = await queryRule(params);
             return{
               data,
               total: data.length,

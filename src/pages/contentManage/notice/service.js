@@ -53,7 +53,6 @@ export async function updateImg(param,noticeId){
   const imgOri = param.map((item) => {
     return item.originFileObj;
   });
-  console.log(imgOri[0],noticeId)
   const img = new FormData();
   img.append('uploadfile', imgOri[0]);
   img.append('noticeId', noticeId);

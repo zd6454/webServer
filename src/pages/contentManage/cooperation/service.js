@@ -61,7 +61,7 @@ export async function updateImg(param,interCooperId){
 };
 
 export async function updateRule(params) {
-  return request('http://1.116.77.118:2333/information/uploadFile/InterCooperation', {
+  return request('http://1.116.77.118:2333/interCooperation/updateInterCooper', {
     method: 'POST',
     data: params
   });

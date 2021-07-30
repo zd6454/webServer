@@ -177,7 +177,7 @@ const Index =() => {
 
   const handleEdit = (row)=>{
     setCanEdit(true)
-    setTitle(row.title)
+    setTitle(row.name)
     setContent(row.content)
     setImgUrl(row.imgUrl)
     setSort(row.sort)
@@ -213,6 +213,7 @@ const Index =() => {
         name:title,
         imgUrl:imgUrl,
         content:content,
+        time:new Date()
       }
       await updateRule(newData);
       if(img){
@@ -284,7 +285,7 @@ const Index =() => {
       }
       const res = await addRule(newData)
       if(res.schoolmateId){
-        await updateImg(data.imgUrl.fileList,res.resschoolmateId)
+        await updateImg(data.imgUrl.fileList,res.schoolmateId)
         message.success('新增成功')
         actionRef.current.reload()  
       }

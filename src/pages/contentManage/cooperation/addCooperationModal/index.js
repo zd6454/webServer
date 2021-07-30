@@ -79,7 +79,7 @@ const AddCooperationModal = (props) => {
               name="isUse"
               width="m"
             />
-             <ProFormSelect
+             {/* <ProFormSelect
               valueEnum={{
                 0: '否',
                 1: '是',
@@ -93,7 +93,7 @@ const AddCooperationModal = (props) => {
               label="置顶"
               name="isOverHead"
               width="m"
-            />
+            /> */}
           </ProForm.Group>
           
           <ProForm.Group>

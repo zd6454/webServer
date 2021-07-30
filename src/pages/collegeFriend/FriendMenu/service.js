@@ -12,7 +12,7 @@ export async function queryRule(data) {
   })
 }
 export async function removeRule(params) {
-  return request('http://1.116.77.118:2333/schoolmate/deleteSchoolmate', {
+  return request('http://1.116.77.118:2333/schoolmate/deleteSchoolmates', {
     method: 'POST',
     data: {schoolmates:params}
   })
@@ -43,9 +43,10 @@ export async function updateImg(param,schoolmateId){
   const imgOri = param.map((item) => {
     return item.originFileObj;
   });
+  console.log(imgOri[0],schoolmateId)
   const img = new FormData();
   img.append('uploadfile', imgOri[0]);
-  img.append('schoolmateId',schoolmateId);
+  img.append('schoolmateId', schoolmateId);
   return request('http://1.116.77.118:2333/schoolmate/uploadFile', {
     method: 'POST',
     data: img,
