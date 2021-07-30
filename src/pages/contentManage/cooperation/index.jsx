@@ -322,10 +322,10 @@ const Index =() => {
         imgUrl:'',
         interCooperId:0,
       }
-      const interCooperId = await addRule(newData)
+      const {interCooperId} = await addRule(newData)
       console.log(interCooperId)
       await updateImg(data.imgUrl,interCooperId)
-      message.success('新增成功')
+      message.success('新增成功');
       actionRef.current.reload()   
     } catch (error) {
       message.error('失败请重试！');

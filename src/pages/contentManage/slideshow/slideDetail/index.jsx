@@ -9,20 +9,23 @@ class Index extends Component{
     constructor(props){
         super(props);
         this.state={
-         data:''
+           data:'',
+          bannerId:this.props.location.query.bannerId,
         }
     }
     componentDidMount(){
         this.getMessage();
      }
      getMessage=()=>{
-       request('#', {
+       request('http://1.116.77.118:2333/banner/getBanner', {
              method: 'GET',
+             params:{
+               bannerId:this.state.bannerId
+             }
            })
              .then((response)=> {
-               console.log(response)
                this.setState({
-                   data:response
+                   data:response.content
                })
              })
              .catch((error)=> {
@@ -30,9 +33,12 @@ class Index extends Component{
              });
      }
      sendMessage=(params)=>{
-         request('#', {
+         request('http://1.116.77.118:2333/banner/updateBannerContent', {
              method: 'POST',
-             data:params,
+             data:{
+               "bannerId":this.state.bannerId,
+               "content":params["content"],
+             },
            })
              .then(function(response) {
                message.success('信息保存成功')
@@ -48,7 +54,7 @@ class Index extends Component{
               <div>
                   <ZdTextArea
                    data={data}
-                   imgUrl={'#'}
+                   imgUrl={'http://1.116.77.118:2333/information/uploadFile/Banner'}
                    comfirm={this.sendMessage}
                   />
               </div>
