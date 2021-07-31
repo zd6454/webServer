@@ -1,0 +1,64 @@
+import React, { useState,useEffect } from 'react';
+
+import ZdEditForm from '../../../components/ZdEditForm';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import { updateImg,updateRule,getRule} from "../service";
+import { message} from 'antd';
+import moment from 'moment';
+
+const Index = (props)=>{
+  const departmentId=props.location.query.id;
+  const [initData,setInitData]=useState();
+  const dateFormat = 'YYYY-MM-DD'
+  useEffect(()=>{
+    const getData =async()=>{
+      const info = await getRule(departmentId);
+      setInitData({
+        title:info.name,
+        imgUrl:info.imgUrl,
+        content:info.content,
+        time:info.time?moment(info.time.substring(0,10), dateFormat):moment(new Date(), dateFormat),
+        sort:info.sort,
+        isUse: info.isUse,
+      });
+    };
+    getData();
+  },[]);
+
+  const handleOk= async(data)=>{
+    try {
+      const newData = {
+        sort:Number(data.sort),
+        isUse:Number(data.isUse),
+        name:data.title,
+        time:data.time,
+        imgUrl:"",
+        content:data.content,
+        departmentId,
+      };
+      if(Array.isArray(data.imgUrl)&&data.imgUrl[0].originFileObj){
+        await updateImg(data.imgUrl,departmentId);
+      }
+      await  updateRule(newData);
+      message.success('修改成功')
+    } catch (error) {
+      message.error('失败请重试！');
+    }
+
+  };
+
+  return(
+    <PageHeaderWrapper>
+      <ZdEditForm
+        handleOk={handleOk}
+        data={{departmentId,}}
+        id={departmentId}
+        initData={initData}
+        imgUrl={'http://1.116.77.118:2333/information/uploadFile/Department'}
+        getRule={getRule}
+      />
+    </PageHeaderWrapper>
+  )
+};
+
+export  default  Index;

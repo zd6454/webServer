@@ -11,7 +11,7 @@ import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import AddDepartmentModal from './addDepartmentModal/index'
 import moment from 'moment';
 
-const Index =() => {
+const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);
   const [deletedepartmentIds, setDeletedepartmentIds] = useState([]);
   const actionRef = useRef();
@@ -154,6 +154,9 @@ const Index =() => {
            <div>启用</div>
           }
         </a>,
+        <a onClick={()=>{props.history.push(`/schoolDetail/department/detail?id=${row.departmentId}`)}}>
+          详情
+        </a>
       ],
     },
   ];

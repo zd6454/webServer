@@ -247,7 +247,7 @@ const Index =(props) => {
   }
 
   const handleToDetail = (res) => {
-     props.history.push(`/contentManage/slideshow/slideDetail?id=${res.interCooperId}`)
+     props.history.push(`/contentManage/cooperation/detail?id=${res.interCooperId}`)
   };
 
 
