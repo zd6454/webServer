@@ -135,6 +135,12 @@
     icon: 'crown',
     routes:[
       {
+        path: '/schoolDetail/schoolVideo',
+        name: '视频管理',
+        icon: 'smile',
+        component: './schoolDetail/schoolVideo',
+      },
+      {
         path: '/schoolDetail/schoolInfo',
         name: '学校简介',
         icon: 'smile',
