@@ -19,7 +19,7 @@
     path: '/contentManage',
     name: '内容管理',
     icon: 'branches',
-    routes:[
+    routes: [
       {
         path: '/contentManage/slideshow',
         name: '轮播图',
@@ -89,13 +89,13 @@
         icon: 'smile',
         component: './contentManage/abroadStep',
       },
-    ]
+    ],
   },
   {
     path: '/collegeFriend',
     name: '校友会',
     icon: 'branches',
-    routes:[
+    routes: [
       {
         path: '/collegeFriend/friendMenu',
         name: '校友清单',
@@ -121,13 +121,19 @@
         icon: 'smile',
         component: './collegeFriend/agency',
       },
-    ]
+    ],
   },
   {
     path: '/schoolDetail',
     name: '学校概况',
     icon: 'crown',
-    routes:[
+    routes: [
+      {
+        path: '/schoolDetail/videoManage',
+        name: '视频管理',
+        icon: 'smile',
+        component: './schoolDetail/videoManage',
+      },
       {
         path: '/schoolDetail/schoolInfo',
         name: '学校简介',
@@ -165,13 +171,13 @@
         icon: 'smile',
         component: './schoolDetail/classInfo',
       },
-    ]
+    ],
   },
   {
     path: '/forumDetail',
     name: '论坛管理',
     icon: 'crown',
-    routes:[
+    routes: [
       {
         path: '/forumDetail/forumMenu',
         name: '论坛清单',
@@ -197,13 +203,13 @@
         icon: 'smile',
         component: './forumDetail/userComment',
       },
-    ]
+    ],
   },
   {
     path: '/userManage',
     name: '用户管理',
     icon: 'crown',
-    routes:[
+    routes: [
       {
         path: '/userManage/userList',
         name: '用户列表',
@@ -217,12 +223,24 @@
         component: './userManage/messageMenu',
       },
       {
+        path: '/userManage/messageSend',
+        name: '消息发送',
+        icon: 'smile',
+        component: './userManage/messageSend',
+      },
+      {
         path: '/userManage/abroadMaterial',
         name: '留学材料',
         icon: 'smile',
         component: './userManage/abroadMaterial',
       },
-    ]
+    ],
+  },
+  {
+    path: '/adminManage',
+    name: '管理员管理',
+    icon: 'crown',
+    component: './adminManage',
   },
   // {
   //   path: '/admin',
