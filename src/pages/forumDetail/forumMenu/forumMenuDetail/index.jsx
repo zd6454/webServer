@@ -7,17 +7,18 @@ import { message} from 'antd';
 import moment from 'moment';
 
 const Index = (props)=>{
-  const departmentId=props.location.query.id;
+  const forumId=props.location.query.id;
   const [initData,setInitData]=useState();
   const dateFormat = 'YYYY-MM-DD'
   useEffect(()=>{
     const getData =async()=>{
-      const info = await getRule(departmentId);
+      const info = await getRule(forumId);
+      console.log(info,'info');
       setInitData({
-        title:info.name,
+        title:info.title,
         imgUrl:info.imgUrl,
         content:info.content,
-        time:info.time?moment(info.time.substring(0,10), dateFormat):moment(new Date(), dateFormat),
+        time:moment(info.time.substring(0,10), dateFormat),
         sort:info.sort,
         isUse: info.isUse,
       });
@@ -30,15 +31,15 @@ const Index = (props)=>{
       const newData = {
         sort:Number(data.sort),
         isUse:Number(data.isUse),
-        name:data.title,
+        title:data.title,
         time:data.time,
         imgUrl:initData.imgUrl,
         content:data.content,
-        departmentId,
+        forumId,
       };
       await  updateRule(newData);
       if(Array.isArray(data.imgUrl)&&data.imgUrl[0].originFileObj){
-        await updateImg(data.imgUrl,departmentId);
+        await updateImg(data.imgUrl,forumId);
       }
       message.success('修改成功')
     } catch (error) {
@@ -51,10 +52,10 @@ const Index = (props)=>{
     <PageHeaderWrapper>
       <ZdEditForm
         handleOk={handleOk}
-        data={{departmentId,}}
-        id={departmentId}
+        data={{forumId,}}
+        id={forumId}
         initData={initData}
-        imgUrl={'http://1.116.77.118:2333/information/uploadFile/Department'}
+        imgUrl={'http://1.116.77.118:2333/information/uploadFile/Forum'}
         getRule={getRule}
       />
     </PageHeaderWrapper>

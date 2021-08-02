@@ -245,7 +245,7 @@ const Index =(props) => {
       message.error('失败请重试！');
     }
     handleCancel()
-  }
+  };
 
 
   const handleUse= async (row)=>{

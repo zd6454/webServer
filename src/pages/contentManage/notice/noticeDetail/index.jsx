@@ -13,7 +13,6 @@ const dateFormat = 'YYYY-MM-DD'
   useEffect(()=>{
     const getData =async()=>{
       const info = await getRule(noticeId);
-      console.log(info,'info');
       setInitData({
         title:info.title,
         imgUrl:info.imgUrl,
@@ -33,15 +32,14 @@ const handleOk= async(data)=>{
       isUse:Number(data.isUse),
       title:data.title,
       time:data.time,
-      imgUrl:"",
+      imgUrl:initData.imgUrl,
       content:data.content,
       noticeId,
     };
-    if(Array.isArray(data.imgUrl)&&data.imgUrl[0].originFileObj){
-     const url = await updateImg(data.imgUrl,noticeId);
-     console.log(url,'url');
-    }
     await  updateRule(newData);
+    if(Array.isArray(data.imgUrl)&&data.imgUrl[0].originFileObj){
+     await updateImg(data.imgUrl,noticeId);
+    }
     message.success('修改成功')
   } catch (error) {
     message.error('失败请重试！');

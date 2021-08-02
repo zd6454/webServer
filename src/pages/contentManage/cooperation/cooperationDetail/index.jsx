@@ -32,14 +32,14 @@ const Index = (props)=>{
         isUse:Number(data.isUse),
         title:data.title,
         time:data.time,
-        imgUrl:"",
+        imgUrl:data.imgUrl,
         content:data.content,
         interCooperId,
       };
+      await  updateRule(newData);
       if(Array.isArray(data.imgUrl)&&data.imgUrl[0].originFileObj){
         await updateImg(data.imgUrl,interCooperId);
       }
-      await  updateRule(newData);
       message.success('修改成功')
     } catch (error) {
       message.error('失败请重试！');

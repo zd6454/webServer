@@ -102,7 +102,13 @@
         icon: 'smile',
         component: './collegeFriend/friendMenu',
       },
-
+      {
+        path: '/collegeFriend/friendMenu/detail',
+        name: '校友详情',
+        icon: 'smile',
+        hideInMenu: 'true',
+        component: './collegeFriend/friendMenu/friendMenuDetail',
+      },
       {
         path: '/collegeFriend/structural',
         name: '校友架构',
@@ -183,7 +189,7 @@
         name: '论坛详情',
         icon: 'smile',
         hideInMenu: 'true',
-        component: './forumDetail/forumMenu',
+        component: './forumDetail/forumMenu/forumMenuDetail',
       },
       {
         path: '/forumDetail/forumComment',
