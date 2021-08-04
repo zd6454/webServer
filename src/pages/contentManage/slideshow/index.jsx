@@ -235,7 +235,7 @@ const Index =(props) => {
   }
 
   const handleToDetail = (res) => {
-     props.history.push(`/contentManage/slideshow/slideDetail?id=${res.bannerId}`)
+     props.history.push(`/contentManage/slideshow/slideDetail?bannerId=${res.bannerId}`)
   };
 
 

@@ -77,6 +77,13 @@
         component: './contentManage/cooperation',
       },
       {
+        path: '/contentManage/cooperation/detail',
+        name: '合作详情',
+        icon: 'smile',
+        hideInMenu: 'true',
+        component: './contentManage/cooperation/cooperationDetail',
+      },
+      {
         path: '/contentManage/abroadStep',
         name: '留学流程',
         icon: 'smile',
@@ -95,7 +102,13 @@
         icon: 'smile',
         component: './collegeFriend/friendMenu',
       },
-
+      {
+        path: '/collegeFriend/friendMenu/detail',
+        name: '校友详情',
+        icon: 'smile',
+        hideInMenu: 'true',
+        component: './collegeFriend/friendMenu/friendMenuDetail',
+      },
       {
         path: '/collegeFriend/structural',
         name: '校友架构',
@@ -122,6 +135,12 @@
     icon: 'crown',
     routes:[
       {
+        path: '/schoolDetail/schoolVideo',
+        name: '视频管理',
+        icon: 'smile',
+        component: './schoolDetail/schoolVideo',
+      },
+      {
         path: '/schoolDetail/schoolInfo',
         name: '学校简介',
         icon: 'smile',
@@ -146,6 +165,13 @@
         component: './schoolDetail/department',
       },
       {
+        path: '/schoolDetail/department/detail',
+        name: '学部具体',
+        icon: 'smile',
+        hideInMenu: 'true',
+        component: './schoolDetail/department/departmentDetail',
+      },
+      {
         path: '/schoolDetail/classInfo',
         name: '课程介绍',
         icon: 'smile',
@@ -163,6 +189,13 @@
         name: '论坛清单',
         icon: 'smile',
         component: './forumDetail/forumMenu',
+      },
+      {
+        path: '/forumDetail/forumMenu/detail',
+        name: '论坛详情',
+        icon: 'smile',
+        hideInMenu: 'true',
+        component: './forumDetail/forumMenu/forumMenuDetail',
       },
       {
         path: '/forumDetail/forumComment',

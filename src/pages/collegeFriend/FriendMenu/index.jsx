@@ -10,7 +10,7 @@ import { Button, message, Input, Drawer,Image, Upload,Select } from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import AddFriendModal from './addFriendModal/index'
 
-const Index =() => {
+const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);
   const [deleteschoolmateIds, setDeleteschoolmateIds] = useState([]);
   const actionRef = useRef();
@@ -162,6 +162,9 @@ const Index =() => {
            <div>启用</div>
           }
         </a>,
+        <a onClick={()=>{props.history.push(`/collegeFriend/friendMenu/detail?id=${row.schoolmateId}`)}}>
+          详情
+        </a>
       ],
     },
   ];

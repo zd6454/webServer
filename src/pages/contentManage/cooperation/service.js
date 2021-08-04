@@ -66,3 +66,10 @@ export async function updateRule(params) {
     data: params
   });
 }
+
+export async function getRule(id) {
+  return request('http://1.116.77.118:2333/interCooperation/getInterCooper', {
+    method: 'GET',
+    params: {interCooperId:id}
+  })
+}

@@ -32,7 +32,6 @@ class ZdTextArea  extends Component{
       editor.txt.html(content)
     }
     editor.config.customUploadImg = function (resultFiles, insertImgFn) {
-        console.log(resultFiles);
         const data= new FormData();
         data.append('uploadfile',resultFiles[0]);
         data.append('index',resultFiles[0].name);
@@ -74,7 +73,6 @@ class ZdTextArea  extends Component{
   contentPublic=()=>{
       const{editor}=this.state;
       const content = editor.txt.html();
-      console.log(editor.txt.html())
       const params= {'content':content}
       if(this.props.comfirm){
           this.props.comfirm(params)

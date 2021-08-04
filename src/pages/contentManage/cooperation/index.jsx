@@ -259,7 +259,7 @@ const Index =(props) => {
   }
 
   const handleToDetail = (res) => {
-     props.history.push(`/contentManage/slideshow/slideDetail?id=${res.interCooperId}`)
+     props.history.push(`/contentManage/cooperation/detail?id=${res.interCooperId}`)
   };
 
 
@@ -310,6 +310,11 @@ const Index =(props) => {
         message.success('新增成功')
         actionRef.current.reload()   
       }
+      const interCooperId = await addRule(newData)
+      console.log(interCooperId)
+      await updateImg(data.imgUrl,interCooperId)
+      message.success('新增成功');
+      actionRef.current.reload()
     } catch (error) {
       message.error('失败请重试！');
     }

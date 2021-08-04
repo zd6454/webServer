@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import { Card,Form,Input,Modal,Upload,DatePicker,Radio,InputNumber,Button } from 'antd';
+import { Card,Form,Input,Modal,Upload,DatePicker,Radio,InputNumber,Button,message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ZdTextArea from "./ZdTextArea";
 import moment from 'moment';
@@ -72,6 +72,7 @@ class ZdEditForm extends Component{
    */
   sendMessage=(params)=>{
     this.setState({content:params['content']})
+    message.success("信息保存成功");
   };
 
   /**
@@ -157,12 +158,6 @@ componentWillReceiveProps(nextProps, nextContext) {
             label="正文"
             wrapperCol={{span:16}}
             name="content"
-            rules={[
-              {
-                required: true,
-                message: '请填写内容',
-              },
-            ]}
           >
             <ZdTextArea  NoAuto={true}
                          content={initData.content}

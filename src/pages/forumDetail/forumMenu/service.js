@@ -67,4 +67,9 @@ export async function updateRule(params) {
   });
 }
 
-
+export async function getRule(id) {
+  return request('http://1.116.77.118:2333/forum/getForum', {
+    method: 'GET',
+    params: {forumId:id}
+  })
+}
