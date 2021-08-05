@@ -7,9 +7,9 @@ import { message} from 'antd';
 import moment from 'moment';
 
 const Index = (props)=>{
-const noticeId=props.location.query.id;
+const noticeId=Number(props.location.query.id);
 const [initData,setInitData]=useState();
-const dateFormat = 'YYYY-MM-DD'
+const dateFormat = 'YYYY-MM-DD hh:mm:ss';
   useEffect(()=>{
     const getData =async()=>{
       const info = await getRule(noticeId);

@@ -238,9 +238,8 @@ const Index =(props) => {
         time:timeDate,
         // time:new Date,
         content:'',
-        title:title,
-        imgUrl:imgUrl,
-        content:'',
+        title,
+        imgUrl,
       }
       await updateRule(newData);
       if(img){

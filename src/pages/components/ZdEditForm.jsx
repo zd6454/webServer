@@ -29,9 +29,11 @@ class ZdEditForm extends Component{
     }
 
   onFinish=(e)=>{
+    const dateFormat = 'YYYY-MM-DD hh:mm:ss';
     const{initData} = this.props;
       e.content=this.state.content?this.state.content:initData.content;
       e.imgUrl=this.state.fileList;
+      e.time = e.time.format(dateFormat);
    this.props.handleOk(e);
   };
 
@@ -52,7 +54,6 @@ class ZdEditForm extends Component{
     });
   };
   handleChange = ({ fileList }) => {
-    console.log(fileList);
     this.setState({fileList}
     );
   };
@@ -89,6 +90,7 @@ componentWillReceiveProps(nextProps, nextContext) {
 
   initImg=()=>{
     const{initData} = this.props;
+
     const fileList=[];
     if(initData)
       fileList.push({
@@ -175,7 +177,7 @@ componentWillReceiveProps(nextProps, nextContext) {
               },
             ]}
           >
-            <DatePicker />
+            <DatePicker format="YYYY-MM-DD"  />
           </Form.Item>
           <Form.Item
             name="isUse"
