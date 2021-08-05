@@ -15,6 +15,7 @@ const Index =(props) => {
   const actionRef = useRef();
   const [canEdit,setCanEdit] = useState(false)
   const [title,setTitle] = useState('')
+  const [content,setContent] = useState('')
   const [sort,setSort] = useState('')
   const [imgUrl,setImgUrl] = useState('')
   const [isUse,setIsUse] = useState('')
@@ -107,14 +108,14 @@ const Index =(props) => {
       title: '发表时间',
       dataIndex: 'time',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.forumId){
-          return(
-            // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
-            <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
-          )
-        }else{
+        // if(canEdit && editId === row.forumId){
+        //   return(
+        //     // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
+        //     <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
+        //   )
+        // }else{
           return row.time.substring(0,10)
-        }
+        // }
       },
       // renderText: (val) =>
       //   `${val}万`,
@@ -126,6 +127,20 @@ const Index =(props) => {
         if(canEdit  && editId === row.forumId){
           return(
             <Input value={title} onChange={(e)=>setTitle(e.target.value)}/>
+          )
+        }else{
+          return text
+        }
+      },
+      // sorter:true,
+    },
+    {
+      title: '论坛内容',
+      dataIndex: 'content',
+      render: (text, row, _, action) => {
+        if(canEdit  && editId === row.forumId){
+          return(
+            <Input value={content} onChange={(e)=>setContent(e.target.value)}/>
           )
         }else{
           return text
@@ -171,9 +186,12 @@ const Index =(props) => {
           <div>启用</div>
           }
         </a>,
-        <a onClick={()=>{props.history.push(`/contentManage/notice/detail/?id=${row.forumId}`)}}>
-          详情
-        </a>
+        // <a onClick={()=>{props.history.push(`/contentManage/notice/detail/?id=${row.forumId}`)}}>
+        //   详情
+        // </a>,
+         <a onClick={()=>{props.history.push(`/forumDetail/forumComment/?id=${row.forumId}`)}}>
+          论坛评论
+       </a>
       ],
     },
   ];
@@ -193,6 +211,7 @@ const Index =(props) => {
   const handleEdit = (row)=>{
     setCanEdit(true)
     setTitle(row.title)
+    setContent(row.content)
     setImgUrl(row.imgUrl)
     setSort(row.sort)
     setIsUse(row.isUse === 1?'是':'否')
@@ -213,6 +232,7 @@ const Index =(props) => {
   const handleCancel =()=>{
     setCanEdit(false)
     setTitle('')
+    setContent('')
     setImgUrl('')
     setSort('')
     setIsUse('')
@@ -233,6 +253,8 @@ const Index =(props) => {
         forumId:Number(editId),
         sort:Number(sort),
         isUse:isUse===0||isUse==='否'?0:1,
+        userId:'',
+        content:content,
         // isOverhead:Number(isOverhead),
         time:timeDate,
         // time:new Date(),
@@ -308,10 +330,11 @@ const Index =(props) => {
   const handleOk = async(data)=>{
     try {
       const newData = {
-        sort:Number(data.sort),
+        sort:data.isUse === 0? 0: Number(data.sort),
         isUse:Number(data.isUse),
         title:data.title,
-        // content:'',
+        userId:'',
+        content:data.title,
         // isOverhead:data.isOverhead,
         time:new Date(),
         imgUrl:'',
@@ -333,7 +356,7 @@ const Index =(props) => {
       <PageHeaderWrapper>
         <ProTable
           className={styles.tableMain}
-          headerTitle='论坛清单'
+          headerTitle='管理员论坛'
           rowKey="forumId"
           actionRef={actionRef}
           toolBarRender={() => [

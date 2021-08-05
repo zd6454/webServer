@@ -28,7 +28,7 @@ const dateFormat = 'YYYY-MM-DD'
 const handleOk= async(data)=>{
   try {
     const newData = {
-      sort:Number(data.sort),
+      sort:data.isUse === 0? 0: Number(data.sort),
       isUse:Number(data.isUse),
       title:data.title,
       time:data.time,

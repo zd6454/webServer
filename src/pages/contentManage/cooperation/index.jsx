@@ -122,14 +122,14 @@ const Index =(props) => {
       title: '时间',
       dataIndex: 'time',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.interCooperId){
-          return(
-            // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
-            <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
-          )
-        }else{
+        // if(canEdit && editId === row.interCooperId){
+        //   return(
+        //     // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
+        //     <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
+        //   )
+        // }else{
           return row.time.substring(0,10)
-        }
+        // }
       },
       // sorter:true,
     },
@@ -191,6 +191,7 @@ const Index =(props) => {
     setImgUrl(row.imgUrl)
     setSort(row.sort)
     setIsUse(row.isUse === 1?'是':'否')
+    // setTime(row.time.substring(0,10))
     setTime(row.time.substring(0,10))
     setTimeDate(row.time)
     setEditId(row.interCooperId)
@@ -226,8 +227,8 @@ const Index =(props) => {
         interCooperId:Number(editId),
         sort:Number(sort),
         isUse:isUse===0||isUse==='否'?0:1,
-        title:title,
-        imgUrl:imgUrl,
+        title,
+        imgUrl,
         time:timeDate,
         content:'',
       }
@@ -296,7 +297,7 @@ const Index =(props) => {
   const handleOk = async(data)=>{
     try {
       const newData = {
-        sort:Number(data.sort),
+        sort:data.isUse === 0? 0: Number(data.sort),
         isUse:Number(data.isUse),
         title:data.title,
         time:new Date(),

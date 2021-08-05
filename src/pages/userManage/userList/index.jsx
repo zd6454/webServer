@@ -1,78 +1,78 @@
 import React,{Component,useState, useRef} from 'react'
 import { PageHeaderWrapper,PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import { queryRule, updateRule, addRule, removeRule,useRule,stopRule,updateImg,useOverRule } from './service';
+import { queryRule, updateRule, removeRule,updateImg } from './service';
 import { FormattedMessage } from 'umi';
 import styles from './style.less';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Button, message, Input, Drawer,Image, Upload, DatePicker } from 'antd';
+import { Button, message, Input, Drawer,Image, Upload, DatePicker,Select } from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import AddNoticeModal from './addNoticeModal/index'
-import moment from 'moment';
+// import AddNoticeModal from './addNoticeModal/index'
+// import moment from 'moment';
 
 const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);
-  const [deletenoticeIds, setDeletenoticeIds] = useState([]);
+  const [deleteuserIds, setDeleteuserIds] = useState([]);
   const actionRef = useRef();
   const [canEdit,setCanEdit] = useState(false)
-  const [title,setTitle] = useState('')
-  const [sort,setSort] = useState('')
+  const [username,setUsername] = useState('')
+  const [gender,setGender] = useState(1)
   const [imgUrl,setImgUrl] = useState('')
-  const [isUse,setIsUse] = useState('')
-  const [isOverhead,setIsOverhead] = useState('')
-  const [time,setTime] = useState('')
-  const [timeDate,setTimeDate] = useState()
+  const [school,setSchool] = useState('')
+  const [institute,setInstitute] = useState('')
+  const [clazz,setClazz] = useState('')
+  // const [isOverhead,setIsOverhead] = useState('')
+  const [phone,setPhone] = useState('')
+  const [address,setAddress] = useState()
   const [editId,setEditId] = useState(-1)
   const [fileList,setFileList] = useState([])
   const [img,setImg]= useState(false)
-  const [modalVisible,setModalVisible] = useState(false)
+  const [registerTime,setRegister] = useState('')
+  const [privilege,setPrivilege] = useState()
 
   const uploadButton = (
     <div>
       <PlusOutlined />
-      <div style={{ marginTop: 8 }}>点击上传图片</div>
+      <div style={{ marginTop: 8 }}>点击上传头像</div>
     </div>
   );
 
-  const dateFormat = 'YYYY-MM-DD'
-
-
   const columns = [
     {
-      title: '图片',
+      title: '头像',
       dataIndex: 'imgUrl',
       render: (dom, row) => {
-        if(canEdit && editId === row.noticeId){
-          return(
-            <Upload
-            action=""
-            listType="picture-card"
-            fileList={fileList}
-            onRemove={onRemove}
-            onChange={handleChange}
-            beforeUpload={() => {
-              return false;
-            }}
-          >
-          {fileList.length >= 1 ? null : uploadButton}
-        </Upload>
-          )
-        }else{
+        // if(canEdit && editId === row.userId){
+        //   return(
+        //     <Upload
+        //     action=""
+        //     listType="picture-card"
+        //     fileList={fileList}
+        //     onRemove={onRemove}
+        //     onChange={handleChange}
+        //     beforeUpload={() => {
+        //       return false;
+        //     }}
+        //   >
+        //   {fileList.length >= 1 ? null : uploadButton}
+        // </Upload>
+        //   )
+        // }else{
           return (
             <Image src={row.imgUrl}
-              width={180}
+              width={100}
               height={100}
             />
           );
-        }
+        // }
       },
     }, 
     {
-      title: '顺序',
-      dataIndex: 'sort',
+      title: '姓名',
+      dataIndex: 'username',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.noticeId){
+        if(canEdit && editId === row.userId){
           return(
-            <Input value={sort} onChange={(e)=>setSort(e.target.value)}/>
+            <Input value={username} onChange={(e)=>setUsername(e.target.value)}/>
           )
         }else{
          return text
@@ -81,72 +81,88 @@ const Index =(props) => {
       },
     },
     {
-      title: '是否启用',
-      dataIndex: 'isUse',
+      title: '性别',
+      dataIndex: 'gender',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.noticeId){
+        if(canEdit && editId === row.userId){
           return(
-            <Select value={isUse} onChange={(e)=>setIsUse(e)}>
-              <Select.Option value={1}>是</Select.Option>
-              <Select.Option value={0}>否</Select.Option>
+            <Select value={gender} onChange={(e)=>setGender(e)}>
+              <Select.Option value={1}>男</Select.Option>
+              <Select.Option value={0}>女</Select.Option>
             </Select>
           )
         }else{
-          if(row.isUse === 1){
-            return '是'
+          if(row.gender === 1){
+            return '男'
           }else{
-            return '否'
+            return '女'
           }
         }
-       
-      },
-      // renderText: (val) =>
-      //   `${val}万`,
+       }
     },
     {
-      title: '是否置顶',
-      dataIndex: 'isOverhead',
+      title: '学校',
+      dataIndex: 'school',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.noticeId){
+        if(canEdit && editId === row.userId){
           return(
-            <Input value={isOverhead} onChange={(e)=>setIsOverhead(e.target.value)}/>
+            <Input value={school} onChange={(e)=>setSchool(e.target.value)}/>
           )
         }else{
-          if(row.isOverhead === 1){
-            return '是'
-          }else{
-            return '否'
-          }
+         return text
         }
        
       },
-      // renderText: (val) =>
-      //   `${val}万`,
     },
     {
-      title: '时间',
-      dataIndex: 'time',
+      title: '学院',
+      dataIndex: 'institute',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.noticeId){
+        if(canEdit && editId === row.userId){
           return(
-            // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
-            <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
+            <Input value={institute} onChange={(e)=>setInstitute(e.target.value)}/>
           )
         }else{
-          return row.time.substring(0,10)
+         return text
         }
        
       },
-      // renderText: (val) =>
-      //   `${val}万`,
     },
     {
-      title: '标题',
-      dataIndex: 'title',
+      title: '班级',
+      dataIndex: 'clazz',
       render: (text, row, _, action) => {
-        if(canEdit  && editId === row.noticeId){
+        if(canEdit && editId === row.userId){
           return(
-            <Input value={title} onChange={(e)=>setTitle(e.target.value)}/>
+            <Input value={clazz} onChange={(e)=>setClazz(e.target.value)}/>
+          )
+        }else{
+         return text
+        }
+       
+      },
+    },
+    {
+      title: '联系方式',
+      dataIndex: 'phone',
+      render: (text, row, _, action) => {
+        if(canEdit && editId === row.userId){
+          return(
+            <Input value={phone} onChange={(e)=>setPhone(e.target.value)}/>
+          )
+        }else{
+         return text
+        }
+       
+      },
+    },
+    {
+      title: '地址',
+      dataIndex: 'address',
+      render: (text, row, _, action) => {
+        if(canEdit  && editId === row.userId){
+          return(
+            <Input value={address} onChange={(e)=>setAddress(e.target.value)}/>
           )
         }else{
           return text
@@ -172,27 +188,7 @@ const Index =(props) => {
             </>
           }
         </a>,
-         <a onClick={()=>handleOverHead(row)}>
-         {
-          !canEdit && row.isOverHead === 1 &&
-          <div>取消置顶</div>
-         }
-          {
-          !canEdit && row.isOverHead !== 1 &&
-          <div>置顶</div>
-         }
-       </a>,
-        <a onClick={()=>handleUse(row)}>
-          {
-           !canEdit && row.isUse === 1 &&
-           <div>取消启用</div>
-          }
-           {
-           !canEdit && row.isUse !== 1 &&
-           <div>启用</div>
-          }
-        </a>,
-        <a onClick={()=>{props.history.push(`/contentManage/notice/detail/?id=${row.noticeId}`)}}>
+        <a onClick={()=>{props.history.push(`/contentManage/notice/detail/?id=${row.userId}`)}}>
           详情
         </a>
       ],
@@ -213,14 +209,18 @@ const Index =(props) => {
 
   const handleEdit = (row)=>{
     setCanEdit(true)
-    setTitle(row.title)
+    setUsername(row.username)
     setImgUrl(row.imgUrl)
-    setSort(row.sort)
-    setIsUse(row.isUse)
-    setIsOverhead(row.isOverhead)
-    setTime(row.time.substring(0,10))
-    setTimeDate(row.time)
-    setEditId(row.noticeId)
+    setGender(row.gender)
+    setSchool(row.school)
+    setInstitute(row.institute)
+    setClazz(row.clazz)
+    // setIsOverhead(row.isOverhead)
+    setPhone(row.phone)
+    setAddress(row.address)
+    setEditId(row.userId)
+    setRegister(row.registerTime)
+    setPrivilege(row.privilege)
     setFileList([
       {
         uid: '-1',
@@ -233,13 +233,17 @@ const Index =(props) => {
 
   const handleCancel =()=>{
     setCanEdit(false)
-    setTitle('')
+    setUsername('')
     setImgUrl('')
-    setSort('')
-    setIsUse('')
-    setIsOverhead('')
-    setTime('')
-    setTimeDate()
+    setGender('')
+    setSchool('')
+    setInstitute('')
+    setClazz('')
+    // setIsOverhead(row.isOverhead)
+    setPhone('')
+    setAddress('')
+    setRegister('')
+    setPrivilege('')
     setEditId(-1)
     setImg(false)
   }
@@ -247,15 +251,18 @@ const Index =(props) => {
   const handleUpdate = async ()=>{
     try {
       const newData = {
-        noticeId:Number(editId),
-        sort:Number(sort),
-        isUse:isUse===0||isUse==='否'?0:1,
-        isOverhead:Number(isOverhead),
-        // time:timeDate,
-        time:'',
-        content:'',
-        title:title,
-        imgUrl:imgUrl,
+        userId:editId,
+        username,
+        gender,
+        address,
+        school,
+        institute,
+        clazz,
+        registerTime,
+        phone,
+        privilege,
+        imgUrl,
+        // content:'',
       }
       await updateRule(newData);
       if(img){
@@ -272,42 +279,29 @@ const Index =(props) => {
 
   const handleUse= async (row)=>{
     try {
-      
-      await useRule(row.noticeId);
-      // await useRule(url,row.noticeId,row.sort);
-      actionRef.current.reload()   
-    } catch (error) {
-      message.error('失败请重试！');
-    }
-  }
-
-  const handleOverHead= async (row)=>{
-    try {
-      if(row.isOverHead !== 1){
-        await useOverRule(row.noticeId);
+      if(row.isUse !== 1){
+        await useRule(row.userId);
       }else{
-        await stopOverRule(row.noticeId,row.sort);
+        await stopRule(row.userId,row.sort);
       }
-      // await useRule(url,row.noticeId,row.sort);
+      // await useRule(url,row.bannerId,row.sort);
       actionRef.current.reload()   
     } catch (error) {
       message.error('失败请重试！');
     }
   }
-
-  
   const setSelectedRows=(data)=>{
     let ids = []
     data.map(item=>{
-      ids.push(item.noticeId)
+      ids.push(item.userId)
     })
-    setDeletenoticeIds(ids)
+    setDeleteuserIds(ids)
   }
 
   const handleDelete= async ()=>{
     // const hide = message.loading('正在删除');
     try {
-      await removeRule(deletenoticeIds);
+      await removeRule(deleteuserIds);
       message.success('删除成功');
       actionRef.current.reload()   
     } catch (error) {
@@ -320,20 +314,19 @@ const Index =(props) => {
   }
 
   const handleOk = async(data)=>{
-    console.log(data)
     try {
       const newData = {
-        sort:Number(data.sort),
+        sort:data.isUse === 0? 0: Number(data.sort),
         isUse:Number(data.isUse),
         title:data.title,
-        isOverhead:data.isOverhead,
+        content:'',
+        // isOverhead:data.isOverhead,
         time:new Date(),
         imgUrl:'',
-        noticeId:0,
+        userId:0,
       }
-      const noticeId = await addRule(newData)
-      console.log(noticeId);
-      await updateImg(data.imgUrl.fileList,noticeId)
+      const res = await addRule(newData)
+      await updateImg(data.imgUrl.fileList,res.userId)
       message.success('新增成功')
       actionRef.current.reload()   
     } catch (error) {
@@ -348,19 +341,19 @@ const Index =(props) => {
       <PageHeaderWrapper>
         <ProTable
           className={styles.tableMain}
-          headerTitle='置顶通知'
-          rowKey="noticeId"
+          headerTitle='用户列表'
+          rowKey="userId"
           actionRef={actionRef}
           toolBarRender={() => [
-            <Button type="primary" key="primary" onClick={() => setModalVisible(true)}>
-              <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新增" />
-            </Button>,
+            // <Button type="primary" key="primary" onClick={() => setModalVisible(true)}>
+            //   <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新增" />
+            // </Button>,
             <Button type="ghost" key="primary" onClick={() => handleDelete()}>
               <DeleteOutlined /> <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
             </Button>,
           ]}
-          request={async () => {
-            const data = await queryRule();
+          request={async (params) => {
+            const data = await queryRule(params);
             return{
               data,
               total: data.length,
@@ -375,11 +368,11 @@ const Index =(props) => {
           options={false}
           recordCreatorProps={false}
         />
-        <AddNoticeModal
+        {/* <AddNoticeModal
           visible = {modalVisible}
           handleOk= {handleOk}
           handleCancel={handleCancelModal}
-        />
+        /> */}
       </PageHeaderWrapper>
   )
     

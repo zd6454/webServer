@@ -185,29 +185,36 @@
     icon: 'crown',
     routes:[
       {
-        path: '/forumDetail/forumMenu',
-        name: '论坛清单',
+        path: '/forumDetail/manageForum',
+        name: '管理员论坛',
         icon: 'smile',
-        component: './forumDetail/forumMenu',
-      },
-      {
-        path: '/forumDetail/forumMenu/detail',
-        name: '论坛详情',
-        icon: 'smile',
-        hideInMenu: 'true',
-        component: './forumDetail/forumMenu/forumMenuDetail',
+        component: './forumDetail/manageForum',
       },
       {
         path: '/forumDetail/forumComment',
         name: '论坛评论',
+        hideInMenu: 'true',
         icon: 'smile',
         component: './forumDetail/forumComment',
       },
+      // {
+      //   path: '/forumDetail/forumMenu/detail',
+      //   name: '论坛详情',
+      //   icon: 'smile',
+      //   hideInMenu: 'true',
+      //   component: './forumDetail/forumMenu/forumMenuDetail',
+      // },
+      // {
+      //   path: '/forumDetail/forumComment',
+      //   name: '论坛评论',
+      //   icon: 'smile',
+      //   component: './forumDetail/forumComment',
+      // },
       {
-        path: '/forumDetail/userComment',
+        path: '/forumDetail/userForum',
         name: '用户论坛',
         icon: 'smile',
-        component: './forumDetail/userComment',
+        component: './forumDetail/userForum',
       },
     ]
   },

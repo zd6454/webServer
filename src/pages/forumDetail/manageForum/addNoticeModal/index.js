@@ -50,18 +50,44 @@ const AddBannerModal = (props) => {
 
   return (
     <>
-      <Modal title="新增论坛评论" visible={props.visible} className={style.formModal} closable>
+      <Modal title="新增管理员论坛" visible={props.visible} className={style.formModal} closable>
       <ProForm onFinish={handleFinish} form={form}>
           <ProForm.Group>
             <ProFormText
               rules={[
                 {
                   required: true,
-                  message: '请输入评论标题',
+                  message: '请输入标题',
                 },
               ]}
               label="标题"
               name="title"
+              width="m"
+            />
+            <ProFormSelect
+              valueEnum={{
+                0: '否',
+                1: '是',
+              }}
+              rules={[
+                {
+                  required: true,
+                  message: '请选择是否启用',
+                },
+              ]}
+              label="启用"
+              name="isUse"
+              width="m"
+            />
+            <ProFormText
+              rules={[
+                {
+                  required: true,
+                  message: '请输入论坛内容',
+                },
+              ]}
+              label="内容"
+              name="content"
               width="m"
             />
             <ProFormSelect
@@ -98,10 +124,10 @@ const AddBannerModal = (props) => {
               width="m"
             />
           </ProForm.Group>
-          {/* <ProForm.Group>
+          <ProForm.Group>
             <Form.Item
               name="imgUrl"
-              label="上传置顶图"
+              label="上传论坛图"
               rules={[
                 {
                   required: false,
@@ -122,7 +148,7 @@ const AddBannerModal = (props) => {
                 {fileList.length >= 1 ? null : uploadButton}
               </Upload> 
              </Form.Item>
-           </ProForm.Group>  */}
+           </ProForm.Group> 
         </ProForm>
         <Button type="primary" className={style.cancel} onClick={props.handleCancel}>取消</Button>
 
