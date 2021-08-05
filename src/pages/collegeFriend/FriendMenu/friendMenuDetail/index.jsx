@@ -32,7 +32,7 @@ const Index = (props)=>{
         isUse:Number(data.isUse),
         name:data.title,
         time:data.time,
-        imgUrl:"",
+        imgUrl:initData.imgUrl,
         content:data.content,
         schoolmateId,
       };

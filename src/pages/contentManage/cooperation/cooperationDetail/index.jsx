@@ -32,7 +32,7 @@ const Index = (props)=>{
         isUse:Number(data.isUse),
         title:data.title,
         time:data.time,
-        imgUrl:data.imgUrl,
+        imgUrl:initData.imgUrl,
         content:data.content,
         interCooperId,
       };

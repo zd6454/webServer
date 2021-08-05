@@ -97,15 +97,15 @@ class Index extends Component {
               <Input />
             </Form.Item>
 
-            <Form.Item name="cover" label="封面">
-              <Upload
-                listType="picture-card"
-                onPreview={this.handlePreview}
-                onChange={this.handleChange}
-              >
-                {fileList.length > 0 ? null : uploadButton}
-              </Upload>
-            </Form.Item>
+            {/*<Form.Item name="cover" label="封面">*/}
+              {/*<Upload*/}
+                {/*listType="picture-card"*/}
+                {/*onPreview={this.handlePreview}*/}
+                {/*onChange={this.handleChange}*/}
+              {/*>*/}
+                {/*{fileList.length > 0 ? null : uploadButton}*/}
+              {/*</Upload>*/}
+            {/*</Form.Item>*/}
             <Form.Item name="text" label="正文">
               <Input.TextArea />
             </Form.Item>
