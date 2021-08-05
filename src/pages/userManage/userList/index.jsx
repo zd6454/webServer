@@ -86,7 +86,10 @@ const Index =(props) => {
       render: (text, row, _, action) => {
         if(canEdit && editId === row.noticeId){
           return(
-            <Input value={isUse} onChange={(e)=>setIsUse(e.target.value)}/>
+            <Select value={isUse} onChange={(e)=>setIsUse(e)}>
+              <Select.Option value={1}>是</Select.Option>
+              <Select.Option value={0}>否</Select.Option>
+            </Select>
           )
         }else{
           if(row.isUse === 1){
@@ -246,7 +249,7 @@ const Index =(props) => {
       const newData = {
         noticeId:Number(editId),
         sort:Number(sort),
-        isUse:Number(isUse),
+        isUse:isUse===0||isUse==='否'?0:1,
         isOverhead:Number(isOverhead),
         // time:timeDate,
         time:'',
