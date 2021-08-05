@@ -28,18 +28,18 @@ const dateFormat = 'YYYY-MM-DD'
 const handleOk= async(data)=>{
   try {
     const newData = {
-      sort:Number(data.sort),
+      sort:data.isUse === 0? 0: Number(data.sort),
       isUse:Number(data.isUse),
       title:data.title,
       time:data.time,
-      imgUrl:"",
+      imgUrl:initData.imgUrl,
       content:data.content,
       noticeId,
     };
-    if(Array.isArray(data.imgUrl)){
-      await updateImg(data.imgUrl.fileList,noticeId);
+    await  updateRule(newData);
+    if(Array.isArray(data.imgUrl)&&data.imgUrl[0].originFileObj){
+     await updateImg(data.imgUrl,noticeId);
     }
-    // await  updateRule(newData);
     message.success('修改成功')
   } catch (error) {
     message.error('失败请重试！');

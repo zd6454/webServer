@@ -7,12 +7,13 @@ import { message} from 'antd';
 import moment from 'moment';
 
 const Index = (props)=>{
-  const forumId=Number(props.location.query.id);
+  const forumId=props.location.query.id;
   const [initData,setInitData]=useState();
-  const dateFormat = 'YYYY-MM-DD';
+  const dateFormat = 'YYYY-MM-DD'
   useEffect(()=>{
     const getData =async()=>{
       const info = await getRule(forumId);
+      console.log(info,'info');
       setInitData({
         title:info.title,
         imgUrl:info.imgUrl,
@@ -28,7 +29,7 @@ const Index = (props)=>{
   const handleOk= async(data)=>{
     try {
       const newData = {
-        sort:Number(data.sort),
+        sort:data.isUse === 0? 0: Number(data.sort),
         isUse:Number(data.isUse),
         title:data.title,
         time:data.time,

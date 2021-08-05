@@ -6,7 +6,7 @@ import styles from './style.less';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { Button, message, Input, Drawer,Image, Upload, DatePicker,Select } from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import AddNoticeModal from './addNoticeModal/index'
+// import AddNoticeModal from './addNoticeModal/index'
 import moment from 'moment';
 
 const Index =(props) => {
@@ -15,9 +15,11 @@ const Index =(props) => {
   const actionRef = useRef();
   const [canEdit,setCanEdit] = useState(false)
   const [title,setTitle] = useState('')
+  const [content,setContent] = useState('')
   const [sort,setSort] = useState('')
   const [imgUrl,setImgUrl] = useState('')
   const [isUse,setIsUse] = useState('')
+  const [username,setUsername] = useState('')
   // const [isOverhead,setIsOverhead] = useState('')
   const [time,setTime] = useState('')
   const [timeDate,setTimeDate] = useState()
@@ -80,41 +82,54 @@ const Index =(props) => {
        
       },
     },
+    // {
+    //   title: '是否启用',
+    //   dataIndex: 'isUse',
+    //   render: (text, row, _, action) => {
+    //     if(canEdit && editId === row.forumId){
+    //       return(
+    //         <Select value={isUse} onChange={(e)=>setIsUse(e)}>
+    //           <Select.Option value={1}>是</Select.Option>
+    //           <Select.Option value={0}>否</Select.Option>
+    //         </Select>
+    //       )
+    //     }else{
+    //       if(row.isUse === 1){
+    //         return '是'
+    //       }else{
+    //         return '否'
+    //       }
+    //     }
+    //   },
+    // },
     {
-      title: '是否启用',
-      dataIndex: 'isUse',
+      title: '发表时间',
+      dataIndex: 'time',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.forumId){
-          return(
-            <Select value={isUse} onChange={(e)=>setIsUse(e)}>
-              <Select.Option value={1}>是</Select.Option>
-              <Select.Option value={0}>否</Select.Option>
-            </Select>
-          )
-        }else{
-          if(row.isUse === 1){
-            return '是'
-          }else{
-            return '否'
-          }
-        }
-       
+        // if(canEdit && editId === row.forumId){
+        //   return(
+        //     // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
+        //     <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
+        //   )
+        // }else{
+          return row.time.substring(0,10)
+        // }
       },
       // renderText: (val) =>
       //   `${val}万`,
     },
     {
-      title: '发表时间',
-      dataIndex: 'time',
+      title: '发表用户',
+      dataIndex: 'username',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.forumId){
-          return(
-            // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
-            <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
-          )
-        }else{
-          return row.time.substring(0,10)
-        }
+        // if(canEdit && editId === row.forumId){
+        //   return(
+        //     // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
+        //     <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
+        //   )
+        // }else{
+          return row.username
+        // }
       },
       // renderText: (val) =>
       //   `${val}万`,
@@ -126,6 +141,20 @@ const Index =(props) => {
         if(canEdit  && editId === row.forumId){
           return(
             <Input value={title} onChange={(e)=>setTitle(e.target.value)}/>
+          )
+        }else{
+          return text
+        }
+      },
+      // sorter:true,
+    },
+    {
+      title: '论坛内容',
+      dataIndex: 'content',
+      render: (text, row, _, action) => {
+        if(canEdit  && editId === row.forumId){
+          return(
+            <Input value={content} onChange={(e)=>setContent(e.target.value)}/>
           )
         }else{
           return text
@@ -151,16 +180,6 @@ const Index =(props) => {
             </>
           }
         </a>,
-      //    <a onClick={()=>handleOverHead(row)}>
-      //    {
-      //     !canEdit && row.isOverHead === 1 &&
-      //     <div>取消置顶</div>
-      //    }
-      //     {
-      //     !canEdit && row.isOverHead !== 1 &&
-      //     <div>置顶</div>
-      //    }
-      //  </a>,
         <a onClick={()=>handleUse(row)}>
           {
           !canEdit && row.isUse === 1 &&
@@ -171,9 +190,9 @@ const Index =(props) => {
           <div>启用</div>
           }
         </a>,
-        <a onClick={()=>{props.history.push(`/forumDetail/forumMenu/detail/?id=${row.forumId}`)}}>
-          详情
-        </a>
+         <a onClick={()=>{props.history.push(`/forumDetail/forumComment/?id=${row.forumId}`)}}>
+         论坛评论
+      </a>
       ],
     },
   ];
@@ -193,6 +212,8 @@ const Index =(props) => {
   const handleEdit = (row)=>{
     setCanEdit(true)
     setTitle(row.title)
+    setContent(row.content)
+    setUsername(row.username)
     setImgUrl(row.imgUrl)
     setSort(row.sort)
     setIsUse(row.isUse === 1?'是':'否')
@@ -213,6 +234,8 @@ const Index =(props) => {
   const handleCancel =()=>{
     setCanEdit(false)
     setTitle('')
+    setContent('')
+    setUsername('')
     setImgUrl('')
     setSort('')
     setIsUse('')
@@ -233,12 +256,13 @@ const Index =(props) => {
         forumId:Number(editId),
         sort:Number(sort),
         isUse:isUse===0||isUse==='否'?0:1,
-        // isOverhead:Number(isOverhead),
+        userId:'',
+        content,
+        username,
         time:timeDate,
         // time:new Date(),
-        title:title,
-        imgUrl:imgUrl,
-        // content:'',
+        title,
+        imgUrl,
       }
       await updateRule(newData);
       if(img){
@@ -308,10 +332,11 @@ const Index =(props) => {
   const handleOk = async(data)=>{
     try {
       const newData = {
-        sort:Number(data.sort),
+        sort:data.isUse === 0? 0: Number(data.sort),
         isUse:Number(data.isUse),
         title:data.title,
-        // content:'',
+        userId:'',
+        content:data.title,
         // isOverhead:data.isOverhead,
         time:new Date(),
         imgUrl:'',
@@ -333,13 +358,13 @@ const Index =(props) => {
       <PageHeaderWrapper>
         <ProTable
           className={styles.tableMain}
-          headerTitle='论坛清单'
+          headerTitle='用户论坛'
           rowKey="forumId"
           actionRef={actionRef}
           toolBarRender={() => [
-            <Button type="primary" key="primary" onClick={() => setModalVisible(true)}>
-              <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新增" />
-            </Button>,
+            // <Button type="primary" key="primary" onClick={() => setModalVisible(true)}>
+            //   <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新增" />
+            // </Button>,
             <Button type="ghost" key="primary" onClick={() => handleDelete()}>
               <DeleteOutlined /> <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
             </Button>,
@@ -360,11 +385,11 @@ const Index =(props) => {
           options={false}
           recordCreatorProps={false}
         />
-        <AddNoticeModal
+        {/* <AddNoticeModal
           visible = {modalVisible}
           handleOk= {handleOk}
           handleCancel={handleCancelModal}
-        />
+        /> */}
       </PageHeaderWrapper>
   )
     

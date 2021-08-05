@@ -4,21 +4,22 @@ import { queryRule, updateRule, addRule, removeRule,useRule,stopRule,updateImg,u
 import { FormattedMessage } from 'umi';
 import styles from './style.less';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Button, message, Input, Drawer,Image, Upload, DatePicker } from 'antd';
+import { Button, message, Input, Drawer,Image, Upload, DatePicker,Select } from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import AddNoticeModal from './addNoticeModal/index'
 import moment from 'moment';
 
 const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);
-  const [deletenoticeIds, setDeletenoticeIds] = useState([]);
+  const [deleteforumIds, setDeleteforumIds] = useState([]);
   const actionRef = useRef();
   const [canEdit,setCanEdit] = useState(false)
   const [title,setTitle] = useState('')
+  const [content,setContent] = useState('')
   const [sort,setSort] = useState('')
   const [imgUrl,setImgUrl] = useState('')
   const [isUse,setIsUse] = useState('')
-  const [isOverhead,setIsOverhead] = useState('')
+  // const [isOverhead,setIsOverhead] = useState('')
   const [time,setTime] = useState('')
   const [timeDate,setTimeDate] = useState()
   const [editId,setEditId] = useState(-1)
@@ -41,7 +42,7 @@ const Index =(props) => {
       title: '图片',
       dataIndex: 'imgUrl',
       render: (dom, row) => {
-        if(canEdit && editId === row.noticeId){
+        if(canEdit && editId === row.forumId){
           return(
             <Upload
             action=""
@@ -70,7 +71,7 @@ const Index =(props) => {
       title: '顺序',
       dataIndex: 'sort',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.noticeId){
+        if(canEdit && editId === row.forumId){
           return(
             <Input value={sort} onChange={(e)=>setSort(e.target.value)}/>
           )
@@ -84,7 +85,7 @@ const Index =(props) => {
       title: '是否启用',
       dataIndex: 'isUse',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.noticeId){
+        if(canEdit && editId === row.forumId){
           return(
             <Select value={isUse} onChange={(e)=>setIsUse(e)}>
               <Select.Option value={1}>是</Select.Option>
@@ -104,38 +105,17 @@ const Index =(props) => {
       //   `${val}万`,
     },
     {
-      title: '是否置顶',
-      dataIndex: 'isOverhead',
-      render: (text, row, _, action) => {
-        if(canEdit && editId === row.noticeId){
-          return(
-            <Input value={isOverhead} onChange={(e)=>setIsOverhead(e.target.value)}/>
-          )
-        }else{
-          if(row.isOverhead === 1){
-            return '是'
-          }else{
-            return '否'
-          }
-        }
-       
-      },
-      // renderText: (val) =>
-      //   `${val}万`,
-    },
-    {
-      title: '时间',
+      title: '发表时间',
       dataIndex: 'time',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.noticeId){
-          return(
-            // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
-            <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
-          )
-        }else{
+        // if(canEdit && editId === row.forumId){
+        //   return(
+        //     // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
+        //     <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
+        //   )
+        // }else{
           return row.time.substring(0,10)
-        }
-       
+        // }
       },
       // renderText: (val) =>
       //   `${val}万`,
@@ -144,9 +124,23 @@ const Index =(props) => {
       title: '标题',
       dataIndex: 'title',
       render: (text, row, _, action) => {
-        if(canEdit  && editId === row.noticeId){
+        if(canEdit  && editId === row.forumId){
           return(
             <Input value={title} onChange={(e)=>setTitle(e.target.value)}/>
+          )
+        }else{
+          return text
+        }
+      },
+      // sorter:true,
+    },
+    {
+      title: '论坛内容',
+      dataIndex: 'content',
+      render: (text, row, _, action) => {
+        if(canEdit  && editId === row.forumId){
+          return(
+            <Input value={content} onChange={(e)=>setContent(e.target.value)}/>
           )
         }else{
           return text
@@ -172,29 +166,32 @@ const Index =(props) => {
             </>
           }
         </a>,
-         <a onClick={()=>handleOverHead(row)}>
-         {
-          !canEdit && row.isOverHead === 1 &&
-          <div>取消置顶</div>
-         }
-          {
-          !canEdit && row.isOverHead !== 1 &&
-          <div>置顶</div>
-         }
-       </a>,
+      //    <a onClick={()=>handleOverHead(row)}>
+      //    {
+      //     !canEdit && row.isOverHead === 1 &&
+      //     <div>取消置顶</div>
+      //    }
+      //     {
+      //     !canEdit && row.isOverHead !== 1 &&
+      //     <div>置顶</div>
+      //    }
+      //  </a>,
         <a onClick={()=>handleUse(row)}>
           {
-           !canEdit && row.isUse === 1 &&
-           <div>取消启用</div>
+          !canEdit && row.isUse === 1 &&
+          <div>取消启用</div>
           }
-           {
-           !canEdit && row.isUse !== 1 &&
-           <div>启用</div>
+          {
+          !canEdit && row.isUse !== 1 &&
+          <div>启用</div>
           }
         </a>,
-        <a onClick={()=>{props.history.push(`/contentManage/notice/detail/?id=${row.noticeId}`)}}>
-          详情
-        </a>
+        // <a onClick={()=>{props.history.push(`/contentManage/notice/detail/?id=${row.forumId}`)}}>
+        //   详情
+        // </a>,
+         <a onClick={()=>{props.history.push(`/forumDetail/forumComment/?id=${row.forumId}`)}}>
+          论坛评论
+       </a>
       ],
     },
   ];
@@ -214,13 +211,14 @@ const Index =(props) => {
   const handleEdit = (row)=>{
     setCanEdit(true)
     setTitle(row.title)
+    setContent(row.content)
     setImgUrl(row.imgUrl)
     setSort(row.sort)
-    setIsUse(row.isUse)
-    setIsOverhead(row.isOverhead)
+    setIsUse(row.isUse === 1?'是':'否')
+    // setIsOverhead(row.isOverhead)
     setTime(row.time.substring(0,10))
     setTimeDate(row.time)
-    setEditId(row.noticeId)
+    setEditId(row.forumId)
     setFileList([
       {
         uid: '-1',
@@ -234,10 +232,11 @@ const Index =(props) => {
   const handleCancel =()=>{
     setCanEdit(false)
     setTitle('')
+    setContent('')
     setImgUrl('')
     setSort('')
     setIsUse('')
-    setIsOverhead('')
+    // setIsOverhead('')
     setTime('')
     setTimeDate()
     setEditId(-1)
@@ -245,17 +244,23 @@ const Index =(props) => {
   }
 
   const handleUpdate = async ()=>{
+    if((isUse === 0 || isUse === '否')&& Number(sort)!==0){
+      message.warning('想要修改顺序必须将启用状态设置为启用')
+      return
+    }
     try {
       const newData = {
-        noticeId:Number(editId),
+        forumId:Number(editId),
         sort:Number(sort),
         isUse:isUse===0||isUse==='否'?0:1,
-        isOverhead:Number(isOverhead),
-        // time:timeDate,
-        time:'',
-        content:'',
+        userId:'',
+        content:content,
+        // isOverhead:Number(isOverhead),
+        time:timeDate,
+        // time:new Date(),
         title:title,
         imgUrl:imgUrl,
+        // content:'',
       }
       await updateRule(newData);
       if(img){
@@ -267,47 +272,50 @@ const Index =(props) => {
       message.error('失败请重试！');
     }
     handleCancel()
-  }
+  };
 
 
   const handleUse= async (row)=>{
     try {
-      
-      await useRule(row.noticeId);
-      // await useRule(url,row.noticeId,row.sort);
+      if(row.isUse !== 1){
+        await useRule(row.forumId);
+      }else{
+        await stopRule(row.forumId,row.sort);
+      }
+      // await useRule(url,row.bannerId,row.sort);
       actionRef.current.reload()   
     } catch (error) {
       message.error('失败请重试！');
     }
   }
 
-  const handleOverHead= async (row)=>{
-    try {
-      if(row.isOverHead !== 1){
-        await useOverRule(row.noticeId);
-      }else{
-        await stopOverRule(row.noticeId,row.sort);
-      }
-      // await useRule(url,row.noticeId,row.sort);
-      actionRef.current.reload()   
-    } catch (error) {
-      message.error('失败请重试！');
-    }
-  }
+  // const handleOverHead= async (row)=>{
+  //   try {
+  //     if(row.isOverHead !== 1){
+  //       await useOverRule(row.forumId);
+  //     }else{
+  //       await stopOverRule(row.forumId,row.sort);
+  //     }
+  //     // await useRule(url,row.forumId,row.sort);
+  //     actionRef.current.reload()   
+  //   } catch (error) {
+  //     message.error('失败请重试！');
+  //   }
+  // }
 
   
   const setSelectedRows=(data)=>{
     let ids = []
     data.map(item=>{
-      ids.push(item.noticeId)
+      ids.push(item.forumId)
     })
-    setDeletenoticeIds(ids)
+    setDeleteforumIds(ids)
   }
 
   const handleDelete= async ()=>{
     // const hide = message.loading('正在删除');
     try {
-      await removeRule(deletenoticeIds);
+      await removeRule(deleteforumIds);
       message.success('删除成功');
       actionRef.current.reload()   
     } catch (error) {
@@ -320,20 +328,20 @@ const Index =(props) => {
   }
 
   const handleOk = async(data)=>{
-    console.log(data)
     try {
       const newData = {
-        sort:Number(data.sort),
+        sort:data.isUse === 0? 0: Number(data.sort),
         isUse:Number(data.isUse),
         title:data.title,
-        isOverhead:data.isOverhead,
+        userId:'',
+        content:data.title,
+        // isOverhead:data.isOverhead,
         time:new Date(),
         imgUrl:'',
-        noticeId:0,
+        forumId:0,
       }
-      const noticeId = await addRule(newData)
-      console.log(noticeId);
-      await updateImg(data.imgUrl.fileList,noticeId)
+      const res = await addRule(newData)
+      await updateImg(data.imgUrl.fileList,res.forumId)
       message.success('新增成功')
       actionRef.current.reload()   
     } catch (error) {
@@ -348,8 +356,8 @@ const Index =(props) => {
       <PageHeaderWrapper>
         <ProTable
           className={styles.tableMain}
-          headerTitle='置顶通知'
-          rowKey="noticeId"
+          headerTitle='管理员论坛'
+          rowKey="forumId"
           actionRef={actionRef}
           toolBarRender={() => [
             <Button type="primary" key="primary" onClick={() => setModalVisible(true)}>
@@ -359,8 +367,8 @@ const Index =(props) => {
               <DeleteOutlined /> <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
             </Button>,
           ]}
-          request={async () => {
-            const data = await queryRule();
+          request={async (params) => {
+            const data = await queryRule(params);
             return{
               data,
               total: data.length,

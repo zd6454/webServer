@@ -296,7 +296,7 @@ const Index =(props) => {
     console.log(data)
     try {
       const newData = {
-        sort:Number(data.sort),
+        sort:data.isUse === 0? 0: Number(data.sort),
         isUse:Number(data.isUse),
         name:data.title,
         content:'',

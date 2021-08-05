@@ -107,14 +107,14 @@ const Index =(props) => {
       title: '时间',
       dataIndex: 'time',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.noticeId){
-          return(
-            // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
-            <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
-          )
-        }else{
+        // if(canEdit && editId === row.noticeId){
+        //   return(
+        //     // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
+        //     <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
+        //   )
+        // }else{
           return row.time.substring(0,10)
-        }
+        // }
        
       },
       // renderText: (val) =>
@@ -309,7 +309,7 @@ const Index =(props) => {
   const handleOk = async(data)=>{
     try {
       const newData = {
-        sort:Number(data.sort),
+        sort:data.isUse === 0? 0: Number(data.sort),
         isUse:Number(data.isUse),
         title:data.title,
         content:'',
