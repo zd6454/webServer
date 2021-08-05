@@ -30,39 +30,12 @@ class Index extends Component {
     };
   }
   componentDidMount() {
-    //this.getMessage();
+
   }
 
   handleMemberChange = (selectedMembers) => {
     this.setState({ selectedMembers });
   };
-  // getMessage=()=>{
-  //   request('http://duing.site:2333/information/getInforContent/TeachPower', {
-  //     method: 'GET',
-  //   })
-  //     .then((response)=> {
-  //       console.log(response)
-  //       this.setState({
-  //         data:response
-  //       })
-  //     })
-  //     .catch((error)=> {
-  //       message.error('信息获取失败')
-  //     });
-  // }
-  // sendMessage=(params)=>{
-  //   request('http://duing.site:2333/information/addInformation/TeachPower', {
-  //     method: 'POST',
-  //     data:params,
-  //   })
-  //     .then(function(response) {
-  //       message.success('信息保存成功')
-  //     })
-  //     .catch(function(error) {
-  //       message.error('信息保存失败')
-  //     });
-  // }
-
   handleCancel = () => this.setState({ previewVisible: false });
 
   handlePreview = async (file) => {
@@ -78,6 +51,10 @@ class Index extends Component {
   };
 
   handleChange = ({ fileList }) => this.setState({ fileList });
+
+  onFinish=(e)=>{
+     console.log(e)
+  };
 
   render() {
     const {
@@ -106,9 +83,10 @@ class Index extends Component {
             wrapperCol={{
               span: 14,
             }}
+            onFinish={this.onFinish}
           >
             <Form.Item
-              name="label"
+              name="title"
               label="标题"
               rules={[
                 {
@@ -148,8 +126,8 @@ class Index extends Component {
             </Form.Item>
 
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-              <Button type="primary" onClick={this.onClick}>
-                返回
+              <Button type="default" onClick={()=>{}}>
+                重置
               </Button>
               <Divider type="vertical" />
               <Button type="primary" htmlType="submit">

@@ -19,7 +19,7 @@ class Index extends Component {
   };
 
   onClick = () => {
-    history.goBack();
+
   };
 
   render() {
