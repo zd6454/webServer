@@ -9,7 +9,7 @@ import moment from 'moment';
 const Index = (props)=>{
   const interCooperId=props.location.query.id;
   const [initData,setInitData]=useState();
-  const dateFormat = 'YYYY-MM-DD'
+  const dateFormat = 'YYYY-MM-DD';
   useEffect(()=>{
     const getData =async()=>{
       const info = await getRule(interCooperId);

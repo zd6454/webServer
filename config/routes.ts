@@ -135,12 +135,6 @@
     icon: 'crown',
     routes: [
       {
-        path: '/schoolDetail/videoManage',
-        name: '视频管理',
-        icon: 'smile',
-        component: './schoolDetail/videoManage',
-      },
-      {
         path: '/schoolDetail/schoolVideo',
         name: '视频管理',
         icon: 'smile',
@@ -203,19 +197,20 @@
         icon: 'smile',
         component: './forumDetail/forumComment',
       },
-      // {
-      //   path: '/forumDetail/forumMenu/detail',
-      //   name: '论坛详情',
-      //   icon: 'smile',
-      //   hideInMenu: 'true',
-      //   component: './forumDetail/forumMenu/forumMenuDetail',
-      // },
-      // {
-      //   path: '/forumDetail/forumComment',
-      //   name: '论坛评论',
-      //   icon: 'smile',
-      //   component: './forumDetail/forumComment',
-      // },
+      {
+        path: '/forumDetail/allForumDetail',
+        name: '论坛详情',
+        icon: 'smile',
+        hideInMenu: 'true',
+        component: './forumDetail/allForumDetail',
+      },
+      {
+        path: '/forumDetail/forumComment/detail',
+        name: '评论详情',
+        icon: 'smile',
+        hideInMenu: 'true',
+        component: './forumDetail/forumComment/forumMenuDetail',
+      },
       {
         path: '/forumDetail/userForum',
         name: '用户论坛',
