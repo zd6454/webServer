@@ -68,8 +68,10 @@ class Index extends Component {
      };
     try {
       const end = await addRule(messageInfo);
+      console.log(end)
       await sendUsers({
-        messageId:end.messageId,receivers:e.receivers
+        messageId:end.messageId,
+        receivers:e.receivers
       });
       message.success("发送成功")
     }catch (err) {
