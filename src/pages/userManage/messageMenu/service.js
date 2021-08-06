@@ -1,73 +1,56 @@
 import { request } from 'umi';
 import {message} from 'antd';
 
-export async function queryRule() {
-  return request('http://1.116.77.118:2333/notice/getAllNotices', {
+export async function queryRule(data) {
+  const params ={
+    page:data.current,
+    num:data.pageSize,
+  }
+  return request('http://1.116.77.118:2333/message/getPageMessages', {
     method: 'GET',
-  }).catch((error)=> {
-      message.error('置顶通知获取失败')
-    });
+    params,
+  })
 }
 
 export async function removeRule(params) {
-  return request('http://1.116.77.118:2333/notice/deleteNotices', {
+  return request('http://1.116.77.118:2333/message/deleteMessages', {
     method: 'POST',
-    data: {notices:params}
+    data: {messages:params}
   })
 }
 
-export async function useRule(id) {
-  return request('http://1.116.77.118:2333/notice/useNotice', {
-    method: 'GET',
-    params: {noticeId:id}
-  })
-}
-
-export async function useOverRule(id) {
-  return request('http://1.116.77.118:2333/notice/overheadNotice', {
-    method: 'GET',
-    params: {noticeId:id}
-  })
-}
-
-export async function stopRule(id,sort) {
-  return request('http://1.116.77.118:2333/notice/stopNotice', {
-    method: 'GET',
-    params: {noticeId:id,sort}
-  })
-}
 
 export async function addRule(params) {
-  return request('http://1.116.77.118:2333/notice/addNotice', {
+  return request('http://1.116.77.118:2333/message/addMessage', {
+    method: 'POST',
+    data: params
+  });
+}
+export async function addReceiver(params) {
+  return request('http://1.116.77.118:2333/message/addMessageReceiver', {
     method: 'POST',
     data: params
   });
 }
 
-export async function updateImg(param,noticeId){
-  const imgOri = param.map((item) => {
-    return item.originFileObj;
-  });
-  console.log(imgOri[0],noticeId)
-  const img = new FormData();
-  img.append('uploadfile', imgOri[0]);
-  img.append('noticeId', noticeId);
-  return request('http://1.116.77.118:2333/notice/uploadFile', {
-    method: 'POST',
-    data: img,
-  });
-};
 
-export async function updateRule(params) {
-  return request('http://1.116.77.118:2333/notice/updateNotice', {
-    method: 'POST',
-    data: params
-  });
-}
+// export async function updateRule(params) {
+//   return request('http://1.116.77.118:2333/interCooperation/updateInterCooper', {
+//     method: 'POST',
+//     data: params
+//   });
+// }
 
-export async function getRule(id) {
-  return request('http://1.116.77.118:2333/notice/getNotice', {
+// export async function getRule(id) {
+//   return request('http://1.116.77.118:2333/interCooperation/getInterCooper', {
+//     method: 'GET',
+//     params: {messageId:id}
+//   })
+// }
+
+export async function getUser() {
+  return request('http://1.116.77.118:2333/user/getPageUsers', {
     method: 'GET',
-    params: {noticeId:id}
+    params: {page:1,num:100}
   })
 }
