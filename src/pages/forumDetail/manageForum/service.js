@@ -1,5 +1,4 @@
 import { request } from 'umi';
-import {message} from 'antd';
 
 export async function queryRule(data) {
   const params ={

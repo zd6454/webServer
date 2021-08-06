@@ -186,9 +186,9 @@ const Index =(props) => {
           <div>启用</div>
           }
         </a>,
-        // <a onClick={()=>{props.history.push(`/contentManage/notice/detail/?id=${row.forumId}`)}}>
-        //   详情
-        // </a>,
+        <a onClick={()=>{props.history.push(`/forumDetail/allForumDetail/?id=${row.forumId}`)}}>
+          详情
+        </a>,
          <a onClick={()=>{props.history.push(`/forumDetail/forumComment/?id=${row.forumId}`)}}>
           论坛评论
        </a>

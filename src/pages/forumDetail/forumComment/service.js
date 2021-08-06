@@ -21,7 +21,7 @@ export async function removeRule(params) {
 }
 
 export async function useRule(id) {
-  return request('http://1.116.77.118:2333/comment/startComment', {
+  return request('http://1.116.77.118:2333/comment/useComment', {
     method: 'GET',
     params: {commentId:id}
   })
@@ -40,6 +40,13 @@ export async function addRule(params) {
     method: 'POST',
     data: params
   });
+}
+
+export async function getRule(id) {
+  return request('http://1.116.77.118:2333/comment/getComment', {
+    method: 'GET',
+    params: {commentId:id}
+  })
 }
 
 // export async function updateImg(param,commentId){

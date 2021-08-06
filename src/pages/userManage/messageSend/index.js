@@ -5,6 +5,9 @@ import { Divider, message } from 'antd';
 import { Form, Input, InputNumber, Button, Upload } from 'antd';
 import PlusOutlined from '@ant-design/icons/es/icons/PlusOutlined';
 import Select from 'antd/es/select';
+import { addRule,sendUsers,getUsers} from "./service";
+import moment from 'moment';
+import {getNowFormatDate} from '../../../utils/utils';
 
 const layout = {
   labelCol: {
@@ -14,8 +17,6 @@ const layout = {
     span: 16,
   },
 };
-
-const OPTIONS = ['Apples', 'Nails', 'Bananas', 'Helicopters'];
 
 class Index extends Component {
   constructor(props) {
@@ -27,10 +28,16 @@ class Index extends Component {
       previewTitle: '',
       fileList: [],
       selectedMembers: [],
+      num:20,
+      users:[]
     };
   }
   componentDidMount() {
-
+   const getAllUsers=async()=>{
+     const users = await getUsers({page:1,num:20});
+     this.setState({users})
+   };
+   getAllUsers();
   }
 
   handleMemberChange = (selectedMembers) => {
@@ -52,10 +59,28 @@ class Index extends Component {
 
   handleChange = ({ fileList }) => this.setState({ fileList });
 
-  onFinish=(e)=>{
+  onFinish=async(e)=>{
+     const messageInfo={
+       messageId:0,
+       title:e.title,
+       content:e.content,
+       time:getNowFormatDate(),
+     };
+    try {
+      const end = await addRule(messageInfo);
+      console.log(end)
+      await sendUsers({
+        messageId:end.messageId,
+        receivers:e.receivers
+      });
+      message.success("发送成功")
+    }catch (err) {
+       message.error("网络错误")
+    }
+  };
+  getMore=(e)=>{
      console.log(e)
   };
-
   render() {
     const {
       previewVisible,
@@ -63,9 +88,10 @@ class Index extends Component {
       fileList,
       previewTitle,
       selectedMembers,
+      users,
       history,
     } = this.state;
-    const filteredOptions = OPTIONS.filter((o) => !selectedMembers.includes(o));
+    const filteredOptions = users.filter((o) => !selectedMembers.includes(o));
     const uploadButton = (
       <div>
         <PlusOutlined />
@@ -97,29 +123,34 @@ class Index extends Component {
               <Input />
             </Form.Item>
 
-            <Form.Item name="cover" label="封面">
-              <Upload
-                listType="picture-card"
-                onPreview={this.handlePreview}
-                onChange={this.handleChange}
-              >
-                {fileList.length > 0 ? null : uploadButton}
-              </Upload>
+            {/*<Form.Item name="cover" label="封面">*/}
+              {/*<Upload*/}
+                {/*listType="picture-card"*/}
+                {/*onPreview={this.handlePreview}*/}
+                {/*onChange={this.handleChange}*/}
+              {/*>*/}
+                {/*{fileList.length > 0 ? null : uploadButton}*/}
+              {/*</Upload>*/}
+            {/*</Form.Item>*/}
+            <Form.Item name="content" label="正文" rules={[
+              {
+                required: true,
+              },
+            ]} >
+              <Input.TextArea  />
             </Form.Item>
-            <Form.Item name="text" label="正文">
-              <Input.TextArea />
-            </Form.Item>
-            <Form.Item name="sendObject" label="发送对象">
+            <Form.Item name="receivers" label="发送对象">
               <Select
                 mode="multiple"
                 placeholder="请选择发送对象"
                 value={selectedMembers}
                 onChange={this.handleMemberChange}
                 style={{ width: '100%' }}
+                onPopupScroll={this.getMore}
               >
                 {filteredOptions.map((item) => (
-                  <Select.Option key={item} value={item}>
-                    {item}
+                  <Select.Option key={item.userId} value={item.userId}>
+                    {item.username}
                   </Select.Option>
                 ))}
               </Select>
@@ -131,7 +162,7 @@ class Index extends Component {
               </Button>
               <Divider type="vertical" />
               <Button type="primary" htmlType="submit">
-                保存
+                发送
               </Button>
             </Form.Item>
           </Form>

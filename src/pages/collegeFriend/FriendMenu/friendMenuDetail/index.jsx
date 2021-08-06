@@ -14,7 +14,7 @@ const Index = (props)=>{
     const getData =async()=>{
       const info = await getRule(schoolmateId);
       setInitData({
-        title:info.title,
+        title:info.name,
         imgUrl:info.imgUrl,
         content:info.content,
         time:info.time?moment(info.time.substring(0,10), dateFormat):moment(new Date(), dateFormat),
@@ -32,7 +32,7 @@ const Index = (props)=>{
         isUse:Number(data.isUse),
         name:data.title,
         time:data.time,
-        imgUrl:"",
+        imgUrl:initData.imgUrl,
         content:data.content,
         schoolmateId,
       };
