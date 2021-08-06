@@ -237,6 +237,13 @@
         component: './userManage/messageMenu',
       },
       {
+        path: '/userManage/messageMenu/detail',
+        name: '消息清单',
+        hideInMenu:'true',
+        icon: 'smile',
+        component: './userManage/messageMenu/messageDetail',
+      },
+      {
         path: '/userManage/messageSend',
         name: '消息发送',
         icon: 'smile',

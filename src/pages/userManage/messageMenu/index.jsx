@@ -1,6 +1,6 @@
 import React,{Component,useState, useRef,useEffect} from 'react'
 import { PageHeaderWrapper,PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import { queryRule, updateRule, addRule, removeRule,updateImg,getUser,addReceiver } from './service';
+import { queryRule,  addRule, removeRule,getUser,addReceiver } from './service';
 import { FormattedMessage } from 'umi';
 import request from 'umi-request';
 import styles from './style.less';
@@ -235,7 +235,7 @@ const Index =(props) => {
   }
 
   const handleToDetail = (res) => {
-     props.history.push(`/contentManage/cooperation/detail?id=${res.messageId}`)
+     props.history.push(`/userManage/messageMenu/detail?id=${res.messageId}`)
   };
 
   const setSelectedRows=(data)=>{
