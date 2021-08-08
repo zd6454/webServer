@@ -10,6 +10,16 @@ const  Index =(props)=> {
   const { initialState,setInitialState } = useModel('@@initialState');
   const [form] = Form.useForm();
   const [currentUser,setCurrentUser]=useState(initialState.currentUser);
+
+
+  const initUser=()=>{
+    console.log(currentUser,'445');
+    const newUser=currentUser;
+    newUser.role=role[Number(newUser.role)];
+    newUser.isAllowLogin=newUser.isAllowLogin==='1'?'是':'否';
+    return newUser
+  };
+
   const onChange = (e) => {
     console.log('radio1 checked', e.target.value);
   };
@@ -19,10 +29,13 @@ const  Index =(props)=> {
   };
   const onFinish= async(value)=>{
     const user = value;
+   console.log(value);
     try {
       user.role=role.indexOf(value.role);
-      user.isAllowLogin = Number(value.isAllowLogin);
+      user.isAllowLogin = value.isAllowLogin;
+      user.adminId=Number(currentUser.adminId);
       await updateRule(user);
+      user.avatar='https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png';
       setInitialState({
         ...initialState,
         showMenu: true,
@@ -32,7 +45,7 @@ const  Index =(props)=> {
     }catch (e) {
       message.error('网络错误');
     }
-     console.log(user)
+
   };
     return (
       <PageHeaderWrapper>
@@ -42,7 +55,7 @@ const  Index =(props)=> {
             labelCol={{
               span: 4,
             }}
-            initialValues={currentUser}
+            initialValues={initUser()}
             wrapperCol={{
               span: 14,
             }}
@@ -62,7 +75,7 @@ const  Index =(props)=> {
               ]}
             >
               <Select>
-                <Select.Option value="SDW">圣大卫大学</Select.Option>
+                <Select.Option value="圣大卫大学">圣大卫大学</Select.Option>
               </Select>
             </Form.Item>
             <Form.Item
@@ -106,7 +119,7 @@ const  Index =(props)=> {
             </Form.Item>
 
             <Form.Item
-              name="confirm"
+              name="comfirm"
               label="确认密码"
               dependencies={['password']}
               hasFeedback
@@ -120,7 +133,6 @@ const  Index =(props)=> {
                     if (!value || getFieldValue('password') === value) {
                       return Promise.resolve();
                     }
-
                     return Promise.reject(new Error('两次输入的密码不一致!'));
                   },
                 }),
