@@ -11,7 +11,7 @@ const Index =()=>{
   const forms=[{form:form1,title:'联系方式一'},{form:form2,title:'联系方式二'},{form:form3,title:'联系方式三'}];
 
   const setType=(index)=>{
-    return ['way'+index,'address'+index,'name'+index];
+    return ['name'+index,'address'+index,'way'+index];
   };
 
   useEffect(()=>{
@@ -20,9 +20,9 @@ const Index =()=>{
       setInitData(data);
       data.map((item,index)=>{
          forms[index].form.setFieldsValue({
-           [setType(index)[0]]:item.way,
+           [setType(index)[0]]:item.name,
            [setType(index)[1]]:item.address,
-           [setType(index)[2]]:item.name,
+           [setType(index)[2]]:item.way,
          });
         return item;
       })
@@ -34,9 +34,9 @@ const Index =()=>{
 const onFinish=async(values,index)=>{
   console.log(values,index);
   const newValues={};
-  newValues.way=values[setType(index)[0]];
+  newValues.name=values[setType(index)[0]];
   newValues.address=values[setType(index)[1]];
-  newValues.name=values[setType(index)[2]];
+  newValues.way=values[setType(index)[2]];
   newValues.contactId=index+1;
   try {
    await updateRule(newValues);
@@ -94,7 +94,7 @@ const reset=(form)=>{
                            rules={[
                              {
                                required: true,
-                               message: '请输入方式！',
+                               message: '请输入名称！',
                                whitespace: true,
                              },
                            ]}
