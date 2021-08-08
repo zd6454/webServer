@@ -1,10 +1,10 @@
 {
-  "name": "Ant Design Pro",
-  "short_name": "Ant Design Pro",
+  "name": "三一圣大卫",
+  "short_name": "三一圣大卫",
   "display": "standalone",
   "start_url": "./?utm_source=homescreen",
-  "theme_color": "#002140",
-  "background_color": "#001529",
+  "theme_color": "#024463",
+  "background_color": "#CAE2FA",
   "icons": [
     {
       "src": "icons/icon-192x192.png",

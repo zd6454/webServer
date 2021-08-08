@@ -13,6 +13,8 @@ import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-desi
 import { useIntl, Link, history, FormattedMessage, SelectLang, useModel } from 'umi';
 import Footer from '@/components/Footer';
 import { fakeAccountLogin, getFakeCaptcha, LoginParamsType } from '@/services/login';
+import CurrentUser from '../../../utils/CurrentUser';
+
 
 import styles from './index.less';
 
@@ -49,11 +51,12 @@ const Login: React.FC<{}> = () => {
 
   const intl = useIntl();
 
-  const fetchUserInfo = async () => {
-    const userInfo = await initialState?.fetchUserInfo?.();
+  const fetchUserInfo = async (userInfo) => {
+    // const userInfo = await initialState?.fetchUserInfo?.();
     if (userInfo) {
       setInitialState({
         ...initialState,
+        showMenu: true,
         currentUser: userInfo,
       });
     }
@@ -64,14 +67,16 @@ const Login: React.FC<{}> = () => {
     try {
       // 登录
       const msg = await fakeAccountLogin({ ...values, type });
-      if (msg.status === 'ok') {
+      console.log(msg)
+      if (msg.isAllowLogin === 1) {
+        msg.avatar='https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png';
         message.success('登录成功！');
-        await fetchUserInfo();
+        await fetchUserInfo(msg);
         goto();
         return;
       }
-      // 如果失败去设置用户错误信息
-      setUserLoginState(msg);
+      //如果失败去设置用户错误信息
+      setUserLoginState({status:'error',type:'account'});
     } catch (error) {
       message.error('登录失败，请重试！');
     }
@@ -86,11 +91,11 @@ const Login: React.FC<{}> = () => {
         <div className={styles.top}>
           <div className={styles.header}>
             <Link to="/">
-              <img alt="logo" className={styles.logo} src="/logo.svg" />
-              <span className={styles.title}>Ant Design</span>
+              {/*<img alt="logo" className={styles.logo} src={} />*/}
+              <span className={styles.title}>三一圣大卫</span>
             </Link>
           </div>
-          <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
+          <div className={styles.desc}>三一圣大卫管理系统</div>
         </div>
 
         <div className={styles.main}>
@@ -126,13 +131,13 @@ const Login: React.FC<{}> = () => {
                   defaultMessage: '账户密码登录',
                 })}
               />
-              <Tabs.TabPane
-                key="mobile"
-                tab={intl.formatMessage({
-                  id: 'pages.login.phoneLogin.tab',
-                  defaultMessage: '手机号登录',
-                })}
-              />
+              {/*<Tabs.TabPane*/}
+                {/*key="mobile"*/}
+                {/*tab={intl.formatMessage({*/}
+                  {/*id: 'pages.login.phoneLogin.tab',*/}
+                  {/*defaultMessage: '手机号登录',*/}
+                {/*})}*/}
+              {/*/>*/}
             </Tabs>
 
             {status === 'error' && loginType === 'account' && (
@@ -146,14 +151,14 @@ const Login: React.FC<{}> = () => {
             {type === 'account' && (
               <>
                 <ProFormText
-                  name="username"
+                  name="adminName"
                   fieldProps={{
                     size: 'large',
                     prefix: <UserOutlined className={styles.prefixIcon} />,
                   }}
                   placeholder={intl.formatMessage({
                     id: 'pages.login.username.placeholder',
-                    defaultMessage: '用户名: admin or user',
+                    defaultMessage: '用户名: admin ',
                   })}
                   rules={[
                     {
@@ -175,7 +180,7 @@ const Login: React.FC<{}> = () => {
                   }}
                   placeholder={intl.formatMessage({
                     id: 'pages.login.password.placeholder',
-                    defaultMessage: '密码: ant.design',
+                    defaultMessage: '密码: 123456',
                   })}
                   rules={[
                     {
@@ -279,24 +284,24 @@ const Login: React.FC<{}> = () => {
               <ProFormCheckbox noStyle name="autoLogin">
                 <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录" />
               </ProFormCheckbox>
-              <a
-                style={{
-                  float: 'right',
-                }}
-              >
-                <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />
-              </a>
+              {/*<a*/}
+                {/*style={{*/}
+                  {/*float: 'right',*/}
+                {/*}}*/}
+              {/*>*/}
+                {/*<FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />*/}
+              {/*</a>*/}
             </div>
           </ProForm>
-          <Space className={styles.other}>
-            <FormattedMessage id="pages.login.loginWith" defaultMessage="其他登录方式" />
-            <AlipayCircleOutlined className={styles.icon} />
-            <TaobaoCircleOutlined className={styles.icon} />
-            <WeiboCircleOutlined className={styles.icon} />
-          </Space>
+          {/*<Space className={styles.other}>*/}
+            {/*<FormattedMessage id="pages.login.loginWith" defaultMessage="其他登录方式" />*/}
+            {/*<AlipayCircleOutlined className={styles.icon} />*/}
+            {/*<TaobaoCircleOutlined className={styles.icon} />*/}
+            {/*<WeiboCircleOutlined className={styles.icon} />*/}
+          {/*</Space>*/}
         </div>
       </div>
-      <Footer />
+      {/*<Footer />*/}
     </div>
   );
 };

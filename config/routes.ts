@@ -89,6 +89,12 @@
         icon: 'smile',
         component: './contentManage/abroadStep',
       },
+      {
+        path: '/contentManage/contactUs',
+        name: '联系我们',
+        icon: 'smile',
+        component: './contentManage/contactUs',
+      },
     ],
   },
   {
