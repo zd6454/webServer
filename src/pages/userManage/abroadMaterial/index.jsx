@@ -100,7 +100,7 @@ const Index =(props) => {
       title: '入学申请表',
       dataIndex: 'application',
       render: (text, row, _, action) => {
-        if(text){
+        if(text!== '-'){
           return(
             <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
@@ -115,7 +115,7 @@ const Index =(props) => {
       title: '护照(正反面)',
       dataIndex: 'passport',
       render: (text, row, _, action) => {
-        if(row.passport_front&&row.passport_back){
+        if(row.passport_front!== '-'&&row.passport_back!== '-'){
           return(
             <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
@@ -130,7 +130,7 @@ const Index =(props) => {
       title: '有条件offer',
       dataIndex: 'offer',
       render: (text, row, _, action) => {
-        if(row.offer){
+        if(text !== '-'){
           return(
             <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
@@ -145,7 +145,7 @@ const Index =(props) => {
       title: '语言测试成绩单',
       dataIndex: 'grade_report',
       render: (text, row, _, action) => {
-        if(text){
+        if(text !== '-'){
           return(
             <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
@@ -160,7 +160,7 @@ const Index =(props) => {
       title: '学费/押金缴纳回执',
       dataIndex: 'tutition',
       render: (text, row, _, action) => {
-        if(text){
+        if(text !== '-'){
           return(
             <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
@@ -175,7 +175,7 @@ const Index =(props) => {
       title: '核酸检验证明',
       dataIndex: 'test_certifcate',
       render: (text, row, _, action) => {
-        if(text){
+        if(text !== '-'){
           return(
             <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
