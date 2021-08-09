@@ -1,6 +1,6 @@
 import React,{Component,useState, useRef} from 'react'
 import { PageHeaderWrapper,PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import { queryRule, updateRule, removeRule,updateImg } from './service';
+import { queryRule, removeRule } from './service';
 import { FormattedMessage } from 'umi';
 import styles from './style.less';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
@@ -276,56 +276,56 @@ const Index =(props) => {
     setImg(false)
   }
 
-  const handleUpdate = async ()=>{
-    try {
-      const newData = {
-        userId:editId,
-        username,
-        gender,
-        address,
-        school,
-        institute,
-        clazz,
-        registerTime,
-        phone,
-        privilege,
-        nickname,
-        imgUrl,
-        // content:'',
-      }
-      await updateRule(newData);
-      if(img){
-        await updateImg(fileList,editId)
-      }
-      message.success('修改成功');
-      actionRef.current.reload()   
-    } catch (error) {
-      message.error('失败请重试！');
-    }
-    handleCancel()
-  }
+  // const handleUpdate = async ()=>{
+  //   try {
+  //     const newData = {
+  //       userId:editId,
+  //       username,
+  //       gender,
+  //       address,
+  //       school,
+  //       institute,
+  //       clazz,
+  //       registerTime,
+  //       phone,
+  //       privilege,
+  //       nickname,
+  //       imgUrl,
+  //       // content:'',
+  //     }
+  //     await updateRule(newData);
+  //     if(img){
+  //       await updateImg(fileList,editId)
+  //     }
+  //     message.success('修改成功');
+  //     actionRef.current.reload()
+  //   } catch (error) {
+  //     message.error('失败请重试！');
+  //   }
+  //   handleCancel()
+  // }
 
 
-  const handleUse= async (row)=>{
-    try {
-      if(row.isUse !== 1){
-        await useRule(row.userId);
-      }else{
-        await stopRule(row.userId,row.sort);
-      }
-      // await useRule(url,row.bannerId,row.sort);
-      actionRef.current.reload()   
-    } catch (error) {
-      message.error('失败请重试！');
-    }
-  }
-  const setSelectedRows=(data)=>{
-    let ids = []
-    data.map(item=>{
-      ids.push(item.userId)
-    })
-    setDeleteuserIds(ids)
-  }
+  // const handleUse= async (row)=>{
+  //   try {
+  //     if(row.isUse !== 1){
+  //       await useRule(row.userId);
+  //     }else{
+  //       await stopRule(row.userId,row.sort);
+  //     }
+  //     // await useRule(url,row.bannerId,row.sort);
+  //     actionRef.current.reload()
+  //   } catch (error) {
+  //     message.error('失败请重试！');
+  //   }
+  // }
+  // const setSelectedRows=(data)=>{
+  //   let ids = []
+  //   data.map(item=>{
+  //     ids.push(item.userId)
+  //   })
+  //   setDeleteuserIds(ids)
+  // }
 
   const handleDelete= async (id)=>{
     // const hide = message.loading('正在删除');
@@ -347,28 +347,28 @@ const Index =(props) => {
     setModalVisible(false)
   }
 
-  const handleOk = async(data)=>{
-    try {
-      const newData = {
-        sort:data.isUse === 0? 0: Number(data.sort),
-        isUse:Number(data.isUse),
-        title:data.title,
-        content:'',
-        // isOverhead:data.isOverhead,
-        time:getNowFormatDate(),
-        imgUrl:'',
-        userId:0,
-      }
-      const res = await addRule(newData)
-      await updateImg(data.imgUrl.fileList,res.userId)
-      message.success('新增成功')
-      actionRef.current.reload()   
-    } catch (error) {
-      message.error('失败请重试！');
-    }
-    
-    handleCancelModal(false)
-  }
+  // const handleOk = async(data)=>{
+  //   try {
+  //     const newData = {
+  //       sort:data.isUse === 0? 0: Number(data.sort),
+  //       isUse:Number(data.isUse),
+  //       title:data.title,
+  //       content:'',
+  //       // isOverhead:data.isOverhead,
+  //       time:getNowFormatDate(),
+  //       imgUrl:'',
+  //       userId:0,
+  //     }
+  //     const res = await addRule(newData)
+  //     await updateImg(data.imgUrl.fileList,res.userId)
+  //     message.success('新增成功')
+  //     actionRef.current.reload()
+  //   } catch (error) {
+  //     message.error('失败请重试！');
+  //   }
+  //
+  //   handleCancelModal(false)
+  // }
 
  
   return(

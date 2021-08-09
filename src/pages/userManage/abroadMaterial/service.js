@@ -13,35 +13,28 @@ export async function queryRule(data) {
 }
 
 export async function removeRule(params) {
-  return request('http://1.116.77.118:2333/user/deleteUsers', {
-    method: 'POST',
-    data: {users:params}
+  return request(`http://1.116.77.118:2333/abroad/deleteAbroad/${params.type}`, {
+    method: 'GET',
+    data: {userId:params.userId}
   })
 }
 
-export async function updateImg(param,userId){
+export async function updateRule(param,userId,type){
   const imgOri = param.map((item) => {
     return item.originFileObj;
   });
   const img = new FormData();
   img.append('uploadfile', imgOri[0]);
   img.append('userId', userId);
-  return request('http://1.116.77.118:2333/notice/uploadFile', {
+  return request(`http://1.116.77.118:2333/abroad/updateAbroad/${type}`, {
     method: 'POST',
     data: img,
   });
 };
 
-export async function updateRule(params) {
-  return request('http://1.116.77.118:2333/user/updateUser', {
-    method: 'POST',
-    data: params
-  });
-}
 
 export async function getRule(id) {
-  console.log('sssssssssssssssss',id)
-  return request('http://1.116.77.118:2333/user/getUser', {
+  return request('http://1.116.77.118:2333/abroad/getAbroad', {
     method: 'GET',
     params: {userId:id}
   })

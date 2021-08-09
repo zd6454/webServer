@@ -15,7 +15,7 @@ const  Index =(props)=> {
   const initUser=()=>{
     const newUser=currentUser;
     newUser.role=role[Number(newUser.role)];
-    newUser.isAllowLogin=newUser.isAllowLogin==='1'?'是':'否';
+    newUser.isAllowLogin=newUser.isAllowLogin===1?'是':'否';
     return newUser
   };
 
