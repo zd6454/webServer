@@ -67,6 +67,13 @@ export async function updateRule(params) {
   });
 }
 
+export async function getRule(id) {
+  return request('http://1.116.77.118:2333/photo/getPhoto', {
+    method: 'GET',
+    params: {photoId:id}
+  })
+}
+
 // export async function getPages(params) {
 //   return request('http://1.116.77.118:2333/banner/getPageBanners', {
 //     method: 'GET',
