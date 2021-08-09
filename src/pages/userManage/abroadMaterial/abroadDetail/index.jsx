@@ -85,7 +85,9 @@ function getBase64(file) {
    const handleFilesChange=async( index)=>{
       const {fileList,url} = material[index];
      try {
-          await updateRule(fileList,userId,url);
+         if(fileList.length>0&&fileList[0].originFileObj){
+           await updateRule(fileList,userId,url);
+         }
        message.success('替换成功')
      }catch(err){
         message.error('网络错误')
