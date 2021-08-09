@@ -1,80 +1,79 @@
 import React,{Component,useState, useRef} from 'react'
 import { PageHeaderWrapper,PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import { queryRule, updateRule, removeRule,updateImg } from './service';
+import { queryRule, updateRule, addRule, removeRule,useRule,stopRule,updateImg,useOverRule } from './service';
 import { FormattedMessage } from 'umi';
 import styles from './style.less';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { Button, message, Input, Drawer,Image, Upload, DatePicker,Select } from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-// import AddNoticeModal from './addNoticeModal/index'
-// import moment from 'moment';
+import AddNoticeModal from './addNoticeModal/index'
+import moment from 'moment';
 import {getNowFormatDate} from '../../../utils/utils';
 
 const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);
-  const [deleteuserIds, setDeleteuserIds] = useState([]);
+  const [deleteactivityIds, setDeleteactivityIds] = useState([]);
   const actionRef = useRef();
   const [canEdit,setCanEdit] = useState(false)
-  const [username,setUsername] = useState('')
-  const [nickname,setNickname] = useState('')
-  const [gender,setGender] = useState(1)
+  const [title,setTitle] = useState('')
+  const [sort,setSort] = useState('')
   const [imgUrl,setImgUrl] = useState('')
-  const [school,setSchool] = useState('')
-  const [institute,setInstitute] = useState('')
-  const [clazz,setClazz] = useState('')
+  const [isUse,setIsUse] = useState('')
   // const [isOverhead,setIsOverhead] = useState('')
-  const [phone,setPhone] = useState('')
-  const [address,setAddress] = useState()
+  const [time,setTime] = useState('')
+  const [timeDate,setTimeDate] = useState()
   const [editId,setEditId] = useState(-1)
   const [fileList,setFileList] = useState([])
   const [img,setImg]= useState(false)
-  const [registerTime,setRegister] = useState('')
-  const [privilege,setPrivilege] = useState()
+  const [modalVisible,setModalVisible] = useState(false)
 
   const uploadButton = (
     <div>
       <PlusOutlined />
-      <div style={{ marginTop: 8 }}>点击上传头像</div>
+      <div style={{ marginTop: 8 }}>点击上传图片</div>
     </div>
   );
 
+  const dateFormat = 'YYYY-MM-DD'
+
+
   const columns = [
     {
-      title: '头像',
+      title: '图片',
       dataIndex: 'imgUrl',
       render: (dom, row) => {
-        // if(canEdit && editId === row.userId){
-        //   return(
-        //     <Upload
-        //     action=""
-        //     listType="picture-card"
-        //     fileList={fileList}
-        //     onRemove={onRemove}
-        //     onChange={handleChange}
-        //     beforeUpload={() => {
-        //       return false;
-        //     }}
-        //   >
-        //   {fileList.length >= 1 ? null : uploadButton}
-        // </Upload>
-        //   )
-        // }else{
+        if(canEdit && editId === row.activityId){
+          return(
+            <Upload
+            action=""
+            listType="picture-card"
+            fileList={fileList}
+            onRemove={onRemove}
+            onChange={handleChange}
+            beforeUpload={() => {
+              return false;
+            }}
+          >
+          {fileList.length >= 1 ? null : uploadButton}
+        </Upload>
+          )
+        }else{
           return (
             <Image src={row.imgUrl}
-              width={100}
+              width={180}
               height={100}
             />
           );
-        // }
+        }
       },
     }, 
     {
-      title: '姓名',
-      dataIndex: 'username',
+      title: '顺序',
+      dataIndex: 'sort',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.userId){
+        if(canEdit && editId === row.activityId){
           return(
-            <Input value={username} onChange={(e)=>setUsername(e.target.value)}/>
+            <Input value={sort} onChange={(e)=>setSort(e.target.value)}/>
           )
         }else{
          return text
@@ -83,102 +82,67 @@ const Index =(props) => {
       },
     },
     {
-      title: '昵称',
-      dataIndex: 'nickname',
+      title: '是否启用',
+      dataIndex: 'isUse',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.userId){
+        if(canEdit && editId === row.activityId){
           return(
-            <Input value={nickname} onChange={(e)=>setNickname(e.target.value)}/>
-          )
-        }else{
-         return text
-        }
-       
-      },
-    },
-    {
-      title: '性别',
-      dataIndex: 'gender',
-      render: (text, row, _, action) => {
-        if(canEdit && editId === row.userId){
-          return(
-            <Select value={gender} onChange={(e)=>setGender(e)}>
-              <Select.Option value={1}>男</Select.Option>
-              <Select.Option value={0}>女</Select.Option>
+            <Select value={isUse} onChange={(e)=>setIsUse(e)}>
+              <Select.Option value={1}>是</Select.Option>
+              <Select.Option value={0}>否</Select.Option>
             </Select>
           )
         }else{
-          if(row.gender === 1){
-            return '男'
+          if(row.isUse === 1){
+            return '是'
           }else{
-            return '女'
+            return '否'
           }
         }
-       }
-    },
-    {
-      title: '学校',
-      dataIndex: 'school',
-      render: (text, row, _, action) => {
-        if(canEdit && editId === row.userId){
-          return(
-            <Input value={school} onChange={(e)=>setSchool(e.target.value)}/>
-          )
-        }else{
-         return text
-        }
        
       },
+      // renderText: (val) =>
+      //   `${val}万`,
     },
     {
-      title: '学院',
-      dataIndex: 'institute',
+      title: '发表时间',
+      dataIndex: 'time',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.userId){
-          return(
-            <Input value={institute} onChange={(e)=>setInstitute(e.target.value)}/>
-          )
-        }else{
-         return text
-        }
+        // if(canEdit && editId === row.activityId){
+        //   return(
+        //     // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
+        //     <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
+        //   )
+        // }else{
+          return row.time.substring(0,10)
+        // }
        
       },
+      // renderText: (val) =>
+      //   `${val}万`,
     },
     {
-      title: '班级',
-      dataIndex: 'clazz',
+      title: '发表用户',
+      dataIndex: 'username',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.userId){
-          return(
-            <Input value={clazz} onChange={(e)=>setClazz(e.target.value)}/>
-          )
-        }else{
-         return text
-        }
-       
+        return '管理员'
+        // if(canEdit  && editId === row.activityId){
+        //   return(
+        //     <Input value={title} onChange={(e)=>setTitle(e.target.value)}/>
+        //   )
+        // }else{
+        //   return text
+        // }
       },
+      // sorter:true,
     },
     {
-      title: '联系方式',
-      dataIndex: 'phone',
+      title: '标题',
+      dataIndex: 'title',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.userId){
+        if(canEdit  && editId === row.activityId){
           return(
-            <Input value={phone} onChange={(e)=>setPhone(e.target.value)}/>
-          )
-        }else{
-         return text
-        }
-       
-      },
-    },
-    {
-      title: '地址',
-      dataIndex: 'address',
-      render: (text, row, _, action) => {
-        if(canEdit  && editId === row.userId){
-          return(
-            <Input value={address} onChange={(e)=>setAddress(e.target.value)}/>
+            <Input value={title} onChange={(e)=>setTitle(e.target.value)}/>
           )
         }else{
           return text
@@ -204,17 +168,28 @@ const Index =(props) => {
             </>
           }
         </a>,
-          <a onClick={()=>handleDelete(row.userId)}>
+      //    <a onClick={()=>handleOverHead(row)}>
+      //    {
+      //     !canEdit && row.isOverHead === 1 &&
+      //     <div>取消置顶</div>
+      //    }
+      //     {
+      //     !canEdit && row.isOverHead !== 1 &&
+      //     <div>置顶</div>
+      //    }
+      //  </a>,
+        <a onClick={()=>handleUse(row)}>
           {
-            !canEdit &&
-            <span>删除</span>
+          !canEdit && row.isUse === 1 &&
+          <div>取消启用</div>
+          }
+          {
+          !canEdit && row.isUse !== 1 &&
+          <div>启用</div>
           }
         </a>,
-        <a onClick={()=>{props.history.push(`./userList/userDetail?id=${row.userId}`)}}>
-          {
-            !canEdit &&
-            <span>详情</span>
-          }
+        <a onClick={()=>{props.history.push(`/contentManage/notice/detail/?id=${row.activityId}`)}}>
+          详情
         </a>
       ],
     },
@@ -234,19 +209,14 @@ const Index =(props) => {
 
   const handleEdit = (row)=>{
     setCanEdit(true)
-    setUsername(row.username)
-    setNickname(row.nickname)
+    setTitle(row.title)
     setImgUrl(row.imgUrl)
-    setGender(row.gender)
-    setSchool(row.school)
-    setInstitute(row.institute)
-    setClazz(row.clazz)
+    setSort(row.sort)
+    setIsUse(row.isUse === 1?'是':'否')
     // setIsOverhead(row.isOverhead)
-    setPhone(row.phone)
-    setAddress(row.address)
-    setEditId(row.userId)
-    setRegister(row.registerTime)
-    setPrivilege(row.privilege)
+    setTime(row.time.substring(0,10))
+    setTimeDate(row.time)
+    setEditId(row.activityId)
     setFileList([
       {
         uid: '-1',
@@ -259,38 +229,33 @@ const Index =(props) => {
 
   const handleCancel =()=>{
     setCanEdit(false)
-    setUsername('')
-    setNickname('')
+    setTitle('')
     setImgUrl('')
-    setGender('')
-    setSchool('')
-    setInstitute('')
-    setClazz('')
-    // setIsOverhead(row.isOverhead)
-    setPhone('')
-    setAddress('')
-    setRegister('')
-    setPrivilege('')
+    setSort('')
+    setIsUse('')
+    // setIsOverhead('')
+    setTime('')
+    setTimeDate()
     setEditId(-1)
     setImg(false)
   }
 
   const handleUpdate = async ()=>{
+    if((isUse === 0 || isUse === '否')&& Number(sort)!==0){
+      message.warning('想要修改顺序必须将启用状态设置为启用')
+      return
+    }
     try {
       const newData = {
-        userId:editId,
-        username,
-        gender,
-        address,
-        school,
-        institute,
-        clazz,
-        registerTime,
-        phone,
-        privilege,
-        nickname,
-        imgUrl,
+        activityId:Number(editId),
+        sort:Number(sort),
+        isUse:isUse===0||isUse==='否'?0:1,
+        // isOverhead:Number(isOverhead),
+        time:timeDate,
+        // time:new Date,
         // content:'',
+        title,
+        imgUrl,
       }
       await updateRule(newData);
       if(img){
@@ -308,9 +273,9 @@ const Index =(props) => {
   const handleUse= async (row)=>{
     try {
       if(row.isUse !== 1){
-        await useRule(row.userId);
+        await useRule(row.activityId);
       }else{
-        await stopRule(row.userId,row.sort);
+        await stopRule(row.activityId,row.sort);
       }
       // await useRule(url,row.bannerId,row.sort);
       actionRef.current.reload()   
@@ -318,23 +283,34 @@ const Index =(props) => {
       message.error('失败请重试！');
     }
   }
+
+  // const handleOverHead= async (row)=>{
+  //   try {
+  //     if(row.isOverHead !== 1){
+  //       await useOverRule(row.activityId);
+  //     }else{
+  //       await stopOverRule(row.activityId,row.sort);
+  //     }
+  //     // await useRule(url,row.activityId,row.sort);
+  //     actionRef.current.reload()   
+  //   } catch (error) {
+  //     message.error('失败请重试！');
+  //   }
+  // }
+
+  
   const setSelectedRows=(data)=>{
     let ids = []
     data.map(item=>{
-      ids.push(item.userId)
+      ids.push(item.activityId)
     })
-    setDeleteuserIds(ids)
+    setDeleteactivityIds(ids)
   }
 
-  const handleDelete= async (id)=>{
+  const handleDelete= async ()=>{
     // const hide = message.loading('正在删除');
     try {
-      if(id){
-        await removeRule([id]);
-      }else{
-        await removeRule(deleteuserIds);
-      }
-      
+      await removeRule(deleteactivityIds);
       message.success('删除成功');
       actionRef.current.reload()   
     } catch (error) {
@@ -352,14 +328,13 @@ const Index =(props) => {
         sort:data.isUse === 0? 0: Number(data.sort),
         isUse:Number(data.isUse),
         title:data.title,
-        content:'',
         // isOverhead:data.isOverhead,
         time:getNowFormatDate(),
         imgUrl:'',
-        userId:0,
+        activityId:0,
       }
       const res = await addRule(newData)
-      await updateImg(data.imgUrl.fileList,res.userId)
+      await updateImg(data.imgUrl.fileList,res.activityId)
       message.success('新增成功')
       actionRef.current.reload()   
     } catch (error) {
@@ -374,13 +349,13 @@ const Index =(props) => {
       <PageHeaderWrapper>
         <ProTable
           className={styles.tableMain}
-          headerTitle='用户列表'
-          rowKey="userId"
+          headerTitle='活动咨询'
+          rowKey="activityId"
           actionRef={actionRef}
           toolBarRender={() => [
-            // <Button type="primary" key="primary" onClick={() => setModalVisible(true)}>
-            //   <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新增" />
-            // </Button>,
+            <Button type="primary" key="primary" onClick={() => setModalVisible(true)}>
+              <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新增" />
+            </Button>,
             <Button type="ghost" key="primary" onClick={() => handleDelete()}>
               <DeleteOutlined /> <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
             </Button>,
@@ -401,11 +376,11 @@ const Index =(props) => {
           options={false}
           recordCreatorProps={false}
         />
-        {/* <AddNoticeModal
+        <AddNoticeModal
           visible = {modalVisible}
           handleOk= {handleOk}
           handleCancel={handleCancelModal}
-        /> */}
+        />
       </PageHeaderWrapper>
   )
     

@@ -6,7 +6,7 @@ export async function queryRule(data) {
     page:data.current,
     num:data.pageSize,
   }
-  return request('http://1.116.77.118:2333/abroad/getPageAbroad', {
+  return request('http://1.116.77.118:2333/abroad/getPageAbroads', {
     method: 'GET',
     params,
   })

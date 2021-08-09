@@ -10,6 +10,7 @@ import { Button, message, Input, Drawer,Image, Upload, DatePicker,Select } from 
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import AddDepartmentModal from './addDepartmentModal/index'
 import moment from 'moment';
+import {getNowFormatDate} from '../../../utils/utils';
 
 const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);

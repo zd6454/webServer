@@ -53,6 +53,12 @@
         component: './contentManage/photo',
       },
       {
+        path: '/contentManage/activity',
+        name: '活动咨询',
+        icon: 'smile',
+        component: './contentManage/activity',
+      },
+      {
         path: '/contentManage/eastOffice',
         name: '东亚办公室',
         icon: 'smile',

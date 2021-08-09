@@ -8,6 +8,7 @@ import ProTable from '@ant-design/pro-table';
 import { Button, message, Input, Drawer,Image, Upload,DatePicker, Select} from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
+import {getNowFormatDate} from '../../../utils/utils';
 
 const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);
@@ -273,7 +274,7 @@ const Index =(props) => {
     try {
       const newData = {
         title:data.title,
-        time:new Date(),
+        time:getNowFormatDate(),
         messageId:0,
         content:data.content,
       }

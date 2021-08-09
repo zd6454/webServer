@@ -9,6 +9,7 @@ import { EditableProTable } from '@ant-design/pro-table';
 import { Button, message, Input, Drawer,Image, Upload,Select } from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import AddFriendModal from './addFriendModal/index'
+import {getNowFormatDate} from '../../../utils/utils';
 
 const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);
@@ -289,7 +290,7 @@ const Index =(props) => {
         isUse:Number(data.isUse),
         name:data.title,
         content:data.content,
-        time:new Date(),
+        time:getNowFormatDate(),
         imgUrl:'',
         schoolmateId:0,
       }

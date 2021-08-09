@@ -10,6 +10,7 @@ import { Button, message, Input, Drawer,Image, Upload,DatePicker, Select} from '
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import AddCooperationModal from './addCooperationModal/index'
 import moment from 'moment';
+import {getNowFormatDate} from '../../../utils/utils';
 
 const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);
@@ -300,7 +301,7 @@ const Index =(props) => {
         sort:data.isUse === 0? 0: Number(data.sort),
         isUse:Number(data.isUse),
         title:data.title,
-        time:new Date(),
+        time:getNowFormatDate(),
         imgUrl:'',
         interCooperId:0,
         content:'',
@@ -311,11 +312,11 @@ const Index =(props) => {
         message.success('新增成功')
         actionRef.current.reload()   
       }
-      const interCooperId = await addRule(newData)
-      console.log(interCooperId)
-      await updateImg(data.imgUrl,interCooperId)
-      message.success('新增成功');
-      actionRef.current.reload()
+      // const interCooperId = await addRule(newData)
+      // console.log(interCooperId)
+      // await updateImg(data.imgUrl,interCooperId)
+      // message.success('新增成功');
+      // actionRef.current.reload()
     } catch (error) {
       message.error('失败请重试！');
     }

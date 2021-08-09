@@ -8,6 +8,7 @@ import { Button, message, Input, Drawer,Image, Upload, DatePicker,Select } from 
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import AddNoticeModal from './addNoticeModal/index'
 import moment from 'moment';
+import {getNowFormatDate} from '../../../utils/utils';
 
 const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);
@@ -336,7 +337,7 @@ const Index =(props) => {
         userId:'',
         content:data.title,
         // isOverhead:data.isOverhead,
-        time:new Date(),
+        time:getNowFormatDate(),
         imgUrl:'',
         forumId:0,
       }
