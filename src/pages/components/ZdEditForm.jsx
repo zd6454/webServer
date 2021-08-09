@@ -2,6 +2,7 @@ import React,{Component} from 'react'
 import { Card,Form,Input,Modal,Upload,DatePicker,Radio,InputNumber,Button,message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import ZdTextArea from "./ZdTextArea";
+import {history} from "../../.umi/core/history";
 import moment from 'moment';
 
 function getBase64(file) {
@@ -215,7 +216,7 @@ componentWillReceiveProps(nextProps, nextContext) {
             <Button type="primary" htmlType="submit">
               保存
             </Button>
-            <Button style={{margin:"0px 0px 0px 100px"}}>
+            <Button style={{margin:"0px 0px 0px 100px"}} onClick={()=>{history.goBack()}  }>
               返回
             </Button>
           </Form.Item>

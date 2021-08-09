@@ -188,7 +188,7 @@ const Index =(props) => {
           <div>启用</div>
           }
         </a>,
-        <a onClick={()=>{props.history.push(`/contentManage/notice/detail/?id=${row.activityId}`)}}>
+        <a onClick={()=>{props.history.push(`/contentManage/activity/detail/?id=${row.activityId}`)}}>
           详情
         </a>
       ],
@@ -253,7 +253,7 @@ const Index =(props) => {
         // isOverhead:Number(isOverhead),
         time:timeDate,
         // time:new Date,
-        // content:'',
+        content:'',
         title,
         imgUrl,
       }
@@ -328,6 +328,7 @@ const Index =(props) => {
         sort:data.isUse === 0? 0: Number(data.sort),
         isUse:Number(data.isUse),
         title:data.title,
+        content:"",
         // isOverhead:data.isOverhead,
         time:getNowFormatDate(),
         imgUrl:'',

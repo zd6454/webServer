@@ -66,6 +66,13 @@
         component: './contentManage/activity',
       },
       {
+        path: '/contentManage/activity/detail',
+        name: '活动详情',
+        icon: 'smile',
+        hideInMenu:'true',
+        component: './contentManage/activity/activityDetail',
+      },
+      {
         path: '/contentManage/eastOffice',
         name: '东亚办公室',
         icon: 'smile',

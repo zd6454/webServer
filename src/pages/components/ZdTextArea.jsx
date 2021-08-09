@@ -34,7 +34,7 @@ class ZdTextArea  extends Component{
     editor.config.customUploadImg = function (resultFiles, insertImgFn) {
         const data= new FormData();
         data.append('uploadfile',resultFiles[0]);
-        data.append('index',resultFiles[0].name);
+        data.append('index',new Date().getTime());
         request(imgUrl, {
             method: 'POST',
             data,
