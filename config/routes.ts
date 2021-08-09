@@ -287,6 +287,13 @@
         icon: 'smile',
         component: './userManage/abroadMaterial',
       },
+      {
+        path: '/userManage/abroadMaterial/detail',
+        name: '材料详情',
+        icon: 'smile',
+        hideInMenu:'true',
+        component: './userManage/abroadMaterial/abroadDetail',
+      },
     ],
   },
   {

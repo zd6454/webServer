@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import request from 'umi-request';
-import { Divider, message } from 'antd';
-import { Form, Input, InputNumber, Button, Upload } from 'antd';
+import { Form, Input, InputNumber, Button, Upload,Divider, message } from 'antd';
 import PlusOutlined from '@ant-design/icons/es/icons/PlusOutlined';
 import Select from 'antd/es/select';
 import { addRule,sendUsers,getUsers} from "./service";

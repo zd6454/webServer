@@ -211,7 +211,7 @@ const Index =(props) => {
         //     <span>删除</span>
         //   }
         // </a>,
-        <a onClick={()=>{props.history.push(`./userList/userDetail?id=${row.userId}`)}}>
+        <a onClick={()=>{props.history.push(`/userManage/abroadMaterial/detail?id=${row.userId}`)}}>
           {
             !canEdit &&
             <span>详情</span>
