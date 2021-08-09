@@ -235,7 +235,7 @@ const Index =(props) => {
   }
 
   const handleToDetail = (res) => {
-     props.history.push(`/contentManage/slideshow/slideDetail?photoId=${res.photoId}`)
+     props.history.push(`/contentManage/photo/detail?id=${res.photoId}`)
   };
 
 

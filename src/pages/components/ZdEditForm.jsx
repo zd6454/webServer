@@ -30,10 +30,14 @@ class ZdEditForm extends Component{
 
   onFinish=(e)=>{
     const dateFormat = 'YYYY-MM-DD hh:mm:ss';
-    const{initData} = this.props;
+    const{initData,isTimeHide,isContentHide} = this.props;
+    if(!isContentHide){
       e.content=this.state.content?this.state.content:initData.content;
+    }
       e.imgUrl=this.state.fileList;
-      e.time = e.time.format(dateFormat);
+      if(!isTimeHide){
+        e.time = e.time.format(dateFormat);
+      }
    this.props.handleOk(e);
   };
 
@@ -104,7 +108,7 @@ componentWillReceiveProps(nextProps, nextContext) {
 
    render () {
      const { previewVisible, previewImage,fileList, previewTitle } = this.state;
-     const{initData} = this.props;
+     const{initData,isContentHide,isTimeHide} = this.props;
      const uploadButton = (
        <div>
          <PlusOutlined />
@@ -156,7 +160,7 @@ componentWillReceiveProps(nextProps, nextContext) {
               {fileList.length >= 1 ? null : uploadButton}
             </Upload>
           </Form.Item>}
-          <Form.Item
+         {!isContentHide&& <Form.Item
             label="正文"
             wrapperCol={{span:16}}
             name="content"
@@ -166,8 +170,8 @@ componentWillReceiveProps(nextProps, nextContext) {
                          imgUrl={this.props.imgUrl}
                          comfirm={this.sendMessage}
             />
-          </Form.Item>
-          <Form.Item
+          </Form.Item>}
+         { !isTimeHide&&<Form.Item
             label="发布日期"
             name="time"
             rules={[
@@ -178,7 +182,7 @@ componentWillReceiveProps(nextProps, nextContext) {
             ]}
           >
             <DatePicker format="YYYY-MM-DD"  />
-          </Form.Item>
+          </Form.Item>}
           <Form.Item
             name="isUse"
             label="启用状态"

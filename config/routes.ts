@@ -53,6 +53,13 @@
         component: './contentManage/photo',
       },
       {
+        path: '/contentManage/photo/detail',
+        name: '相册详情',
+        icon: 'smile',
+        hideInMenu:'true',
+        component: './contentManage/photo/photoDetail',
+      },
+      {
         path: '/contentManage/activity',
         name: '活动咨询',
         icon: 'smile',

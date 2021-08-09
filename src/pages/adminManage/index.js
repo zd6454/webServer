@@ -13,7 +13,6 @@ const  Index =(props)=> {
 
 
   const initUser=()=>{
-    console.log(currentUser,'445');
     const newUser=currentUser;
     newUser.role=role[Number(newUser.role)];
     newUser.isAllowLogin=newUser.isAllowLogin==='1'?'是':'否';
@@ -29,7 +28,6 @@ const  Index =(props)=> {
   };
   const onFinish= async(value)=>{
     const user = value;
-   console.log(value);
     try {
       user.role=role.indexOf(value.role);
       user.isAllowLogin = value.isAllowLogin;
