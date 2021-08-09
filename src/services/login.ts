@@ -1,16 +1,12 @@
 import { request } from 'umi';
 
 export interface LoginParamsType {
-  username: string;
+  adminName: string;
   password: string;
-  mobile: string;
-  captcha: string;
-  type: string;
 }
 
 export async function fakeAccountLogin(params: LoginParamsType) {
-  console.log(params,)
-  return request<API.LoginStateType>('/api/login/account', {
+  return request('http://1.116.77.118:2333/admin/login', {
     method: 'POST',
     data: params,
   });

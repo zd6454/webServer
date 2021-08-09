@@ -95,6 +95,12 @@
         icon: 'smile',
         component: './contentManage/abroadStep',
       },
+      {
+        path: '/contentManage/contactUs',
+        name: '联系我们',
+        icon: 'smile',
+        component: './contentManage/contactUs',
+      },
     ],
   },
   {
@@ -248,6 +254,13 @@
         name: '消息清单',
         icon: 'smile',
         component: './userManage/messageMenu',
+      },
+      {
+        path: '/userManage/messageMenu/detail',
+        name: '消息清单',
+        hideInMenu:'true',
+        icon: 'smile',
+        component: './userManage/messageMenu/messageDetail',
       },
       {
         path: '/userManage/messageSend',

@@ -13,7 +13,7 @@ export default defineConfig({
     hmr: true,
   },
   layout: {
-    name: 'Ant Design Pro',
+    name: '三一圣大卫',
     locale: true,
     siderWidth: 208,
     ...defaultSettings,

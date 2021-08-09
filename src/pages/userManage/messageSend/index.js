@@ -34,7 +34,7 @@ class Index extends Component {
   }
   componentDidMount() {
    const getAllUsers=async()=>{
-     const users = await getUsers({page:1,num:20});
+     const users = await getUsers({page:1,num:200});
      this.setState({users})
    };
    getAllUsers();
@@ -81,6 +81,9 @@ class Index extends Component {
   getMore=(e)=>{
      console.log(e)
   };
+   cleanValue=()=>{
+
+   };
   render() {
     const {
       previewVisible,
@@ -157,9 +160,9 @@ class Index extends Component {
             </Form.Item>
 
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-              <Button type="default" onClick={()=>{}}>
-                重置
-              </Button>
+              {/*<Button type="default" onClick={this.cleanValue}>*/}
+                {/*重置*/}
+              {/*</Button>*/}
               <Divider type="vertical" />
               <Button type="primary" htmlType="submit">
                 发送

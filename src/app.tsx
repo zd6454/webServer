@@ -112,7 +112,7 @@ const requestInterceptors=(url:string, options:any)=>{
     url: `http://1.116.77.118:2333${url}`,
     options:{...options, credentials: 'include'}
   };
-}
+};
 
 export const request: RequestConfig = {
   errorHandler,

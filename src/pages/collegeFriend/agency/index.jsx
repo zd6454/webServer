@@ -37,13 +37,12 @@ class Index extends Component{
         this.getMessage(agencyKey);
      }
 
-     getMessage=()=>{
-       const {agency,agencyKey}=this.state;
-       request(agency[agencyKey].get, {
+     getMessage=(key)=>{
+       const {agency}=this.state;
+       request(agency[key].get, {
              method: 'GET',
            })
              .then((response)=> {
-               console.log(response)
                this.setState({
                    data:response
                })
@@ -55,7 +54,7 @@ class Index extends Component{
 
 
      sendMessage1=(params)=>{
-        const {agency}=this.state;
+        const {agency,agencyKey}=this.state;
          request(agency[agencyKey].send, {
              method: 'POST',
              data:params,
@@ -68,11 +67,12 @@ class Index extends Component{
              });
      }
      callback=(agencyKey)=>{
-        this.setState({agencyKey})
-     }
+        this.setState({agencyKey,});
+        console.log(agencyKey,'1')
+        this.getMessage(agencyKey);
+     };
     render(){
         const{data,agency,agencyKey}=this.state;
-      
         return(
             <PageHeaderWrapper>
             <Tabs defaultActiveKey="一级代理" onChange={this.callback}>
@@ -84,7 +84,7 @@ class Index extends Component{
               <Card 
                title={agencyKey}
               >
-               <ZdTextArea
+                  <ZdTextArea
                     data={data}
                     imgUrl={agency[agencyKey].upload}
                     comfirm={this.sendMessage1}

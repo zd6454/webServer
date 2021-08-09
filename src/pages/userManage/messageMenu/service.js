@@ -48,9 +48,9 @@ export async function addReceiver(params) {
 //   })
 // }
 
-export async function getUser() {
-  return request('http://1.116.77.118:2333/user/getPageUsers', {
+export async function getMessageDetail(params) {
+  return request('http://1.116.77.118:2333/message/getMessage', {
     method: 'GET',
-    params: {page:1,num:100}
+    params: {messageId:params}
   })
 }
