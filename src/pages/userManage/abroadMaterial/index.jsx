@@ -39,177 +39,178 @@ const Index =(props) => {
   );
 
   const columns = [
+    // {
+    //   title: '头像',
+    //   dataIndex: 'imgUrl',
+    //   render: (dom, row) => {
+    //     // if(canEdit && editId === row.userId){
+    //     //   return(
+    //     //     <Upload
+    //     //     action=""
+    //     //     listType="picture-card"
+    //     //     fileList={fileList}
+    //     //     onRemove={onRemove}
+    //     //     onChange={handleChange}
+    //     //     beforeUpload={() => {
+    //     //       return false;
+    //     //     }}
+    //     //   >
+    //     //   {fileList.length >= 1 ? null : uploadButton}
+    //     // </Upload>
+    //     //   )
+    //     // }else{
+    //       return (
+    //         <Image src={row.imgUrl}
+    //           width={100}
+    //           height={100}
+    //         />
+    //       );
+    //     // }
+    //   },
+    // }, 
     {
-      title: '头像',
-      dataIndex: 'imgUrl',
-      render: (dom, row) => {
-        // if(canEdit && editId === row.userId){
-        //   return(
-        //     <Upload
-        //     action=""
-        //     listType="picture-card"
-        //     fileList={fileList}
-        //     onRemove={onRemove}
-        //     onChange={handleChange}
-        //     beforeUpload={() => {
-        //       return false;
-        //     }}
-        //   >
-        //   {fileList.length >= 1 ? null : uploadButton}
-        // </Upload>
-        //   )
-        // }else{
-          return (
-            <Image src={row.imgUrl}
-              width={100}
-              height={100}
-            />
-          );
-        // }
-      },
-    }, 
-    {
-      title: '姓名',
+      title: '名称',
       dataIndex: 'username',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.userId){
-          return(
-            <Input value={username} onChange={(e)=>setUsername(e.target.value)}/>
-          )
-        }else{
+        // if(canEdit && editId === row.userId){
+        //   return(
+        //     <Input value={username} onChange={(e)=>setUsername(e.target.value)}/>
+        //   )
+        // }else{
          return text
-        }
+        // }
        
       },
-    },
-    {
-      title: '昵称',
-      dataIndex: 'nickname',
-      render: (text, row, _, action) => {
-        if(canEdit && editId === row.userId){
-          return(
-            <Input value={nickname} onChange={(e)=>setNickname(e.target.value)}/>
-          )
-        }else{
-         return text
-        }
-       
-      },
-    },
-    {
-      title: '性别',
-      dataIndex: 'gender',
-      render: (text, row, _, action) => {
-        if(canEdit && editId === row.userId){
-          return(
-            <Select value={gender} onChange={(e)=>setGender(e)}>
-              <Select.Option value={1}>男</Select.Option>
-              <Select.Option value={0}>女</Select.Option>
-            </Select>
-          )
-        }else{
-          if(row.gender === 1){
-            return '男'
-          }else{
-            return '女'
-          }
-        }
-       }
     },
     {
       title: '学校',
       dataIndex: 'school',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.userId){
-          return(
-            <Input value={school} onChange={(e)=>setSchool(e.target.value)}/>
-          )
-        }else{
+        // if(canEdit && editId === row.userId){
+        //   return(
+        //     <Input value={} onChange={(e)=>setNickname(e.target.value)}/>
+        //   )
+        // }else{
          return text
-        }
+        // }
        
       },
     },
     {
-      title: '学院',
-      dataIndex: 'institute',
+      title: '入学申请表',
+      dataIndex: 'application',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.userId){
+        if(text){
           return(
-            <Input value={institute} onChange={(e)=>setInstitute(e.target.value)}/>
+            <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
         }else{
-         return text
+          return(
+            <span style={{color:'red',fontSize:17,fontWeight:700}}>×</span>
+          )
         }
-       
-      },
+       }
     },
     {
-      title: '班级',
-      dataIndex: 'clazz',
+      title: '护照(正反面)',
+      dataIndex: 'passport',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.userId){
+        if(row.passport_front&&row.passport_back){
           return(
-            <Input value={clazz} onChange={(e)=>setClazz(e.target.value)}/>
+            <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
         }else{
-         return text
+          return(
+            <span style={{color:'red',fontSize:17,fontWeight:700}}>×</span>
+          )
         }
-       
-      },
+       }
     },
     {
-      title: '联系方式',
-      dataIndex: 'phone',
+      title: '有条件offer',
+      dataIndex: 'offer',
       render: (text, row, _, action) => {
-        if(canEdit && editId === row.userId){
+        if(row.offer){
           return(
-            <Input value={phone} onChange={(e)=>setPhone(e.target.value)}/>
+            <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
         }else{
-         return text
+          return(
+            <span style={{color:'red',fontSize:17,fontWeight:700}}>×</span>
+          )
         }
-       
-      },
+       }
     },
     {
-      title: '地址',
-      dataIndex: 'address',
+      title: '语言测试成绩单',
+      dataIndex: 'grade_report',
       render: (text, row, _, action) => {
-        if(canEdit  && editId === row.userId){
+        if(text){
           return(
-            <Input value={address} onChange={(e)=>setAddress(e.target.value)}/>
+            <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
         }else{
-          return text
+          return(
+            <span style={{color:'red',fontSize:17,fontWeight:700}}>×</span>
+          )
         }
-      },
-      // sorter:true,
+       }
     },
+    {
+      title: '学费/押金缴纳回执',
+      dataIndex: 'tutition',
+      render: (text, row, _, action) => {
+        if(text){
+          return(
+            <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
+          )
+        }else{
+          return(
+            <span style={{color:'red',fontSize:17,fontWeight:700}}>×</span>
+          )
+        }
+       }
+    },
+    {
+      title: '核酸检验证明',
+      dataIndex: 'test_certifcate',
+      render: (text, row, _, action) => {
+        if(text){
+          return(
+            <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
+          )
+        }else{
+          return(
+            <span style={{color:'red',fontSize:17,fontWeight:700}}>×</span>
+          )
+        }
+       }
+    },
+
     {
       title: "操作",
       dataIndex: 'option',
       valueType: 'option',
       render: (text, row, _, action) => [
-        <a >
-          {
-            !canEdit &&
-            <div onClick={()=>handleEdit(row)}>编辑</div>
-          }
-          {
-            canEdit &&
-            <>
-            <span onClick={()=>handleUpdate()}>保存</span>
-            <span style={{marginLeft:7}} onClick={()=>handleCancel()}>取消</span>
-            </>
-          }
-        </a>,
-          <a onClick={()=>handleDelete(row.userId)}>
-          {
-            !canEdit &&
-            <span>删除</span>
-          }
-        </a>,
+        // <a >
+        //   {
+        //     !canEdit &&
+        //     <div onClick={()=>handleEdit(row)}>编辑</div>
+        //   }
+        //   {
+        //     canEdit &&
+        //     <>
+        //     <span onClick={()=>handleUpdate()}>保存</span>
+        //     <span style={{marginLeft:7}} onClick={()=>handleCancel()}>取消</span>
+        //     </>
+        //   }
+        // </a>,
+        //   <a onClick={()=>handleDelete(row.userId)}>
+        //   {
+        //     !canEdit &&
+        //     <span>删除</span>
+        //   }
+        // </a>,
         <a onClick={()=>{props.history.push(`./userList/userDetail?id=${row.userId}`)}}>
           {
             !canEdit &&
@@ -374,7 +375,7 @@ const Index =(props) => {
       <PageHeaderWrapper>
         <ProTable
           className={styles.tableMain}
-          headerTitle='用户列表'
+          headerTitle='留学材料'
           rowKey="userId"
           actionRef={actionRef}
           toolBarRender={() => [
