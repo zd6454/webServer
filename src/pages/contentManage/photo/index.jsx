@@ -1,30 +1,30 @@
-import React,{Component,useState, useRef,useEffect} from 'react'
+import React,{Component,useState, useRef} from 'react'
 import { PageHeaderWrapper,PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import { queryRule, addRule, removeRule,getUser,addReceiver } from './service';
+import { queryRule, updateRule, addRule, removeRule,useRule,stopRule,updateImg } from './service';
 import { FormattedMessage } from 'umi';
 import request from 'umi-request';
 import styles from './style.less';
-import ProTable from '@ant-design/pro-table';
-import { Button, message, Input, Drawer,Image, Upload,DatePicker, Select} from 'antd';
+import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
+import { EditableProTable } from '@ant-design/pro-table';
+import { Button, message, Input, Drawer,Image, Upload,Select} from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-import moment from 'moment';
+import AddBannerModal from './addBannerModal/index'
 
 const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);
-  const [deletemessageIds, setDeletemessageIds] = useState([]);
+  const [deleteBannerIds, setDeleteBannerIds] = useState([]);
   const actionRef = useRef();
   const [canEdit,setCanEdit] = useState(false)
   const [title,setTitle] = useState('')
-  const [content,setContent] = useState('')
   const [sort,setSort] = useState('')
   const [imgUrl,setImgUrl] = useState('')
   const [isUse,setIsUse] = useState('')
-  const [time,setTime] = useState('')
-  const [timeDate,setTimeDate] = useState()
   const [editId,setEditId] = useState(-1)
   const [fileList,setFileList] = useState([])
   const [img,setImg]= useState(false)
   const [modalVisible,setModalVisible] = useState(false)
+  const num = 5
+  const [page,setPage] = useState(0)
 
   const uploadButton = (
     <div>
@@ -33,14 +33,79 @@ const Index =(props) => {
     </div>
   );
 
-  const dateFormat = 'YYYY-MM-DD'
 
   const columns = [
+    {
+      title: '图片',
+      dataIndex: 'imgUrl',
+      render: (dom, row) => {
+        if(canEdit && editId === row.photoId){
+          return(
+            <Upload
+            action=""
+            listType="picture-card"
+            fileList={fileList}
+            onRemove={onRemove}
+            onChange={handleChange}
+            beforeUpload={() => {
+              return false;
+            }}
+          >
+          {fileList.length >= 1 ? null : uploadButton}
+        </Upload>
+          )
+        }else{
+          return (
+            <Image src={row.imgUrl}
+              width={180}
+              height={100}
+            />
+          );
+        }
+      },
+    }, 
+    {
+      title: '顺序',
+      dataIndex: 'sort',
+      render: (text, row, _, action) => {
+        if(canEdit && editId === row.photoId){
+          return(
+            <Input value={sort} onChange={(e)=>setSort(e.target.value)}/>
+          )
+        }else{
+         return text
+        }
+       
+      },
+    },
+    {
+      title: '是否启用',
+      dataIndex: 'isUse',
+      render: (text, row, _, action) => {
+        if(canEdit && editId === row.photoId){
+          return(
+            <Select value={isUse} onChange={(e)=>setIsUse(e)}>
+              <Select.Option value={1}>是</Select.Option>
+              <Select.Option value={0}>否</Select.Option>
+            </Select>
+          )
+        }else{
+          if(row.isUse === 1){
+            return '是'
+          }else{
+            return '否'
+          }
+        }
+       
+      },
+      // renderText: (val) =>
+      //   `${val}万`,
+    },
     {
       title: '标题',
       dataIndex: 'title',
       render: (text, row, _, action) => {
-        if(canEdit  && editId === row.messageId){
+        if(canEdit  && editId === row.photoId){
           return(
             <Input value={title} onChange={(e)=>setTitle(e.target.value)}/>
           )
@@ -51,95 +116,39 @@ const Index =(props) => {
       // sorter:true,
     },
     {
-      title: '内容',
-      dataIndex: 'content',
-      render: (text, row, _, action) => {
-        if(canEdit  && editId === row.messageId){
-          return(
-            <Input value={content} onChange={(e)=>setContent(e.target.value)}/>
-          )
-        }else{
-          return text
-        }
-      },
-    },
-    {
-      title: '时间',
-      dataIndex: 'time',
-      render: (text, row, _, action) => {
-        // if(canEdit && editId === row.messageId){
-        //   return(
-        //     // <Input value={time.substring(0,10)} onChange={(e)=>setIsOverhead(e.target.value)}/>
-        //     <DatePicker value={moment(time.substring(0,10), dateFormat)} onChange={(value,dataString)=>{setTime(dataString);setTimeDate(value)}}/>
-        //   )
-        // }else{
-          return row.time.substring(0,10)
-        // }
-      },
-      // sorter:true,
-    },
-    {
-      title: '发送人',
-      dataIndex: 'send',
-      render: (text, row, _, action) => {
-        // if(canEdit  && editId === row.messageId){
-        //   return(
-        //     <Input value={content} onChange={(e)=>setContent(e.target.value)}/>
-        //   )
-        // }else{
-          return '管理员'
-        // }
-      },
-    },
-    {
-      title: '接收对象',
-      dataIndex: 'send',
-      ellipsis: true,
-      tip: '由于列表显示问题，这里只显示一个接收对象，具体请点击详情查看',
-      render: (text, row, _, action) => {
-        // if(canEdit  && editId === row.messageId){
-        //   return(
-        //     <Input value={content} onChange={(e)=>setContent(e.target.value)}/>
-        //   )
-        // }else{
-          return row.receivers.length ? row.receivers[0].username : '-'
-        // }
-      },
-    },
-    {
       title: "操作",
       dataIndex: 'option',
       valueType: 'option',
       render: (text, row, _, action) => [
-        // <a >
-        //   {
-        //     !canEdit &&
-        //     <div onClick={()=>handleEdit(row)}>编辑</div>
-        //   }
-        //   {
-        //     canEdit &&
-        //     <>
-        //     <span onClick={()=>handleUpdate()}>保存</span>
-        //     <span style={{marginLeft:7}} onClick={()=>handleCancel()}>取消</span>
-        //     </>
-        //   }
-        // </a>,
-        <a onClick={()=>handleDelete(row.messageId)}>
+        <a >
+          {
+            !canEdit &&
+            <div onClick={()=>handleEdit(row)}>编辑</div>
+          }
+          {
+            canEdit &&
+            <>
+            <span onClick={()=>handleUpdate()}>保存</span>
+            <span style={{marginLeft:7}} onClick={()=>handleCancel()}>取消</span>
+            </>
+          }
+        </a>,
+        <a onClick={()=>handleDelete(row.photoId)}>
           {
             !canEdit &&
             <span>删除</span>
           }
         </a>,
-        // <a onClick={()=>handleUse(row)}>
-        //   {
-        //    !canEdit && row.isUse === 1 &&
-        //    <div>取消启用</div>
-        //   }
-        //    {
-        //    !canEdit && row.isUse !== 1 &&
-        //    <div>启用</div>
-        //   }
-        // </a>,
+        <a onClick={()=>handleUse(row)}>
+          {
+           !canEdit && row.isUse === 1 &&
+           <div>取消启用</div>
+          }
+           {
+           !canEdit && row.isUse !== 1 &&
+           <div>启用</div>
+          }
+        </a>,
         <a onClick={()=>handleToDetail(row)} >详情</a>
       ],
     },
@@ -161,14 +170,10 @@ const Index =(props) => {
   const handleEdit = (row)=>{
     setCanEdit(true)
     setTitle(row.title)
-    setContent(row.content)
     setImgUrl(row.imgUrl)
     setSort(row.sort)
     setIsUse(row.isUse === 1?'是':'否')
-    // setTime(row.time.substring(0,10))
-    setTime(row.time.substring(0,10))
-    setTimeDate(row.time)
-    setEditId(row.messageId)
+    setEditId(row.photoId)
     setFileList([
       {
         uid: '-1',
@@ -182,12 +187,9 @@ const Index =(props) => {
   const handleCancel =()=>{
     setCanEdit(false)
     setTitle('')
-    setContent('')
     setImgUrl('')
     setSort('')
     setIsUse('')
-    setTime('')
-    setTimeDate()
     setEditId(-1)
     setImg(false)
   }
@@ -199,13 +201,11 @@ const Index =(props) => {
     }
     try {
       const newData = {
-        messageId:Number(editId),
+        photoId:Number(editId),
         sort:Number(sort),
         isUse:isUse===0||isUse==='否'?0:1,
-        title,
-        imgUrl,
-        time:timeDate,
-        content:'',
+        title:title,
+        imgUrl:imgUrl,
       }
       await updateRule(newData);
       if(img){
@@ -223,11 +223,11 @@ const Index =(props) => {
   const handleUse= async (row)=>{
     try {
       if(row.isUse !== 1){
-        await useRule(row.messageId);
+        await useRule(row.photoId);
       }else{
-        await stopRule(row.messageId,row.sort);
+        await stopRule(row.photoId,row.sort);
       }
-      // await useRule(url,row.messageId,row.sort);
+      // await useRule(url,row.photoId,row.sort);
       actionRef.current.reload()   
     } catch (error) {
       message.error('失败请重试！');
@@ -235,15 +235,16 @@ const Index =(props) => {
   }
 
   const handleToDetail = (res) => {
-     props.history.push(`/contentManage/cooperation/detail?id=${res.messageId}`)
+     props.history.push(`/contentManage/slideshow/slideDetail?photoId=${res.photoId}`)
   };
+
 
   const setSelectedRows=(data)=>{
     let ids = []
     data.map(item=>{
-      ids.push(item.messageId)
+      ids.push(item.photoId)
     })
-    setDeletemessageIds(ids)
+    setDeleteBannerIds(ids)
   }
 
   const handleDelete= async (id)=>{
@@ -253,7 +254,7 @@ const Index =(props) => {
       if(id){
         await removeRule([id]);
       }else{
-        await removeRule(deletemessageIds);
+        await removeRule(deleteBannerIds);
       }
       // hide();
       message.success('删除成功');
@@ -269,21 +270,18 @@ const Index =(props) => {
   }
 
   const handleOk = async(data)=>{
-    console.log('data',data)
     try {
       const newData = {
+        sort:data.isUse === 0? 0: Number(data.sort),
+        isUse:Number(data.isUse),
         title:data.title,
-        time:new Date(),
-        messageId:0,
-        content:data.content,
+        imgUrl:'',
+        photoId:0,
+        // content:'',
       }
       const res = await addRule(newData)
-      if(res.messageId){
-        const sendData = {
-          'messageId':res.messageId,
-          'receivers':data.receivers
-        }
-        await addReceiver(sendData)
+      if(res.photoId){
+        await updateImg(data.imgUrl.fileList,res.photoId)
         message.success('新增成功')
         actionRef.current.reload()   
       }
@@ -299,13 +297,13 @@ const Index =(props) => {
       <PageHeaderWrapper>
         <ProTable
           className={styles.tableMain}
-          headerTitle='消息清单'
-          rowKey="messageId"
+          headerTitle='校园相册'
+          rowKey="photoId"
           actionRef={actionRef}
           toolBarRender={() => [
-            // <Button type="primary" key="primary" onClick={() => setModalVisible(true)}>
-            //   <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新增" />
-            // </Button>,
+            <Button type="primary" key="primary" onClick={() => setModalVisible(true)}>
+              <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新增" />
+            </Button>,
             <Button type="ghost" key="primary" onClick={() => handleDelete()}>
               <DeleteOutlined /> <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
             </Button>,
@@ -326,11 +324,11 @@ const Index =(props) => {
           options={false}
           recordCreatorProps={false}
         />
-        {/* <AddCooperationModal
+        <AddBannerModal
           visible = {modalVisible}
           handleOk= {handleOk}
           handleCancel={handleCancelModal}
-        /> */}
+        />
       </PageHeaderWrapper>
   )
     

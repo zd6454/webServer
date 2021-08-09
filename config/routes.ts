@@ -47,6 +47,12 @@
         component: './contentManage/notice/noticeDetail',
       },
       {
+        path: '/contentManage/photo',
+        name: '校园相册',
+        icon: 'smile',
+        component: './contentManage/photo',
+      },
+      {
         path: '/contentManage/eastOffice',
         name: '东亚办公室',
         icon: 'smile',
@@ -229,6 +235,13 @@
         name: '用户列表',
         icon: 'smile',
         component: './userManage/userList',
+      },
+      {
+        path: '/userManage/userList/userDetail',
+        name: '用户详情',
+        hideInMenu: 'true',
+        icon: 'smile',
+        component: './userManage/userList/userDetail',
       },
       {
         path: '/userManage/messageMenu',

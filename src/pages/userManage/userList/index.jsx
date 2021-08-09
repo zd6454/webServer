@@ -15,6 +15,7 @@ const Index =(props) => {
   const actionRef = useRef();
   const [canEdit,setCanEdit] = useState(false)
   const [username,setUsername] = useState('')
+  const [nickname,setNickname] = useState('')
   const [gender,setGender] = useState(1)
   const [imgUrl,setImgUrl] = useState('')
   const [school,setSchool] = useState('')
@@ -73,6 +74,20 @@ const Index =(props) => {
         if(canEdit && editId === row.userId){
           return(
             <Input value={username} onChange={(e)=>setUsername(e.target.value)}/>
+          )
+        }else{
+         return text
+        }
+       
+      },
+    },
+    {
+      title: '昵称',
+      dataIndex: 'nickname',
+      render: (text, row, _, action) => {
+        if(canEdit && editId === row.userId){
+          return(
+            <Input value={nickname} onChange={(e)=>setNickname(e.target.value)}/>
           )
         }else{
          return text
@@ -188,8 +203,17 @@ const Index =(props) => {
             </>
           }
         </a>,
-        <a onClick={()=>{props.history.push(`/contentManage/notice/detail/?id=${row.userId}`)}}>
-          详情
+          <a onClick={()=>handleDelete(row.userId)}>
+          {
+            !canEdit &&
+            <span>删除</span>
+          }
+        </a>,
+        <a onClick={()=>{props.history.push(`./userList/userDetail?id=${row.userId}`)}}>
+          {
+            !canEdit &&
+            <span>详情</span>
+          }
         </a>
       ],
     },
@@ -210,6 +234,7 @@ const Index =(props) => {
   const handleEdit = (row)=>{
     setCanEdit(true)
     setUsername(row.username)
+    setNickname(row.nickname)
     setImgUrl(row.imgUrl)
     setGender(row.gender)
     setSchool(row.school)
@@ -234,6 +259,7 @@ const Index =(props) => {
   const handleCancel =()=>{
     setCanEdit(false)
     setUsername('')
+    setNickname('')
     setImgUrl('')
     setGender('')
     setSchool('')
@@ -261,6 +287,7 @@ const Index =(props) => {
         registerTime,
         phone,
         privilege,
+        nickname,
         imgUrl,
         // content:'',
       }
@@ -298,10 +325,15 @@ const Index =(props) => {
     setDeleteuserIds(ids)
   }
 
-  const handleDelete= async ()=>{
+  const handleDelete= async (id)=>{
     // const hide = message.loading('正在删除');
     try {
-      await removeRule(deleteuserIds);
+      if(id){
+        await removeRule([id]);
+      }else{
+        await removeRule(deleteuserIds);
+      }
+      
       message.success('删除成功');
       actionRef.current.reload()   
     } catch (error) {

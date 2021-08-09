@@ -13,7 +13,3 @@
   bottom: 32px;
   right: -146px;
 }
-.form :global .ant-space-align-center {
-  align-items: center;
-  margin-left: 20%;
-}

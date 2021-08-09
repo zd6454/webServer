@@ -40,7 +40,8 @@ export async function updateRule(params) {
 }
 
 export async function getRule(id) {
-  return request('http://1.116.77.118:2333/notice/getNotice', {
+  console.log('sssssssssssssssss',id)
+  return request('http://1.116.77.118:2333/user/getUser', {
     method: 'GET',
     params: {userId:id}
   })
