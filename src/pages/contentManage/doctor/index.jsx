@@ -30,7 +30,7 @@ class Index extends Component{
              });
      }
      sendMessage=(params)=>{
-         request('http://aitmaker.cn:8000/information/addInformation/DoctorEduu', {
+         request('http://aitmaker.cn:8000/information/addInformation/DoctorEdu', {
              method: 'POST',
              data:params,
            })
