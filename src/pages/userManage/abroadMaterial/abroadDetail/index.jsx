@@ -107,7 +107,7 @@ function getBase64(file) {
    );
    return(
      <PageHeaderWrapper>
-       <Card>
+       <Card extra={<Button onClick={()=>props.history.goBack()}>返回</Button>}>
        <Form
          labelCol={{
            span: 4,

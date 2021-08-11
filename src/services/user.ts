@@ -5,7 +5,7 @@ export async function query() {
 }
 
 export async function queryCurrent() {
-  return request<API.CurrentUser>('http://1.116.77.118:2333/admin/loginr');
+  return request<API.CurrentUser>('http://aitmaker.cn:8000/admin/loginr');
 }
 
 export async function queryNotices(): Promise<any> {

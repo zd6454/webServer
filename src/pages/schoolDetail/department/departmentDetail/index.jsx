@@ -54,7 +54,7 @@ const Index = (props)=>{
         data={{departmentId,}}
         id={departmentId}
         initData={initData}
-        imgUrl={'http://1.116.77.118:2333/information/uploadFile/Department'}
+        imgUrl={'http://aitmaker.cn:8000/information/uploadFile/Department'}
         getRule={getRule}
       />
     </PageHeaderWrapper>

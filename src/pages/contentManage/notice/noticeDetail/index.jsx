@@ -54,7 +54,7 @@ const handleOk= async(data)=>{
           data={{noticeId,}}
           id={noticeId}
           initData={initData}
-          imgUrl={'http://1.116.77.118:2333/information/uploadFile/Notice'}
+          imgUrl={'http://aitmaker.cn:8000/information/uploadFile/Notice'}
           getRule={getRule}
         />
     </PageHeaderWrapper>

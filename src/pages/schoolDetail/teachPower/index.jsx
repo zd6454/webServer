@@ -16,7 +16,7 @@ class Index extends Component{
         this.getMessage();
      }
      getMessage=()=>{
-       request('http://1.116.77.118:2333/information/getInforContent/TeachPower', {
+       request('http://aitmaker.cn:8000/information/getInforContent/TeachPower', {
              method: 'GET',
            })
              .then((response)=> {
@@ -30,7 +30,7 @@ class Index extends Component{
              });
      }
      sendMessage=(params)=>{
-         request('http://1.116.77.118:2333/information/addInformation/TeachPower', {
+         request('http://aitmaker.cn:8000/information/addInformation/TeachPower', {
              method: 'POST',
              data:params,
            })
@@ -48,7 +48,7 @@ class Index extends Component{
               <div>
                   <ZdTextArea
                     data={data}
-                    imgUrl={'http://1.116.77.118:2333/information/uploadFile/TeachPower'}
+                    imgUrl={'http://aitmaker.cn:8000/information/uploadFile/TeachPower'}
                     comfirm={this.sendMessage}
                   />
               </div>

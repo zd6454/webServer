@@ -7,21 +7,21 @@ export async function updateImg(param,forumId){
   const img = new FormData();
   img.append('uploadfile', imgOri[0]);
   img.append('forumId', forumId);
-  return request('http://1.116.77.118:2333/forum/uploadFile', {
+  return request('http://aitmaker.cn:8000/forum/uploadFile', {
     method: 'POST',
     data: img,
   });
 };
 
 export async function updateRule(params) {
-  return request('http://1.116.77.118:2333/forum/updateForum', {
+  return request('http://aitmaker.cn:8000/forum/updateForum', {
     method: 'POST',
     data: params
   });
 }
 
 export async function getRule(id) {
-  return request('http://1.116.77.118:2333/forum/getForum', {
+  return request('http://aitmaker.cn:8000/forum/getForum', {
     method: 'GET',
     params: {forumId:id}
   })

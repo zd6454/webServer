@@ -6,34 +6,34 @@ export async function queryRule(data) {
     page:data.current,
     num:data.pageSize,
   }
-  return request('http://1.116.77.118:2333/schoolmate/getPageSchoolmates', {
+  return request('http://aitmaker.cn:8000/schoolmate/getPageSchoolmates', {
     method: 'GET',
     params
   })
 }
 export async function removeRule(params) {
-  return request('http://1.116.77.118:2333/schoolmate/deleteSchoolmates', {
+  return request('http://aitmaker.cn:8000/schoolmate/deleteSchoolmates', {
     method: 'POST',
     data: {schoolmates:params}
   })
 }
 
 export async function useRule(id) {
-  return request('http://1.116.77.118:2333/schoolmate/useSchoolmate', {
+  return request('http://aitmaker.cn:8000/schoolmate/useSchoolmate', {
     method: 'GET',
     params: {schoolmateId:id}
   })
 }
 
 export async function stopRule(id,sort) {
-  return request('http://1.116.77.118:2333/schoolmate/stopSchoolmate', {
+  return request('http://aitmaker.cn:8000/schoolmate/stopSchoolmate', {
     method: 'GET',
     params: {schoolmateId:id,sort}
   })
 }
 
 export async function addRule(params) {
-  return request('http://1.116.77.118:2333/schoolmate/addSchoolmate', {
+  return request('http://aitmaker.cn:8000/schoolmate/addSchoolmate', {
     method: 'POST',
     data: params
   });
@@ -47,20 +47,20 @@ export async function updateImg(param,schoolmateId){
   const img = new FormData();
   img.append('uploadfile', imgOri[0]);
   img.append('schoolmateId', schoolmateId);
-  return request('http://1.116.77.118:2333/schoolmate/uploadFile', {
+  return request('http://aitmaker.cn:8000/schoolmate/uploadFile', {
     method: 'POST',
     data: img,
   });
 };
 
 export async function updateRule(params) {
-  return request('http://1.116.77.118:2333/schoolmate/updateSchoolmate', {
+  return request('http://aitmaker.cn:8000/schoolmate/updateSchoolmate', {
     method: 'POST',
     data: params
   });
 }
 export async function getRule(id) {
-  return request('http://1.116.77.118:2333/schoolmate/getSchoolmate\n' +
+  return request('http://aitmaker.cn:8000/schoolmate/getSchoolmate\n' +
     '\n', {
     method: 'GET',
     params: {schoolmateId:id}

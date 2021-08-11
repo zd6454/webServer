@@ -6,14 +6,14 @@ export async function queryRule(data) {
     page:data.current,
     num:data.pageSize,
   }
-  return request('http://1.116.77.118:2333/message/getPageMessages', {
+  return request('http://aitmaker.cn:8000/message/getPageMessages', {
     method: 'GET',
     params,
   })
 }
 
 export async function removeRule(params) {
-  return request('http://1.116.77.118:2333/message/deleteMessages', {
+  return request('http://aitmaker.cn:8000/message/deleteMessages', {
     method: 'POST',
     data: {messages:params}
   })
@@ -21,13 +21,13 @@ export async function removeRule(params) {
 
 
 export async function addRule(params) {
-  return request('http://1.116.77.118:2333/message/addMessage', {
+  return request('http://aitmaker.cn:8000/message/addMessage', {
     method: 'POST',
     data: params
   });
 }
 export async function addReceiver(params) {
-  return request('http://1.116.77.118:2333/message/addMessageReceiver', {
+  return request('http://aitmaker.cn:8000/message/addMessageReceiver', {
     method: 'POST',
     data: params
   });
@@ -35,21 +35,21 @@ export async function addReceiver(params) {
 
 
 // export async function updateRule(params) {
-//   return request('http://1.116.77.118:2333/interCooperation/updateInterCooper', {
+//   return request('http://aitmaker.cn:8000/interCooperation/updateInterCooper', {
 //     method: 'POST',
 //     data: params
 //   });
 // }
 
 // export async function getRule(id) {
-//   return request('http://1.116.77.118:2333/interCooperation/getInterCooper', {
+//   return request('http://aitmaker.cn:8000/interCooperation/getInterCooper', {
 //     method: 'GET',
 //     params: {messageId:id}
 //   })
 // }
 
 export async function getMessageDetail(params) {
-  return request('http://1.116.77.118:2333/message/getMessage', {
+  return request('http://aitmaker.cn:8000/message/getMessage', {
     method: 'GET',
     params: {messageId:params}
   })
