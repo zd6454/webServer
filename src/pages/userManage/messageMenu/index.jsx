@@ -40,6 +40,8 @@ const Index =(props) => {
     {
       title: '标题',
       dataIndex: 'title',
+      ellipsis: true,   
+      width: '20%',
       render: (text, row, _, action) => {
         if(canEdit  && editId === row.messageId){
           return(
@@ -54,6 +56,8 @@ const Index =(props) => {
     {
       title: '内容',
       dataIndex: 'content',
+      ellipsis: true,   
+      width: '25%',
       render: (text, row, _, action) => {
         if(canEdit  && editId === row.messageId){
           return(
@@ -67,6 +71,8 @@ const Index =(props) => {
     {
       title: '时间',
       dataIndex: 'time',
+      ellipsis: true,   
+      width: '10%',
       render: (text, row, _, action) => {
         // if(canEdit && editId === row.messageId){
         //   return(
@@ -82,6 +88,8 @@ const Index =(props) => {
     {
       title: '发送人',
       dataIndex: 'send',
+      ellipsis: true,   
+      width: '10%',
       render: (text, row, _, action) => {
         // if(canEdit  && editId === row.messageId){
         //   return(
@@ -95,8 +103,9 @@ const Index =(props) => {
     {
       title: '接收对象',
       dataIndex: 'send',
-      ellipsis: true,
       tip: '由于列表显示问题，这里只显示一个接收对象，具体请点击详情查看',
+      ellipsis: true,   
+      width: '10%',
       render: (text, row, _, action) => {
         // if(canEdit  && editId === row.messageId){
         //   return(
@@ -111,6 +120,8 @@ const Index =(props) => {
       title: "操作",
       dataIndex: 'option',
       valueType: 'option',
+      ellipsis: true,   
+      width: '25%',
       render: (text, row, _, action) => [
         // <a >
         //   {

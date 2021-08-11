@@ -42,6 +42,8 @@ const Index =(props) => {
     {
       title: '头像',
       dataIndex: 'imgUrl',
+      ellipsis: true,   
+      width: '15%',
       render: (dom, row) => {
         // if(canEdit && editId === row.userId){
         //   return(
@@ -61,8 +63,8 @@ const Index =(props) => {
         // }else{
           return (
             <Image src={row.imgUrl}
-              width={100}
-              height={100}
+              width={80}
+              height={80}
             />
           );
         // }
@@ -71,6 +73,8 @@ const Index =(props) => {
     {
       title: '姓名',
       dataIndex: 'username',
+      ellipsis: true,   
+      width: '8%',
       render: (text, row, _, action) => {
         if(canEdit && editId === row.userId){
           return(
@@ -85,6 +89,8 @@ const Index =(props) => {
     {
       title: '昵称',
       dataIndex: 'nickname',
+      ellipsis: true,   
+      width: '8%',
       render: (text, row, _, action) => {
         if(canEdit && editId === row.userId){
           return(
@@ -99,6 +105,8 @@ const Index =(props) => {
     {
       title: '性别',
       dataIndex: 'gender',
+      ellipsis: true,   
+      width: '6%',
       render: (text, row, _, action) => {
         if(canEdit && editId === row.userId){
           return(
@@ -119,6 +127,8 @@ const Index =(props) => {
     {
       title: '学校',
       dataIndex: 'school',
+      ellipsis: true,   
+      width: '10%',
       render: (text, row, _, action) => {
         if(canEdit && editId === row.userId){
           return(
@@ -133,6 +143,8 @@ const Index =(props) => {
     {
       title: '学院',
       dataIndex: 'institute',
+      ellipsis: true,   
+      width: '10%',
       render: (text, row, _, action) => {
         if(canEdit && editId === row.userId){
           return(
@@ -147,6 +159,8 @@ const Index =(props) => {
     {
       title: '班级',
       dataIndex: 'clazz',
+      ellipsis: true,   
+      width: '8%',
       render: (text, row, _, action) => {
         if(canEdit && editId === row.userId){
           return(
@@ -161,6 +175,8 @@ const Index =(props) => {
     {
       title: '联系方式',
       dataIndex: 'phone',
+      ellipsis: true,   
+      width: '10%',
       render: (text, row, _, action) => {
         if(canEdit && editId === row.userId){
           return(
@@ -175,6 +191,8 @@ const Index =(props) => {
     {
       title: '地址',
       dataIndex: 'address',
+      ellipsis: true,   
+      width: '10%',
       render: (text, row, _, action) => {
         if(canEdit  && editId === row.userId){
           return(
@@ -190,6 +208,8 @@ const Index =(props) => {
       title: "操作",
       dataIndex: 'option',
       valueType: 'option',
+      ellipsis: true,   
+      width: '21%',
       render: (text, row, _, action) => [
         <a >
           {

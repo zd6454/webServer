@@ -81,6 +81,8 @@ const Index =(props) => {
     {
       title: '是否启用',
       dataIndex: 'isUse',
+      ellipsis: true,   
+      width: '15%',
       render: (text, row, _, action) => {
         if(canEdit && editId === row.commentId){
           return(
@@ -102,6 +104,8 @@ const Index =(props) => {
     {
       title: '发表时间',
       dataIndex: 'time',
+      ellipsis: true,   
+      width: '20%',
       render: (text, row, _, action) => {
           return row.time.substring(0,10)
       },
@@ -109,6 +113,8 @@ const Index =(props) => {
     {
       title: '发表用户',
       dataIndex: 'username',
+      ellipsis: true,   
+      width: '15%',
       render: (text, row, _, action) => {
           return row.username || '-'
       },
@@ -116,6 +122,8 @@ const Index =(props) => {
     {
       title: '标题',
       dataIndex: 'forumTitle',
+      ellipsis: true,   
+      width: '25%',
       render: (text, row, _, action) => {
         if(canEdit  && editId === row.commentId){
           return(
@@ -130,6 +138,8 @@ const Index =(props) => {
       title: "操作",
       dataIndex: 'option',
       valueType: 'option',
+      ellipsis: true,   
+      width: '25%',
       render: (text, row, _, action) => [
         // <a >
         //   {

@@ -42,6 +42,8 @@ const Index =(props) => {
     {
       title: '图片',
       dataIndex: 'imgUrl',
+      ellipsis: true,   
+      width: '20%',
       render: (dom, row) => {
         if(canEdit && editId === row.forumId){
           return(
@@ -71,6 +73,8 @@ const Index =(props) => {
     {
       title: '顺序',
       dataIndex: 'sort',
+      ellipsis: true,   
+      width: '8%',
       render: (text, row, _, action) => {
         if(canEdit && editId === row.forumId){
           return(
@@ -85,6 +89,8 @@ const Index =(props) => {
     {
       title: '是否启用',
       dataIndex: 'isUse',
+      ellipsis: true,   
+      width: '8%',
       render: (text, row, _, action) => {
         if(canEdit && editId === row.forumId){
           return(
@@ -108,6 +114,8 @@ const Index =(props) => {
     {
       title: '发表时间',
       dataIndex: 'time',
+      ellipsis: true,   
+      width: '10%',
       render: (text, row, _, action) => {
         // if(canEdit && editId === row.forumId){
         //   return(
@@ -124,6 +132,8 @@ const Index =(props) => {
     {
       title: '标题',
       dataIndex: 'title',
+      ellipsis: true,   
+      width: '15%',
       render: (text, row, _, action) => {
         if(canEdit  && editId === row.forumId){
           return(
@@ -138,6 +148,8 @@ const Index =(props) => {
     {
       title: '论坛内容',
       dataIndex: 'content',
+      ellipsis: true,   
+      width: '20%',
       render: (text, row, _, action) => {
         if(canEdit  && editId === row.forumId){
           return(
@@ -153,6 +165,8 @@ const Index =(props) => {
       title: "操作",
       dataIndex: 'option',
       valueType: 'option',
+      ellipsis: true,   
+      width: '19%',
       render: (text, row, _, action) => [
         <a >
           {
@@ -191,7 +205,7 @@ const Index =(props) => {
           详情
         </a>,
          <a onClick={()=>{props.history.push(`/forumDetail/forumComment/?id=${row.forumId}`)}}>
-          论坛评论
+          评论
        </a>
       ],
     },

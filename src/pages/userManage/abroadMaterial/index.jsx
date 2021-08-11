@@ -71,6 +71,8 @@ const Index =(props) => {
     {
       title: '名称',
       dataIndex: 'username',
+      ellipsis: true,   
+      width: '8%',
       render: (text, row, _, action) => {
         // if(canEdit && editId === row.userId){
         //   return(
@@ -85,6 +87,8 @@ const Index =(props) => {
     {
       title: '学校',
       dataIndex: 'school',
+      ellipsis: true,   
+      width: '15%',
       render: (text, row, _, action) => {
         // if(canEdit && editId === row.userId){
         //   return(
@@ -99,6 +103,8 @@ const Index =(props) => {
     {
       title: '入学申请表',
       dataIndex: 'application',
+      ellipsis: true,   
+      width: '10%',
       render: (text, row, _, action) => {
         if(text!== '-'){
           return(
@@ -114,6 +120,8 @@ const Index =(props) => {
     {
       title: '护照(正反面)',
       dataIndex: 'passport',
+      ellipsis: true,   
+      width: '10%',
       render: (text, row, _, action) => {
         if(row.passport_front!== '-'&&row.passport_back!== '-'){
           return(
@@ -129,6 +137,8 @@ const Index =(props) => {
     {
       title: '有条件offer',
       dataIndex: 'offer',
+      ellipsis: true,   
+      width: '10%',
       render: (text, row, _, action) => {
         if(text !== '-'){
           return(
@@ -144,6 +154,7 @@ const Index =(props) => {
     {
       title: '语言测试成绩单',
       dataIndex: 'grade_report',
+      width: '10%',
       render: (text, row, _, action) => {
         if(text !== '-'){
           return(
@@ -159,6 +170,7 @@ const Index =(props) => {
     {
       title: '学费/押金缴纳回执',
       dataIndex: 'tutition',
+      width: '10%',
       render: (text, row, _, action) => {
         if(text !== '-'){
           return(
@@ -173,7 +185,8 @@ const Index =(props) => {
     },
     {
       title: '核酸检验证明',
-      dataIndex: 'test_certifcate',
+      dataIndex: 'test_certificate',
+      width: '10%',
       render: (text, row, _, action) => {
         if(text !== '-'){
           return(

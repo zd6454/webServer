@@ -41,6 +41,8 @@ const Index =(props) => {
     {
       title: '图片',
       dataIndex: 'imgUrl',
+      ellipsis: true,   
+      width: '25%',
       render: (dom, row) => {
         if(canEdit && editId === row.noticeId){
           return(
@@ -70,6 +72,8 @@ const Index =(props) => {
     {
       title: '顺序',
       dataIndex: 'sort',
+      ellipsis: true,   
+      width: '10%',
       render: (text, row, _, action) => {
         if(canEdit && editId === row.noticeId){
           return(
@@ -84,6 +88,8 @@ const Index =(props) => {
     {
       title: '是否启用',
       dataIndex: 'isUse',
+      ellipsis: true,   
+      width: '10%',
       render: (text, row, _, action) => {
         if(canEdit && editId === row.noticeId){
           return(
@@ -107,6 +113,8 @@ const Index =(props) => {
     {
       title: '时间',
       dataIndex: 'time',
+      ellipsis: true,   
+      width: '10%',
       render: (text, row, _, action) => {
         // if(canEdit && editId === row.noticeId){
         //   return(
@@ -124,6 +132,8 @@ const Index =(props) => {
     {
       title: '标题',
       dataIndex: 'title',
+      ellipsis: true,   
+      width: '20%',
       render: (text, row, _, action) => {
         if(canEdit  && editId === row.noticeId){
           return(
@@ -139,6 +149,8 @@ const Index =(props) => {
       title: "操作",
       dataIndex: 'option',
       valueType: 'option',
+      ellipsis: true,   
+      width: '25%',
       render: (text, row, _, action) => [
         <a >
           {
