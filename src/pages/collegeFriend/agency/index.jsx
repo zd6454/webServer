@@ -16,17 +16,17 @@ class Index extends Component{
             '一级代理':{
                send:'http://1.116.77.118:2333/information/addInformation/AgentRight1',
                get:'http://1.116.77.118:2333/information/getInforContent/AgentRight1',
-               upload:"http://1.116.77.118:2333/information/addInformation/AgentRight1"
+               upload:"http://1.116.77.118:2333/information/uploadFile/AgentRight1"
             },
              '二级代理':{
                send:'http://1.116.77.118:2333/information/addInformation/AgentRight2',
                get:'http://1.116.77.118:2333/information/getInforContent/AgentRight2',
-               upload:"http://1.116.77.118:2333/information/addInformation/AgentRight2"
+               upload:"http://1.116.77.118:2333/information/uploadFile/AgentRight2"
             },
              '三级代理':{
                send:'http://1.116.77.118:2333/information/addInformation/AgentRight3',
                get:'http://1.116.77.118:2333/information/getInforContent/AgentRight3',
-               upload:"http://1.116.77.118:2333/information/addInformation/AgentRight3"
+               upload:"http://1.116.77.118:2333/information/uploadFile/AgentRight3"
             },
           },
           agencyKey:'一级代理',
