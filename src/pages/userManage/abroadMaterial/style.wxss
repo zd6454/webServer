@@ -17,3 +17,17 @@
   align-items: center;
   margin-left: 20%;
 }
+.temp {
+  display: flex;
+  flex-direction: row;
+}
+.temp .upload {
+  flex: 5;
+  width: 20%;
+}
+.temp .upload :global .ant-upload-list-item-card-actions-btn.ant-btn-sm {
+  display: contents;
+}
+.temp .upload :global .ant-upload-list-item {
+  width: 15%;
+}

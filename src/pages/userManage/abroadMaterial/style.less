@@ -33,3 +33,22 @@
         }
     }
 }
+
+.temp{
+    display: flex;
+    flex-direction: row;
+    .upload{
+        flex:5;
+        width: 20%;
+        :global{
+            .ant-upload-list-item-card-actions-btn.ant-btn-sm{
+                display: contents;
+            }
+            .ant-upload-list-item{
+                width: 15%;
+            }
+        }
+    }
+
+   
+}

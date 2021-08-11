@@ -1,10 +1,10 @@
-import React,{Component,useState, useRef} from 'react'
+import React,{Component,useState, useRef,useEffect,useLayoutEffect} from 'react'
 import { PageHeaderWrapper,PageContainer, FooterToolbar } from '@ant-design/pro-layout';
-import { queryRule, removeRule } from './service';
+import { queryRule, removeRule, getTemplate,updateTemplate} from './service';
 import { FormattedMessage } from 'umi';
 import styles from './style.less';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Button, message, Input, Drawer,Image, Upload, DatePicker,Select } from 'antd';
+import { Button, message, Input, Drawer,Image, Upload, DatePicker,Select, Divider } from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 // import AddNoticeModal from './addNoticeModal/index'
 // import moment from 'moment';
@@ -30,6 +30,7 @@ const Index =(props) => {
   const [img,setImg]= useState(false)
   const [registerTime,setRegister] = useState('')
   const [privilege,setPrivilege] = useState()
+  const [fileName,setFileName] =useState()
 
   const uploadButton = (
     <div>
@@ -69,7 +70,7 @@ const Index =(props) => {
     //   },
     // }, 
     {
-      title: '名称',
+      title: '姓名',
       dataIndex: 'username',
       ellipsis: true,   
       width: '8%',
@@ -233,10 +234,37 @@ const Index =(props) => {
       ],
     },
   ];
+
+  useLayoutEffect(()=>{
+    const getData =async()=>{
+      const info = await getTemplate();
+      // setFileName(info)
+       setFileList([
+      {
+        uid: '-1',
+        name: '申请模板',
+        status: 'done',
+        url: info,
+      }
+    ])
+    };
+    getData();
+  },[]);
   
-  const handleChange = (res) => {
-    setFileList(res.fileList);
-    setImg(true)
+  const handleChange = async(res) => {
+    if(res.fileList.length === 0){
+      setFileList(res.fileList);
+    }else{
+      const info = await updateTemplate(res.file)
+      setFileList([
+        {
+          uid: '-1',
+          name: '申请模板',
+          status: 'done',
+          url: info,
+        }
+      ])
+    }
   };
 
   const onRemove = (file) => {
@@ -261,15 +289,17 @@ const Index =(props) => {
     setEditId(row.userId)
     setRegister(row.registerTime)
     setPrivilege(row.privilege)
-    setFileList([
-      {
-        uid: '-1',
-        name: 'image.png',
-        status: 'done',
-        url: row.imgUrl,
-      }
-    ])
+    // setFileList([
+    //   {
+    //     uid: '-1',
+    //     name: 'image.png',
+    //     status: 'done',
+    //     url: row.imgUrl,
+    //   }
+    // ])
   }
+
+
 
   const handleCancel =()=>{
     setCanEdit(false)
@@ -286,59 +316,8 @@ const Index =(props) => {
     setRegister('')
     setPrivilege('')
     setEditId(-1)
-    setImg(false)
+    // setImg(false)
   }
-
-  // const handleUpdate = async ()=>{
-  //   try {
-  //     const newData = {
-  //       userId:editId,
-  //       username,
-  //       gender,
-  //       address,
-  //       school,
-  //       institute,
-  //       clazz,
-  //       registerTime,
-  //       phone,
-  //       privilege,
-  //       nickname,
-  //       imgUrl,
-  //       // content:'',
-  //     }
-  //     await updateRule(newData);
-  //     if(img){
-  //       await updateImg(fileList,editId)
-  //     }
-  //     message.success('修改成功');
-  //     actionRef.current.reload()
-  //   } catch (error) {
-  //     message.error('失败请重试！');
-  //   }
-  //   handleCancel()
-  // }
-
-
-  // const handleUse= async (row)=>{
-  //   try {
-  //     if(row.isUse !== 1){
-  //       await useRule(row.userId);
-  //     }else{
-  //       await stopRule(row.userId,row.sort);
-  //     }
-  //     // await useRule(url,row.bannerId,row.sort);
-  //     actionRef.current.reload()
-  //   } catch (error) {
-  //     message.error('失败请重试！');
-  //   }
-  // }
-  // const setSelectedRows=(data)=>{
-  //   let ids = []
-  //   data.map(item=>{
-  //     ids.push(item.userId)
-  //   })
-  //   setDeleteuserIds(ids)
-  // }
 
   const handleDelete= async (id)=>{
     // const hide = message.loading('正在删除');
@@ -360,30 +339,29 @@ const Index =(props) => {
     setModalVisible(false)
   }
 
-  // const handleOk = async(data)=>{
-  //   try {
-  //     const newData = {
-  //       sort:data.isUse === 0? 0: Number(data.sort),
-  //       isUse:Number(data.isUse),
-  //       title:data.title,
-  //       content:'',
-  //       // isOverhead:data.isOverhead,
-  //       time:getNowFormatDate(),
-  //       imgUrl:'',
-  //       userId:0,
-  //     }
-  //     const res = await addRule(newData)
-  //     await updateImg(data.imgUrl.fileList,res.userId)
-  //     message.success('新增成功')
-  //     actionRef.current.reload()
-  //   } catch (error) {
-  //     message.error('失败请重试！');
-  //   }
-  //
-  //   handleCancelModal(false)
-  // }
 
- 
+
+  const uploadProps = {
+    name: 'uploadfile',
+    action: 'http://aitmaker.cn:8000/abroad/uploadApplicationTemplate',
+    headers: {
+      authorization: 'multipart/form-data',
+    },
+
+    onRemove:{onRemove},
+    onChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} 上传成功`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} 上传失败`);
+      }
+    },
+  };
+
+    
   return(
       <PageHeaderWrapper>
         <ProTable
@@ -415,11 +393,26 @@ const Index =(props) => {
           options={false}
           recordCreatorProps={false}
         />
-        {/* <AddNoticeModal
-          visible = {modalVisible}
-          handleOk= {handleOk}
-          handleCancel={handleCancelModal}
-        /> */}
+        <Divider/>
+
+        <div className={styles.temp} style={{padding:'30px 20px',background:'white'}}>
+          <div style={{marginRight:10,fontSize:15,flex:1,marginTop:8}}>入学申请表模板</div>
+        <Upload
+          className={styles.upload}
+          listType="multipart/form-data"
+          fileList={fileList}
+          onRemove={onRemove}
+          onChange={handleChange}
+          beforeUpload={() => {
+            return false;
+          }}
+          >
+            {fileList.length >= 1 ? null : <Button >上传</Button>}
+          </Upload>
+
+        </div>
+          
+        
       </PageHeaderWrapper>
   )
     

@@ -39,3 +39,21 @@ export async function getRule(id) {
     params: {userId:id}
   })
 }
+
+export async function getTemplate() {
+  return request('http://aitmaker.cn:8000/abroad/getApplicationTemplate', {
+    method: 'GET',
+  })
+}
+
+export async function updateTemplate(param){
+  // const imgOri = param.map((item) => {
+  //   return item.originFileObj;
+  // });
+  const img = new FormData();
+  img.append('uploadfile', param);
+  return request(`http://aitmaker.cn:8000/abroad/uploadApplicationTemplate`, {
+    method: 'POST',
+    data: img,
+  });
+};
