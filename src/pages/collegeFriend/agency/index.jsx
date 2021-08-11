@@ -77,8 +77,8 @@ class Index extends Component{
             <PageHeaderWrapper>
             <Tabs defaultActiveKey="一级代理" onChange={this.callback}>
               <TabPane tab="一级代理" key="一级代理" />
-              <TabPane tab="二级代理" key="二级代理" />
-              <TabPane tab="三级代理" key="三级代理" />
+              {/*<TabPane tab="二级代理" key="二级代理" />*/}
+              {/*<TabPane tab="三级代理" key="三级代理" />*/}
             </Tabs>
               <div>
               <Card 
