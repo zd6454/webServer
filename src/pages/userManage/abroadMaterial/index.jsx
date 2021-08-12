@@ -107,7 +107,7 @@ const Index =(props) => {
       ellipsis: true,   
       width: '10%',
       render: (text, row, _, action) => {
-        if(text!== '-'){
+        if(row.application){
           return(
             <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
@@ -124,7 +124,7 @@ const Index =(props) => {
       ellipsis: true,   
       width: '10%',
       render: (text, row, _, action) => {
-        if(row.passport_front!== '-'&&row.passport_back!== '-'){
+        if(row.passport_front!== ''&&row.passport_back!== ''){
           return(
             <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
@@ -141,7 +141,7 @@ const Index =(props) => {
       ellipsis: true,   
       width: '10%',
       render: (text, row, _, action) => {
-        if(text !== '-'){
+        if(row.offer){
           return(
             <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
@@ -157,7 +157,7 @@ const Index =(props) => {
       dataIndex: 'grade_report',
       width: '10%',
       render: (text, row, _, action) => {
-        if(text !== '-'){
+        if(row.grade_report ){
           return(
             <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
@@ -173,7 +173,7 @@ const Index =(props) => {
       dataIndex: 'tutition',
       width: '10%',
       render: (text, row, _, action) => {
-        if(text !== '-'){
+        if(row.tuition){
           return(
             <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
@@ -189,7 +189,7 @@ const Index =(props) => {
       dataIndex: 'test_certificate',
       width: '10%',
       render: (text, row, _, action) => {
-        if(text !== '-'){
+        if(row.test_certificate){
           return(
             <span style={{color:'green',fontSize:17,fontWeight:700}}>√</span>
           )
