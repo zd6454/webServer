@@ -32,6 +32,8 @@ const Index =(props) => {
   const [privilege,setPrivilege] = useState()
   const [fileName,setFileName] =useState()
 
+  const [canUpload,setCanUpload] = useState(true)
+
   const uploadButton = (
     <div>
       <PlusOutlined />
@@ -255,15 +257,21 @@ const Index =(props) => {
     if(res.fileList.length === 0){
       setFileList(res.fileList);
     }else{
-      const info = await updateTemplate(res.file)
-      setFileList([
-        {
-          uid: '-1',
-          name: '申请模板',
-          status: 'done',
-          url: info,
-        }
-      ])
+      if(res.file.type === 'application/vnd.ms-excel'){
+        const info = await updateTemplate(res.file)
+        setFileList([
+          {
+            uid: '-1',
+            name: '申请模板',
+            status: 'done',
+            url: info,
+          }
+        ])
+        message.success('上传成功')
+      }else{
+        message.error('只能上传excel文件！')
+      }
+     
     }
   };
 
@@ -341,25 +349,25 @@ const Index =(props) => {
 
 
 
-  const uploadProps = {
-    name: 'uploadfile',
-    action: 'http://aitmaker.cn:8000/abroad/uploadApplicationTemplate',
-    headers: {
-      authorization: 'multipart/form-data',
-    },
+  // const uploadProps = {
+  //   name: 'uploadfile',
+  //   action: 'http://aitmaker.cn:8000/abroad/uploadApplicationTemplate',
+  //   headers: {
+  //     authorization: 'multipart/form-data',
+  //   },
 
-    onRemove:{onRemove},
-    onChange(info) {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === 'done') {
-        message.success(`${info.file.name} 上传成功`);
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} 上传失败`);
-      }
-    },
-  };
+  //   onRemove:{onRemove},
+  //   onChange(info) {
+  //     if (info.file.status !== 'uploading') {
+  //       console.log(info.file, info.fileList);
+  //     }
+  //     if (info.file.status === 'done') {
+  //       message.success(`${info.file.name} 上传成功`);
+  //     } else if (info.file.status === 'error') {
+  //       message.error(`${info.file.name} 上传失败`);
+  //     }
+  //   },
+  // };
 
     
   return(
@@ -403,7 +411,12 @@ const Index =(props) => {
           fileList={fileList}
           onRemove={onRemove}
           onChange={handleChange}
+        
           beforeUpload={() => {
+            // if (file.type !== 'application/vnd.ms-excel') {
+            //   setCanUpload(false)
+            //   message.error(`${file.name} 不是excel文件`);
+            // }
             return false;
           }}
           >
