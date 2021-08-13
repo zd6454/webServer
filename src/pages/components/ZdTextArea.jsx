@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import E from "wangeditor"
 import request from 'umi-request';
 import { Button,Divider  } from 'antd';
-
+import emoji from './emo';
 
 class ZdTextArea  extends Component{
    constructor(props){
@@ -23,6 +23,13 @@ class ZdTextArea  extends Component{
     editor.config.pasteIgnoreImg = true
     // editor.config.uploadFileName = 'uploadfile';
     editor.config.uploadImgServer = "  ";
+    editor.config.emotions = [
+      {
+        title: '默认',
+        type: 'image',
+        content: emoji
+      }
+    ];
     editor.config.zIndex = 5;
     editor.create()
     // editor.config.uploadImgParams = {
@@ -78,7 +85,6 @@ class ZdTextArea  extends Component{
           this.props.comfirm(params)
       } 
   }
-
   render(){
      const{data}=this.props;
      const{editor}=this.state;
