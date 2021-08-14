@@ -20,6 +20,7 @@ const Index = (props)=>{
         time:info.time?moment(info.time.substring(0,10), dateFormat):moment(new Date(), dateFormat),
         sort:info.sort,
         isUse: info.isUse,
+        intro:info.intro,
       });
     };
     getData();
@@ -33,6 +34,7 @@ const Index = (props)=>{
         name:data.title,
         time:data.time,
         imgUrl:initData.imgUrl,
+        intro:data.intro,
         content:data.content,
         schoolmateId,
       };
@@ -50,6 +52,7 @@ const Index = (props)=>{
   return(
     <PageHeaderWrapper>
       <ZdEditForm
+        mode="friend"
         handleOk={handleOk}
         data={{schoolmateId,}}
         id={schoolmateId}

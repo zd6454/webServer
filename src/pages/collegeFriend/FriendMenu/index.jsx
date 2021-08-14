@@ -21,6 +21,7 @@ const Index =(props) => {
   const [imgUrl,setImgUrl] = useState('')
   const [isUse,setIsUse] = useState('')
   const [content,setContent] = useState('')
+  const [intro,setIntro] = useState('')
   const [editId,setEditId] = useState(-1)
   const [fileList,setFileList] = useState([])
   const [img,setImg]= useState(false)
@@ -125,13 +126,13 @@ const Index =(props) => {
     },
     {
       title: '摘要',
-      dataIndex: 'content',
+      dataIndex: 'intro',
       ellipsis: true,   
       width: '20%',
       render: (text, row, _, action) => {
         if(canEdit  && editId === row.schoolmateId){
           return(
-            <Input value={content} onChange={(e)=>setContent(e.target.value)}/>
+            <Input value={intro} onChange={(e)=>setIntro(e.target.value)}/>
           )
         }else{
           return text
@@ -197,6 +198,7 @@ const Index =(props) => {
   const handleEdit = (row)=>{
     setCanEdit(true)
     setTitle(row.name)
+    setIntro(row.intro)
     setContent(row.content)
     setImgUrl(row.imgUrl)
     setSort(row.sort)
@@ -216,6 +218,7 @@ const Index =(props) => {
     setCanEdit(false)
     setTitle('')
     setContent('')
+    setIntro('')
     setImgUrl('')
     setSort('')
     setIsUse('')
@@ -234,8 +237,9 @@ const Index =(props) => {
         sort:Number(sort),
         isUse:isUse===0||isUse==='否'?0:1,
         name:title,
-        imgUrl:imgUrl,
-        content:content,
+        imgUrl,
+        content,
+        intro,
         time:getNowFormatDate(),
       }
       await updateRule(newData);
@@ -302,6 +306,7 @@ const Index =(props) => {
         isUse:Number(data.isUse),
         name:data.title,
         content:data.content,
+        intro:data.intro,
         time:getNowFormatDate(),
         imgUrl:'',
         schoolmateId:0,
