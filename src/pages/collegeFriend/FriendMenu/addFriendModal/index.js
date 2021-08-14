@@ -72,6 +72,17 @@ const AddFriendModal = (props) => {
                 },
               ]}
               label="摘要"
+              name="intro"
+              width="m"
+            />
+             <ProFormText
+              rules={[
+                {
+                  required: true,
+                  message: '请输入校友清单内容',
+                },
+              ]}
+              label="内容"
               name="content"
               width="m"
             />

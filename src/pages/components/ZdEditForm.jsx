@@ -161,6 +161,21 @@ componentWillReceiveProps(nextProps, nextContext) {
               {fileList.length >= 1 ? null : uploadButton}
             </Upload>
           </Form.Item>}
+          {
+            this.props.mode === 'friend' &&
+            <Form.Item
+            label="摘要"
+            name="intro"
+            rules={[
+              {
+                required: true,
+                message: '不能为空',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          }
          {!isContentHide&& <Form.Item
             label="正文"
             wrapperCol={{span:16}}
