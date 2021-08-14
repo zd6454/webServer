@@ -228,9 +228,9 @@ const  Index =(props)=> {
             </Form.Item>
 
             <Form.Item label=" " colon={false}>
-              <Button type="primary" onClick={reset}>
-                清空
-              </Button>
+              {/*<Button type="primary" onClick={reset}>*/}
+                {/*清空*/}
+              {/*</Button>*/}
               <Divider type="vertical" />
               <Button type="primary" htmlType="submit">
                 保存
