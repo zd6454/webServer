@@ -109,12 +109,12 @@
         hideInMenu: 'true',
         component: './contentManage/cooperation/cooperationDetail',
       },
-      {
-        path: '/contentManage/abroadStep',
-        name: '留学流程',
-        icon: 'smile',
-        component: './contentManage/abroadStep',
-      },
+      // {
+      //   path: '/contentManage/abroadStep',
+      //   name: '留学流程',
+      //   icon: 'smile',
+      //   component: './contentManage/abroadStep',
+      // },
       {
         path: '/contentManage/contactUs',
         name: '联系我们',
