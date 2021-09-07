@@ -83,7 +83,8 @@ class Index extends Component{
       name: 'uploadvideo',
       accept:'video/mp4',
       multiple: false,
-      action: '',
+      maxCount:1,
+      action: 'https://aitmaker.cn/schoolVideo/uploadSchoolVideo',
       onChange:this.onChange,
       onDrop:this.onDrop,
     };
@@ -91,7 +92,7 @@ class Index extends Component{
         <PageHeaderWrapper>
             <Spin spinning={isSpin}>
               <Card>
-                {initUrl&&!isUpdate&& <video  loop muted controls = "true"  style={{width:'100%',}} >
+                {initUrl&&!isUpdate&& <video  loop  controls = "true"  style={{width:'100%',}} >
                   <source type='video/mp4' src={initUrl}  />
                 </video>}
                 {isUpdate&&<Dragger {...props}>
@@ -100,12 +101,12 @@ class Index extends Component{
                   </p>
                   <p className="ant-upload-text">点击此处或者拖拽视频进入此区域</p>
                   <p className="ant-upload-hint">
-                    仅支持mp4格式，且每次仅支持上传一个文件。
+                    仅支持mp4格式，且每次仅支持上传一个小于200m的文件。
                   </p>
                 </Dragger>}
                 <div style={butStyle}>
                   <Button onClick={this.changeUpdateState} >{text[Number(isUpdate)]}</Button>
-                  <Button type="primary" onClick={this.submitVideo} >保存</Button>
+                  {/*<Button type="primary" onClick={this.submitVideo} >保存</Button>*/}
                 </div>
               </Card>
             </Spin>
