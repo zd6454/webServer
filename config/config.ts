@@ -1,4 +1,4 @@
-// https://umijs.org/config/
+// httpss://umijs.org/config/
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
@@ -7,10 +7,10 @@ import routes from './routes';
 const { REACT_APP_ENV } = process.env;
 
 export default defineConfig({
-  history:{type:"hash"},
+  // history:{type:"hash"},
   hash: true,
-  base:"./",
-  publicPath:'./',
+  base:"/system/",
+  publicPath:'/system/',
   antd: {},
   dva: {
     hmr: true,
@@ -34,9 +34,9 @@ export default defineConfig({
   targets: {
     ie: 11,
   },
-  // umi routes: https://umijs.org/docs/routing
+  // umi routes: httpss://umijs.org/docs/routing
   routes,
-  // Theme for antd: https://ant.design/docs/react/customize-theme-cn
+  // Theme for antd: httpss://ant.design/docs/react/customize-theme-cn
   theme: {
     'primary-color': defaultSettings.primaryColor,
   },
@@ -47,7 +47,7 @@ export default defineConfig({
   manifest: {
     basePath: '/',
   },
-  // https://github.com/zthxxx/react-dev-inspector
+  // httpss://github.com/zthxxx/react-dev-inspector
   plugins: ['react-dev-inspector/plugins/umi/react-inspector'],
   inspectorConfig: {
     // loader options type and docs see below

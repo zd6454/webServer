@@ -6,14 +6,14 @@ export async function queryRule(data) {
     page:data.current,
     num:data.pageSize,
   }
-  return request('http://aitmaker.cn:8000/user/getPageUsers', {
+  return request('https://aitmaker.cn/user/getPageUsers', {
     method: 'GET',
     params,
   })
 }
 
 export async function removeRule(params) {
-  return request('http://aitmaker.cn:8000/user/deleteUsers', {
+  return request('https://aitmaker.cn/user/deleteUsers', {
     method: 'POST',
     data: {users:params}
   })
@@ -26,14 +26,14 @@ export async function updateImg(param,userId){
   const img = new FormData();
   img.append('uploadfile', imgOri[0]);
   img.append('userId', userId);
-  return request('http://aitmaker.cn:8000/notice/uploadFile', {
+  return request('https://aitmaker.cn/notice/uploadFile', {
     method: 'POST',
     data: img,
   });
 };
 
 export async function updateRule(params) {
-  return request('http://aitmaker.cn:8000/user/updateUser', {
+  return request('https://aitmaker.cn/user/updateUser', {
     method: 'POST',
     data: params
   });
@@ -41,7 +41,7 @@ export async function updateRule(params) {
 
 export async function getRule(id) {
   console.log('sssssssssssssssss',id)
-  return request('http://aitmaker.cn:8000/user/getUser', {
+  return request('https://aitmaker.cn/user/getUser', {
     method: 'GET',
     params: {userId:id}
   })

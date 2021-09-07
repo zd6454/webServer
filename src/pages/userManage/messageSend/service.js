@@ -1,14 +1,14 @@
 import { request } from 'umi';
 
 export async function addRule(params) {
-  return request('http://aitmaker.cn:8000/message/addMessage', {
+  return request('https://aitmaker.cn/message/addMessage', {
     method: 'POST',
     data: {...params}
 })
 }
 
 export async function sendUsers(params) {
-  return request('http://aitmaker.cn:8000/message/addMessageReceiver',{
+  return request('https://aitmaker.cn/message/addMessageReceiver',{
     method:"POST",
     data:{...params}
   })
@@ -16,7 +16,7 @@ export async function sendUsers(params) {
 }
 
 export async function getUsers(params) {
-  return request('http://aitmaker.cn:8000/user/getPageUsers', {
+  return request('https://aitmaker.cn/user/getPageUsers', {
     method: 'GET',
     params,
   })

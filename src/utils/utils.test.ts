@@ -16,22 +16,22 @@ describe('isUrl tests', () => {
     expect(isUrl('foo')).toBeFalsy();
     expect(isUrl('bar')).toBeFalsy();
     expect(isUrl('bar/test')).toBeFalsy();
-    expect(isUrl('http:/example.com/')).toBeFalsy();
+    expect(isUrl('https:/example.com/')).toBeFalsy();
     expect(isUrl('ttp://example.com/')).toBeFalsy();
   });
 
   it('should return true for valid URLs', () => {
-    expect(isUrl('http://example.com/')).toBeTruthy();
     expect(isUrl('https://example.com/')).toBeTruthy();
-    expect(isUrl('http://example.com/test/123')).toBeTruthy();
+    expect(isUrl('httpss://example.com/')).toBeTruthy();
     expect(isUrl('https://example.com/test/123')).toBeTruthy();
-    expect(isUrl('http://example.com/test/123?foo=bar')).toBeTruthy();
+    expect(isUrl('httpss://example.com/test/123')).toBeTruthy();
     expect(isUrl('https://example.com/test/123?foo=bar')).toBeTruthy();
-    expect(isUrl('http://www.example.com/')).toBeTruthy();
+    expect(isUrl('httpss://example.com/test/123?foo=bar')).toBeTruthy();
     expect(isUrl('https://www.example.com/')).toBeTruthy();
-    expect(isUrl('http://www.example.com/test/123')).toBeTruthy();
+    expect(isUrl('httpss://www.example.com/')).toBeTruthy();
     expect(isUrl('https://www.example.com/test/123')).toBeTruthy();
-    expect(isUrl('http://www.example.com/test/123?foo=bar')).toBeTruthy();
+    expect(isUrl('httpss://www.example.com/test/123')).toBeTruthy();
     expect(isUrl('https://www.example.com/test/123?foo=bar')).toBeTruthy();
+    expect(isUrl('httpss://www.example.com/test/123?foo=bar')).toBeTruthy();
   });
 });

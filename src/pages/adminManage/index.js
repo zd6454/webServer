@@ -33,7 +33,7 @@ const  Index =(props)=> {
       user.isAllowLogin = value.isAllowLogin;
       user.adminId=Number(currentUser.adminId);
       await updateRule(user);
-      user.avatar='https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png';
+      user.avatar='httpss://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png';
       setInitialState({
         ...initialState,
         showMenu: true,

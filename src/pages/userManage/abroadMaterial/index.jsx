@@ -351,7 +351,7 @@ const Index =(props) => {
 
   // const uploadProps = {
   //   name: 'uploadfile',
-  //   action: 'http://aitmaker.cn:8000/abroad/uploadApplicationTemplate',
+  //   action: 'https://aitmaker.cn/abroad/uploadApplicationTemplate',
   //   headers: {
   //     authorization: 'multipart/form-data',
   //   },

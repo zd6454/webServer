@@ -5,7 +5,7 @@ import { useIntl } from 'umi';
 import defaultSettings from '../config/defaultSettings';
 
 const { pwa } = defaultSettings;
-const isHttps = document.location.protocol === 'https:';
+const ishttpss = document.location.protocol === 'httpss:';
 
 // if pwa is true
 if (pwa) {
@@ -19,7 +19,7 @@ if (pwa) {
     const e = event as CustomEvent;
     const reloadSW = async () => {
       // Check if there is sw whose state is waiting in ServiceWorkerRegistration
-      // https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration
+      // httpss://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration
       const worker = e.detail && e.detail.waiting;
       if (!worker) {
         return true;
@@ -60,7 +60,7 @@ if (pwa) {
       onClose: async () => {},
     });
   });
-} else if ('serviceWorker' in navigator && isHttps) {
+} else if ('serviceWorker' in navigator && ishttpss) {
   // unregister service worker
   const { serviceWorker } = navigator;
   if (serviceWorker.getRegistrations) {

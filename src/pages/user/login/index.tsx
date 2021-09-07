@@ -69,7 +69,7 @@ const Login: React.FC<{}> = () => {
       const msg = await fakeAccountLogin({ ...values, type });
       console.log(msg)
       if (msg.isAllowLogin === 1) {
-        msg.avatar='https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png';
+        msg.avatar='httpss://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png';
         message.success('登录成功！');
         await fetchUserInfo(msg);
         goto();

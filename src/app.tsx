@@ -109,7 +109,7 @@ const errorHandler = (error: ResponseError) => {
 const requestInterceptors=(url:string, options:any)=>{
   console.log('343')
   return {
-    url: `http://aitmaker.cn:8000${url}`,
+    url: `https://aitmaker.cn${url}`,
     options:{...options, credentials: 'include'}
   };
 };

@@ -33,7 +33,7 @@ export default (): React.ReactNode => {
         <Typography.Text strong>
           <FormattedMessage id="pages.welcome.advancedComponent" defaultMessage="高级表格" />{' '}
           <a
-            href="https://procomponents.ant.design/components/table"
+            href="httpss://procomponents.ant.design/components/table"
             rel="noopener noreferrer"
             target="__blank"
           >
@@ -49,7 +49,7 @@ export default (): React.ReactNode => {
         >
           <FormattedMessage id="pages.welcome.advancedLayout" defaultMessage="高级布局" />{' '}
           <a
-            href="https://procomponents.ant.design/components/layout"
+            href="httpss://procomponents.ant.design/components/layout"
             rel="noopener noreferrer"
             target="__blank"
           >

@@ -54,7 +54,7 @@ const Index = (props)=>{
         data={{activityId,}}
         id={activityId}
         initData={initData}
-        imgUrl={'http://aitmaker.cn:8000/information/uploadFile/Activity'}
+        imgUrl={'https://aitmaker.cn/information/uploadFile/Activity'}
         getRule={getRule}
       />
     </PageHeaderWrapper>

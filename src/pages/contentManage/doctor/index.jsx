@@ -16,7 +16,7 @@ class Index extends Component{
         this.getMessage();
      }
      getMessage=()=>{
-       request('http://aitmaker.cn:8000/information/getInforContent/DoctorEdu', {
+       request('https://aitmaker.cn/information/getInforContent/DoctorEdu', {
              method: 'GET',
            })
              .then((response)=> {
@@ -30,7 +30,7 @@ class Index extends Component{
              });
      }
      sendMessage=(params)=>{
-         request('http://aitmaker.cn:8000/information/addInformation/DoctorEdu', {
+         request('https://aitmaker.cn/information/addInformation/DoctorEdu', {
              method: 'POST',
              data:params,
            })
@@ -49,7 +49,7 @@ class Index extends Component{
               <div>
                   <ZdTextArea
                     data={data}
-                    imgUrl={'http://aitmaker.cn:8000/information/uploadFile/DoctorEdu'}
+                    imgUrl={'https://aitmaker.cn/information/uploadFile/DoctorEdu'}
                     comfirm={this.sendMessage}
                   />
               </div>

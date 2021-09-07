@@ -6,21 +6,21 @@ export async function queryRule(data) {
     page:data.current,
     num:data.pageSize,
   }
-  return request('http://aitmaker.cn:8000/activity/getPageActivitys', {
+  return request('https://aitmaker.cn/activity/getPageActivitys', {
     method: 'GET',
     params,
   })
 }
 
 export async function removeRule(params) {
-  return request('http://aitmaker.cn:8000/activity/deleteActivitys', {
+  return request('https://aitmaker.cn/activity/deleteActivitys', {
     method: 'POST',
     data: {activitys:params}
   })
 }
 
 export async function useRule(id) {
-  return request('http://aitmaker.cn:8000/activity/useActivity', {
+  return request('https://aitmaker.cn/activity/useActivity', {
     method: 'GET',
     params: {activityId:id}
   })
@@ -28,14 +28,14 @@ export async function useRule(id) {
 
 
 export async function stopRule(id,sort) {
-  return request('http://aitmaker.cn:8000/activity/stopActivity', {
+  return request('https://aitmaker.cn/activity/stopActivity', {
     method: 'GET',
     params: {activityId:id,sort}
   })
 }
 
 export async function addRule(params) {
-  return request('http://aitmaker.cn:8000/activity/addActivity', {
+  return request('https://aitmaker.cn/activity/addActivity', {
     method: 'POST',
     data: params
   });
@@ -48,21 +48,21 @@ export async function updateImg(param,activityId){
   const img = new FormData();
   img.append('uploadfile', imgOri[0]);
   img.append('activityId', activityId);
-  return request('http://aitmaker.cn:8000/activity/uploadFile', {
+  return request('https://aitmaker.cn/activity/uploadFile', {
     method: 'POST',
     data: img,
   });
 };
 
 export async function updateRule(params) {
-  return request('http://aitmaker.cn:8000/activity/updateActivity', {
+  return request('https://aitmaker.cn/activity/updateActivity', {
     method: 'POST',
     data: params
   });
 }
 
 export async function getRule(id) {
-  return request('http://aitmaker.cn:8000/activity/getActivity', {
+  return request('https://aitmaker.cn/activity/getActivity', {
     method: 'GET',
     params: {activityId:id}
   })

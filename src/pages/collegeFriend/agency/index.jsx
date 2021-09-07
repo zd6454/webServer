@@ -14,19 +14,19 @@ class Index extends Component{
           data:'',
           agency:{
             '一级代理':{
-               send:'http://aitmaker.cn:8000/information/addInformation/AgentRight1',
-               get:'http://aitmaker.cn:8000/information/getInforContent/AgentRight1',
-               upload:"http://aitmaker.cn:8000/information/uploadFile/AgentRight1"
+               send:'https://aitmaker.cn/information/addInformation/AgentRight1',
+               get:'https://aitmaker.cn/information/getInforContent/AgentRight1',
+               upload:"https://aitmaker.cn/information/uploadFile/AgentRight1"
             },
              '二级代理':{
-               send:'http://aitmaker.cn:8000/information/addInformation/AgentRight2',
-               get:'http://aitmaker.cn:8000/information/getInforContent/AgentRight2',
-               upload:"http://aitmaker.cn:8000/information/uploadFile/AgentRight2"
+               send:'https://aitmaker.cn/information/addInformation/AgentRight2',
+               get:'https://aitmaker.cn/information/getInforContent/AgentRight2',
+               upload:"https://aitmaker.cn/information/uploadFile/AgentRight2"
             },
              '三级代理':{
-               send:'http://aitmaker.cn:8000/information/addInformation/AgentRight3',
-               get:'http://aitmaker.cn:8000/information/getInforContent/AgentRight3',
-               upload:"http://aitmaker.cn:8000/information/uploadFile/AgentRight3"
+               send:'https://aitmaker.cn/information/addInformation/AgentRight3',
+               get:'https://aitmaker.cn/information/getInforContent/AgentRight3',
+               upload:"https://aitmaker.cn/information/uploadFile/AgentRight3"
             },
           },
           agencyKey:'一级代理',

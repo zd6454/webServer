@@ -6,42 +6,42 @@ export async function queryRule(data) {
     page:data.current,
     num:data.pageSize,
   }
-  return request('http://aitmaker.cn:8000/interCooperation/getPageInterCoopers', {
+  return request('https://aitmaker.cn/interCooperation/getPageInterCoopers', {
     method: 'GET',
     params
   })
 }
 
 export async function removeRule(params) {
-  return request('http://aitmaker.cn:8000/interCooperation/deleteInterCoopers', {
+  return request('https://aitmaker.cn/interCooperation/deleteInterCoopers', {
     method: 'POST',
     data: {interCoopers:params}
   })
 }
 
 export async function useRule(id) {
-  return request('http://aitmaker.cn:8000/interCooperation/useInterCooper', {
+  return request('https://aitmaker.cn/interCooperation/useInterCooper', {
     method: 'GET',
     params: {interCooperId:id}
   })
 }
 
 export async function useOverRule(id) {
-  return request('http://aitmaker.cn:8000/interCooperation/overheadInterCooper', {
+  return request('https://aitmaker.cn/interCooperation/overheadInterCooper', {
     method: 'GET',
     params: {interCooperId:id}
   })
 }
 
 export async function stopRule(id,sort) {
-  return request('http://aitmaker.cn:8000/interCooperation/stopInterCooper', {
+  return request('https://aitmaker.cn/interCooperation/stopInterCooper', {
     method: 'GET',
     params: {interCooperId:id,sort}
   })
 }
 
 export async function addRule(params) {
-  return request('http://aitmaker.cn:8000/interCooperation/addInterCooper', {
+  return request('https://aitmaker.cn/interCooperation/addInterCooper', {
     method: 'POST',
     data: params
   });
@@ -54,21 +54,21 @@ export async function updateImg(param,interCooperId){
   const img = new FormData();
   img.append('uploadfile', imgOri[0]);
   img.append('interCooperId',interCooperId)
-  return request('http://aitmaker.cn:8000/interCooperation/uploadFile', {
+  return request('https://aitmaker.cn/interCooperation/uploadFile', {
     method: 'POST',
     data: img,
   });
 };
 
 export async function updateRule(params) {
-  return request('http://aitmaker.cn:8000/interCooperation/updateInterCooper', {
+  return request('https://aitmaker.cn/interCooperation/updateInterCooper', {
     method: 'POST',
     data: params
   });
 }
 
 export async function getRule(id) {
-  return request('http://aitmaker.cn:8000/interCooperation/getInterCooper', {
+  return request('https://aitmaker.cn/interCooperation/getInterCooper', {
     method: 'GET',
     params: {interCooperId:id}
   })

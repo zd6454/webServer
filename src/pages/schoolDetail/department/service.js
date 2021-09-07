@@ -6,7 +6,7 @@ export async function queryRule(data) {
     page:data.current,
     num:data.pageSize,
   }
-  return request('http://aitmaker.cn:8000/department/getPageDepartments', {
+  return request('https://aitmaker.cn/department/getPageDepartments', {
     method: 'GET',
     params,
   }).catch((error)=> {
@@ -15,35 +15,35 @@ export async function queryRule(data) {
 }
 
 export async function removeRule(params) {
-  return request('http://aitmaker.cn:8000/department/deleteDepartments', {
+  return request('https://aitmaker.cn/department/deleteDepartments', {
     method: 'POST',
     data: {departments:params}
   })
 }
 
 export async function useRule(id) {
-  return request('http://aitmaker.cn:8000/department/useDepartment', {
+  return request('https://aitmaker.cn/department/useDepartment', {
     method: 'GET',
     params: {departmentId:id}
   })
 }
 
 export async function useOverRule(id) {
-  return request('http://aitmaker.cn:8000/department/overheadDepartment', {
+  return request('https://aitmaker.cn/department/overheadDepartment', {
     method: 'GET',
     params: {departmentId:id}
   })
 }
 
 export async function stopRule(id,sort) {
-  return request('http://aitmaker.cn:8000/department/stopDepartment', {
+  return request('https://aitmaker.cn/department/stopDepartment', {
     method: 'GET',
     params: {departmentId:id,sort}
   })
 }
 
 export async function addRule(params) {
-  return request('http://aitmaker.cn:8000/department/addDepartment', {
+  return request('https://aitmaker.cn/department/addDepartment', {
     method: 'POST',
     data: params
   });
@@ -57,21 +57,21 @@ export async function updateImg(param,departmentId){
   const img = new FormData();
   img.append('uploadfile', imgOri[0]);
   img.append('departmentId', departmentId);
-  return request('http://aitmaker.cn:8000/department/uploadFile', {
+  return request('https://aitmaker.cn/department/uploadFile', {
     method: 'POST',
     data: img,
   });
 };
 
 export async function updateRule(params) {
-  return request('http://aitmaker.cn:8000/department/updateDepartment', {
+  return request('https://aitmaker.cn/department/updateDepartment', {
     method: 'POST',
     data: params
   });
 }
 
 export async function getRule(id) {
-  return request('http://aitmaker.cn:8000/department/getDepartment', {
+  return request('https://aitmaker.cn/department/getDepartment', {
     method: 'GET',
     params: {departmentId:id}
   })

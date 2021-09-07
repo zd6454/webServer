@@ -17,7 +17,7 @@ const Settings: LayoutSettings & {
   },
   title: '三一圣大卫',
   pwa: false,
-  logo: 'http://aitmaker.cn:9000/saveFiles/images/logo.png',
+  logo: 'https://aitmaker.cn/saveFiles/images/logo.png',
   iconfontUrl: '',
 };
 

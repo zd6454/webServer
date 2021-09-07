@@ -17,7 +17,7 @@ class Index extends Component{
         this.getMessage();
      }
      getMessage=()=>{
-       request('http://aitmaker.cn:8000/banner/getBanner', {
+       request('https://aitmaker.cn/banner/getBanner', {
              method: 'GET',
              params:{
                bannerId:this.state.bannerId
@@ -33,7 +33,7 @@ class Index extends Component{
              });
      }
      sendMessage=(params)=>{
-         request('http://aitmaker.cn:8000/banner/updateBannerContent', {
+         request('https://aitmaker.cn/banner/updateBannerContent', {
              method: 'POST',
              data:{
                "bannerId":this.state.bannerId,
@@ -54,7 +54,7 @@ class Index extends Component{
               <div>
                   <ZdTextArea
                    data={data}
-                   imgUrl={'http://aitmaker.cn:8000/information/uploadFile/Banner'}
+                   imgUrl={'https://aitmaker.cn/information/uploadFile/Banner'}
                    comfirm={this.sendMessage}
                   />
               </div>

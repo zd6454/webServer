@@ -5,42 +5,42 @@ export async function queryRule(data) {
     page:data.current,
     num:data.pageSize,
   }
-  return request('http://aitmaker.cn:8000/forum/getPageForums', {
+  return request('https://aitmaker.cn/forum/getPageForums', {
     method: 'GET',
     params,
   })
 }
 
 export async function removeRule(params) {
-  return request('http://aitmaker.cn:8000/forum/deleteForums', {
+  return request('https://aitmaker.cn/forum/deleteForums', {
     method: 'POST',
     data: {forums:params}
   })
 }
 
 export async function useRule(id) {
-  return request('http://aitmaker.cn:8000/forum/useForum', {
+  return request('https://aitmaker.cn/forum/useForum', {
     method: 'GET',
     params: {forumId:id}
   })
 }
 
 export async function useOverRule(id) {
-  return request('http://aitmaker.cn:8000/notice/overheadNotice', {
+  return request('https://aitmaker.cn/notice/overheadNotice', {
     method: 'GET',
     params: {forumId:id}
   })
 }
 
 export async function stopRule(id,sort) {
-  return request('http://aitmaker.cn:8000/forum/stopForum', {
+  return request('https://aitmaker.cn/forum/stopForum', {
     method: 'GET',
     params: {forumId:id,sort}
   })
 }
 
 export async function addRule(params) {
-  return request('http://aitmaker.cn:8000/forum/addForum', {
+  return request('https://aitmaker.cn/forum/addForum', {
     method: 'POST',
     data: params
   });
@@ -53,21 +53,21 @@ export async function updateImg(param,forumId){
   const img = new FormData();
   img.append('uploadfile', imgOri[0]);
   img.append('forumId', forumId);
-  return request('http://aitmaker.cn:8000/forum/uploadFile', {
+  return request('https://aitmaker.cn/forum/uploadFile', {
     method: 'POST',
     data: img,
   });
 };
 
 export async function updateRule(params) {
-  return request('http://aitmaker.cn:8000/forum/updateForum', {
+  return request('https://aitmaker.cn/forum/updateForum', {
     method: 'POST',
     data: params
   });
 }
 
 export async function getRule(id) {
-  return request('http://aitmaker.cn:8000/forum/getForum', {
+  return request('https://aitmaker.cn/forum/getForum', {
     method: 'GET',
     params: {forumId:id}
   })

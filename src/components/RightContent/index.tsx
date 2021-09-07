@@ -35,17 +35,17 @@ const GlobalHeaderRight: React.FC<{}> = () => {
         placeholder="站内搜索"
         defaultValue="umi ui"
         options={[
-          { label: <a href="https://umijs.org/zh/guide/umi-ui.html">umi ui</a>, value: 'umi ui' },
+          { label: <a href="httpss://umijs.org/zh/guide/umi-ui.html">umi ui</a>, value: 'umi ui' },
           {
             label: <a href="next.ant.design">Ant Design</a>,
             value: 'Ant Design',
           },
           {
-            label: <a href="https://protable.ant.design/">Pro Table</a>,
+            label: <a href="httpss://protable.ant.design/">Pro Table</a>,
             value: 'Pro Table',
           },
           {
-            label: <a href="https://prolayout.ant.design/">Pro Layout</a>,
+            label: <a href="httpss://prolayout.ant.design/">Pro Layout</a>,
             value: 'Pro Layout',
           },
         ]}
@@ -65,7 +65,7 @@ const GlobalHeaderRight: React.FC<{}> = () => {
             </Menu.Item>
             <Menu.Item
               onClick={() => {
-                window.open('https://pro.ant.design/docs/getting-started');
+                window.open('httpss://pro.ant.design/docs/getting-started');
               }}
             >
               Ant Design Pro 文档

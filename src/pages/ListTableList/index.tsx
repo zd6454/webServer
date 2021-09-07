@@ -202,7 +202,7 @@ const TableList: React.FC<{}> = () => {
         >
           <FormattedMessage id="pages.searchTable.config" defaultMessage="配置" />
         </a>,
-        <a href="https://procomponents.ant.design/">
+        <a href="httpss://procomponents.ant.design/">
           <FormattedMessage id="pages.searchTable.subscribeAlert" defaultMessage="订阅警报" />
         </a>,
       ],

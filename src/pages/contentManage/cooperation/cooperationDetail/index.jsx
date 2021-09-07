@@ -54,7 +54,7 @@ const Index = (props)=>{
         data={{interCooperId,}}
         id={interCooperId}
         initData={initData}
-        imgUrl={'http://aitmaker.cn:8000/information/uploadFile/InterCooperation'}
+        imgUrl={'https://aitmaker.cn/information/uploadFile/InterCooperation'}
         getRule={getRule}
       />
     </PageHeaderWrapper>

@@ -6,7 +6,7 @@ export interface LoginParamsType {
 }
 
 export async function fakeAccountLogin(params: LoginParamsType) {
-  return request('http://aitmaker.cn:8000/admin/login', {
+  return request('https://aitmaker.cn/admin/login', {
     method: 'POST',
     data: params,
   });

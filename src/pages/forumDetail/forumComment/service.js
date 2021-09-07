@@ -7,21 +7,21 @@ export async function queryRule(data,forumId) {
     num:data.pageSize,
     forumId
   }
-  return request('http://aitmaker.cn:8000/comment/getPageForumComments', {
+  return request('https://aitmaker.cn/comment/getPageForumComments', {
     method: 'GET',
     params,
   })
 }
 
 export async function removeRule(params) {
-  return request('http://aitmaker.cn:8000/comment/deleteComments', {
+  return request('https://aitmaker.cn/comment/deleteComments', {
     method: 'POST',
     data: {comments:params}
   })
 }
 
 export async function useRule(id) {
-  return request('http://aitmaker.cn:8000/comment/useComment', {
+  return request('https://aitmaker.cn/comment/useComment', {
     method: 'GET',
     params: {commentId:id}
   })
@@ -29,21 +29,21 @@ export async function useRule(id) {
 
 
 export async function stopRule(id) {
-  return request('http://aitmaker.cn:8000/comment/stopComment', {
+  return request('https://aitmaker.cn/comment/stopComment', {
     method: 'GET',
     params: {commentId:id}
   })
 }
 
 export async function addRule(params) {
-  return request('http://aitmaker.cn:8000/comment/addComment', {
+  return request('https://aitmaker.cn/comment/addComment', {
     method: 'POST',
     data: params
   });
 }
 
 export async function getRule(id) {
-  return request('http://aitmaker.cn:8000/comment/getComment', {
+  return request('https://aitmaker.cn/comment/getComment', {
     method: 'GET',
     params: {commentId:id}
   })
@@ -56,14 +56,14 @@ export async function getRule(id) {
 //   const img = new FormData();
 //   img.append('uploadfile', imgOri[0]);
 //   img.append('commentId', commentId);
-//   return request('http://aitmaker.cn:8000/forum/uploadFile', {
+//   return request('https://aitmaker.cn/forum/uploadFile', {
 //     method: 'POST',
 //     data: img,
 //   });
 // };
 
 // export async function updateRule(params) {
-//   return request('http://aitmaker.cn:8000/forum/updateForum', {
+//   return request('https://aitmaker.cn/forum/updateForum', {
 //     method: 'POST',
 //     data: params
 //   });

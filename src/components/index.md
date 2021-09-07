@@ -118,14 +118,14 @@ export default () => {
   const list = [
     {
       id: '000000001',
-      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png',
+      avatar: 'httpss://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png',
       title: '你收到了 14 份新周报',
       datetime: '2017-08-09',
       type: 'notification',
     },
     {
       id: '000000002',
-      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/OKJXDXrmkNshAMvwtvhu.png',
+      avatar: 'httpss://gw.alipayobjects.com/zos/rmsportal/OKJXDXrmkNshAMvwtvhu.png',
       title: '你推荐的 曲妮妮 已通过第三轮面试',
       datetime: '2017-08-08',
       type: 'notification',
@@ -234,17 +234,17 @@ RightContent 是以上几个组件的组合，同时新增了 plugins 的 `Selec
     placeholder="站内搜索"
     defaultValue="umi ui"
     options={[
-      { label: <a href="https://umijs.org/zh/guide/umi-ui.html">umi ui</a>, value: 'umi ui' },
+      { label: <a href="httpss://umijs.org/zh/guide/umi-ui.html">umi ui</a>, value: 'umi ui' },
       {
         label: <a href="next.ant.design">Ant Design</a>,
         value: 'Ant Design',
       },
       {
-        label: <a href="https://protable.ant.design/">Pro Table</a>,
+        label: <a href="httpss://protable.ant.design/">Pro Table</a>,
         value: 'Pro Table',
       },
       {
-        label: <a href="https://prolayout.ant.design/">Pro Layout</a>,
+        label: <a href="httpss://prolayout.ant.design/">Pro Layout</a>,
         value: 'Pro Layout',
       },
     ]}
@@ -253,7 +253,7 @@ RightContent 是以上几个组件的组合，同时新增了 plugins 的 `Selec
     <span
       className={styles.action}
       onClick={() => {
-        window.location.href = 'https://pro.ant.design/docs/getting-started';
+        window.location.href = 'httpss://pro.ant.design/docs/getting-started';
       }}
     >
       <QuestionCircleOutlined />
