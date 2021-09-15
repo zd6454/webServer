@@ -56,6 +56,7 @@ export default {
   'pages.searchTable.subscribeAlert': '订阅警报',
   'pages.searchTable.title': '查询表格',
   'pages.searchTable.new': '新增',
+  'pages.searchTable.back': '返回',
   'pages.searchTable.delete':'删除',
   'pages.searchTable.chosen': '已选择',
   'pages.searchTable.item': '项',

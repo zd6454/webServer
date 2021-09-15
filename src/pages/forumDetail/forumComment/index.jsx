@@ -7,6 +7,7 @@ import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { Button, message, Input, Drawer,Image, Upload, DatePicker,Select } from 'antd';
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
+import {history} from "../../../.umi/core/history";
 
 const Index =(props) => {
   // const [allBannersList, setAllBannersList] = useState([]);
@@ -308,9 +309,9 @@ const Index =(props) => {
           rowKey="commentId"
           actionRef={actionRef}
           toolBarRender={() => [
-            // <Button type="primary" key="primary" onClick={() => setModalVisible(true)}>
-            //   <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新增" />
-            // </Button>,
+            <Button type="ghost" key="primary" onClick={()=>{history.goBack()}}>
+               <FormattedMessage id="pages.searchTable.back" defaultMessage="返回" />
+            </Button>,
             <Button type="ghost" key="primary" onClick={() => handleDelete()}>
               <DeleteOutlined /> <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
             </Button>,

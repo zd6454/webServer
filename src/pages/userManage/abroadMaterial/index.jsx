@@ -75,7 +75,7 @@ const Index =(props) => {
       title: '姓名',
       dataIndex: 'username',
       ellipsis: true,   
-      width: '8%',
+      width: '10%',
       render: (text, row, _, action) => {
         // if(canEdit && editId === row.userId){
         //   return(
@@ -307,6 +307,15 @@ const Index =(props) => {
     // ])
   }
 
+  const setSelectedRows=(data)=>{
+    let ids = []
+    data.map(item=>{
+      ids.push(item.userId)
+    })
+
+    console.log('sssssssssssssss',ids)
+    setDeleteuserIds(ids)
+  }
 
 
   const handleCancel =()=>{
@@ -377,14 +386,14 @@ const Index =(props) => {
           headerTitle='留学材料'
           rowKey="userId"
           actionRef={actionRef}
-          toolBarRender={() => [
-            // <Button type="primary" key="primary" onClick={() => setModalVisible(true)}>
-            //   <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新增" />
-            // </Button>,
-            <Button type="ghost" key="primary" onClick={() => handleDelete()}>
-              <DeleteOutlined /> <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
-            </Button>,
-          ]}
+          // toolBarRender={() => [
+          //   // <Button type="primary" key="primary" onClick={() => setModalVisible(true)}>
+          //   //   <PlusOutlined /> <FormattedMessage id="pages.searchTable.new" defaultMessage="新增" />
+          //   // </Button>,
+          //   <Button type="ghost" key="primary" onClick={() => handleDelete()}>
+          //     <DeleteOutlined /> <FormattedMessage id="pages.searchTable.delete" defaultMessage="删除" />
+          //   </Button>,
+          // ]}
           request={async (params) => {
             const data = await queryRule(params);
             return{
@@ -395,9 +404,9 @@ const Index =(props) => {
             }
           }}
           columns={columns}
-          rowSelection={{
-            onChange: (_, selectedRows) => setSelectedRows(selectedRows),
-          }}
+          // rowSelection={{
+          //   onChange: (_, selectedRows) => setSelectedRows(selectedRows),
+          // }}
           options={false}
           recordCreatorProps={false}
         />
