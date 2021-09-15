@@ -88,7 +88,12 @@ function getBase64(file) {
          if(fileList.length>0&&fileList[0].originFileObj){
            await updateRule(fileList,userId,url);
          }
-       message.success('替换成功')
+         if(fileList.length>0){
+           message.success('替换成功')
+         }else{
+           message.warn('请上传文件')
+         }
+
      }catch(err){
         message.error('网络错误')
      }
