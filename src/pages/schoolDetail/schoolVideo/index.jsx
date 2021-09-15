@@ -24,6 +24,7 @@ class Index extends Component{
 
  changeUpdateState=()=>{
       const {isUpdate} = this.state;
+      if(!isUpdate){this.getInitVideo();}
       this.setState({isUpdate:!isUpdate});
  };
 

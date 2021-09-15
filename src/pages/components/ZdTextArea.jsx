@@ -3,6 +3,7 @@ import E from "wangeditor"
 import request from 'umi-request';
 import { Button,Divider  } from 'antd';
 import emoji from './emo';
+import {history} from "../../.umi/core/history";
 
 class ZdTextArea  extends Component{
    constructor(props){
@@ -86,7 +87,7 @@ class ZdTextArea  extends Component{
       } 
   }
   render(){
-     const{data}=this.props;
+     const{data,isBack}=this.props;
      const{editor}=this.state;
     if(data){
       editor.txt.html(data)
@@ -95,6 +96,8 @@ class ZdTextArea  extends Component{
           <div>
             <div id={'div1'} />
               <div style={{float:'right',marginTop:40}}>
+                {isBack&&<Button onClick={()=>history.goBack()} >返回</Button>}
+                <Divider type="vertical" />
                 <Button onClick={this.contentClear} >清空</Button>
                 <Divider type="vertical" />
                 <Button type="primary" onClick={this.contentPublic} > 保存 </Button>

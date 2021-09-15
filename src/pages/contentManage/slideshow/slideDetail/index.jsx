@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import request from 'umi-request';
-import { message} from 'antd';
+import { message,Button} from 'antd';
 import ZdTextArea from '../../../components/ZdTextArea'
 
 class Index extends Component{
@@ -56,9 +56,9 @@ class Index extends Component{
                    data={data}
                    imgUrl={'https://aitmaker.cn/information/uploadFile/Banner'}
                    comfirm={this.sendMessage}
+                   isBack={true}
                   />
               </div>
-
             </PageHeaderWrapper>
         )
     }

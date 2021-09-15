@@ -194,38 +194,38 @@ const  Index =(props)=> {
               {/*<Input placeholder="填写手机号码" />*/}
             {/*</Form.Item>*/}
 
-            <h2 style={{ padding: 5, margin: 5 }}>授权信息</h2>
-            <Divider />
-            <Form.Item
-              name="role"
-              label="用户角色"
-              rules={[
-                {
-                  required: true,
-                  message: '请选择用户角色！',
-                  whitespace: true,
-                },
-              ]}
-            >
-              <Radio.Group options={role}  onChange={onChange} />
-            </Form.Item>
-            <Form.Item
-              name="isAllowLogin"
-              label="是否可登录"
-              disable
-              rules={[
-                {
-                  required: true,
-                  message: '请选择登陆权限！',
-                  whitespace: true,
-                },
-              ]}
-            >
-              <Select defaultValue="是" style={{ width: 120 }}>
-                <Select.Option value={'1'}>是</Select.Option>
-                <Select.Option value={'0'}>否</Select.Option>
-              </Select>
-            </Form.Item>
+            {/*<h2 style={{ padding: 5, margin: 5 }}>授权信息</h2>*/}
+            {/*<Divider />*/}
+            {/*<Form.Item*/}
+              {/*name="role"*/}
+              {/*label="用户角色"*/}
+              {/*rules={[*/}
+                {/*{*/}
+                  {/*required: true,*/}
+                  {/*message: '请选择用户角色！',*/}
+                  {/*whitespace: true,*/}
+                {/*},*/}
+              {/*]}*/}
+            {/*>*/}
+              {/*<Radio.Group options={role}  onChange={onChange} />*/}
+            {/*</Form.Item>*/}
+            {/*<Form.Item*/}
+              {/*name="isAllowLogin"*/}
+              {/*label="是否可登录"*/}
+              {/*disable*/}
+              {/*rules={[*/}
+                {/*{*/}
+                  {/*required: true,*/}
+                  {/*message: '请选择登陆权限！',*/}
+                  {/*whitespace: true,*/}
+                {/*},*/}
+              {/*]}*/}
+            {/*>*/}
+              {/*<Select defaultValue="是" style={{ width: 120 }}>*/}
+                {/*<Select.Option value={'1'}>是</Select.Option>*/}
+                {/*<Select.Option value={'0'}>否</Select.Option>*/}
+              {/*</Select>*/}
+            {/*</Form.Item>*/}
 
             <Form.Item label=" " colon={false}>
               {/*<Button type="primary" onClick={reset}>*/}
