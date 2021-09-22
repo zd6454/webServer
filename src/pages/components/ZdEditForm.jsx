@@ -77,7 +77,7 @@ class ZdEditForm extends Component{
    * @returns {*}
    */
   sendMessage=(params)=>{
-    this.setState({content:params['content']})
+    this.setState({content:params['content']});
     message.success("信息保存成功");
   };
 

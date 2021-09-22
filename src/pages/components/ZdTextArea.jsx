@@ -21,7 +21,7 @@ class ZdTextArea  extends Component{
     const editor = new E("#div1")
 
     this.setState({editor})
-    editor.config.pasteIgnoreImg = true
+    editor.config.pasteIgnoreImg = false;
     // editor.config.uploadFileName = 'uploadfile';
     editor.config.uploadImgServer = "  ";
     editor.config.emotions = [
